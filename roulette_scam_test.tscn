@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://cdyql3nn00514"]
 
-[ext_resource type="Texture2D" uid="uid://m1lqr82176g8" path="res://icon.svg" id="1_0vm6s"]
+[ext_resource type="Texture2D" uid="uid://c3ep8t5k6fqin" path="res://assets/Base pc.png" id="1_0vm6s"]
+[ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="2_omdir"]
 
 [node name="RouletteScam" type="Node2D" unique_id=1526010917]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=307702432]
 
-[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=2074259087]
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=1984401507]
 texture = ExtResource("1_0vm6s")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Camera2D" unique_id=762029440]
+stream = ExtResource("2_omdir")
+autoplay = true
