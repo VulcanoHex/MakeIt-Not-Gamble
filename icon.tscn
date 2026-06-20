@@ -5,3 +5,11 @@
 [node name="Icon" type="Sprite2D" unique_id=1660742864]
 position = Vector2(381, 147)
 texture = ExtResource("1_tr34o")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1238543270]
+position = Vector2(2, 239)
+texture = ExtResource("1_tr34o")
+
+[node name="Icon2" type="Sprite2D" parent="." unique_id=189787914]
+position = Vector2(186, 88)
+texture = ExtResource("1_tr34o")
