@@ -3,15 +3,25 @@
 [ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/Base pc_Layer 4.png" id="2_7ck7v"]
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="2_omdir"]
 [ext_resource type="Texture2D" uid="uid://cunmnjdk0twlp" path="res://assets/marker.png" id="3_7ck7v"]
-[ext_resource type="Texture2D" uid="uid://bcei0oyfm8enc" path="res://assets/wheel only.png" id="3_fcbai"]
+[ext_resource type="Texture2D" uid="uid://cntfghsdmm4ag" path="res://assets/particular wheel.png" id="4_7ck7v"]
+[ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://makeExternalCollision.gd" id="4_bani1"]
 [ext_resource type="Script" uid="uid://lb2bah615vbn" path="res://wheelBehavior.gd" id="4_shndd"]
 [ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/whcircle.png" id="5_7ytnc"]
+[ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://pallinaBehavior.gd" id="8_tqikw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wt5t"]
 size = Vector2(20, 108)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cb0m5"]
+radius = 344.0131
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oqjqy"]
-size = Vector2(20.688126, 48.503387)
+size = Vector2(20.688126, 72.2777)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wt5t"]
+radius = 246.00813
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oqjqy"]
 
 [node name="RouletteScam" type="Node2D" unique_id=1526010917]
 
@@ -35,25 +45,55 @@ texture = ExtResource("3_7ck7v")
 position = Vector2(-314, -248)
 shape = SubResource("RectangleShape2D_1wt5t")
 
-[node name="Wheel" type="Sprite2D" parent="Camera2D/Board" unique_id=294692740]
-position = Vector2(-313.75, 19.999996)
+[node name="Wheel" type="StaticBody2D" parent="Camera2D/Board" unique_id=1402797758]
+position = Vector2(-322, 16)
+script = ExtResource("4_bani1")
+metadata/_edit_group_ = true
+
+[node name="WheelGravity" type="Area2D" parent="Camera2D/Board/Wheel" unique_id=2081886920]
+gravity_space_override = 1
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Board/Wheel/WheelGravity" unique_id=720652273]
+shape = SubResource("CircleShape2D_cb0m5")
+
+[node name="Wheel sprite" type="Sprite2D" parent="Camera2D/Board/Wheel" unique_id=294692740]
 rotation = -1.3613569
 scale = Vector2(0.983705, 0.983705)
-texture = ExtResource("3_fcbai")
+texture = ExtResource("4_7ck7v")
 script = ExtResource("4_shndd")
+rotation_speed = 1.0
 
-[node name="Test Pallina" type="Area2D" parent="Camera2D/Board/Wheel" unique_id=1390219992]
+[node name="Test Pallina" type="Area2D" parent="Camera2D/Board/Wheel/Wheel sprite" unique_id=1390219992]
 
-[node name="Pallina" type="Sprite2D" parent="Camera2D/Board/Wheel/Test Pallina" unique_id=543451862]
+[node name="Pallina" type="Sprite2D" parent="Camera2D/Board/Wheel/Wheel sprite/Test Pallina" unique_id=543451862]
 modulate = Color(1, 1, 0, 1)
-position = Vector2(264, -23.999996)
+position = Vector2(270.2663, -24.190046)
 scale = Vector2(0.99999976, 0.99999976)
 texture = ExtResource("5_7ytnc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Board/Wheel/Test Pallina" unique_id=120660663]
-position = Vector2(277.59662, -25.593292)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Board/Wheel/Wheel sprite/Test Pallina" unique_id=120660663]
+position = Vector2(276.3909, -24.7124)
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_oqjqy")
 
-[connection signal="area_entered" from="Camera2D/Board/Marker Temporaneo" to="Camera2D/Board/Wheel" method="_on_marker_temporaneo_area_entered"]
-[connection signal="area_exited" from="Camera2D/Board/Marker Temporaneo" to="Camera2D/Board/Wheel" method="_on_marker_temporaneo_area_exited"]
+[node name="Wheel internal collision" type="CollisionShape2D" parent="Camera2D/Board/Wheel" unique_id=1097310473]
+visible = false
+shape = SubResource("CircleShape2D_1wt5t")
+
+[node name="Pallina" type="RigidBody2D" parent="Camera2D/Board" unique_id=1588140073]
+position = Vector2(-374, -236)
+script = ExtResource("8_tqikw")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Board/Pallina" unique_id=637736521]
+shape = SubResource("CircleShape2D_oqjqy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D/Board/Pallina/CollisionShape2D" unique_id=1396971501]
+modulate = Color(0.84385556, 0.14463034, 0.56344163, 1)
+texture = ExtResource("5_7ytnc")
+
+[connection signal="area_entered" from="Camera2D/Board/Marker Temporaneo" to="Camera2D/Board/Wheel/Wheel sprite" method="_on_marker_temporaneo_area_entered"]
+[connection signal="area_exited" from="Camera2D/Board/Marker Temporaneo" to="Camera2D/Board/Wheel/Wheel sprite" method="_on_marker_temporaneo_area_exited"]
