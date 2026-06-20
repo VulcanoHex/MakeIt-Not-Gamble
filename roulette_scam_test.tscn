@@ -85,6 +85,8 @@ shape = SubResource("CircleShape2D_1wt5t")
 
 [node name="Pallina" type="RigidBody2D" parent="Camera2D/Board" unique_id=1588140073]
 position = Vector2(-374, -236)
+mass = 0.005
+gravity_scale = 0.45
 script = ExtResource("8_tqikw")
 metadata/_edit_group_ = true
 
