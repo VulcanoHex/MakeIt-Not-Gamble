@@ -7,7 +7,7 @@ func _ready() -> void:
 	var tween = create_tween().set_parallel()
 	
 #	cade
-	tween.tween_property(self, "position:y", position.y+45, .45)\
+	tween.tween_property(self, "position:y", position.y+73, .45)\
 	.set_trans(Tween.TRANS_QUAD)\
 	.set_ease(Tween.EASE_IN)
 	

@@ -1,14 +1,21 @@
 extends Node
 @export var fiches: PackedScene
-@export var offsetCaselle: int
-
+@export var distanzaCaselle: int
+@export var offsetCaselle_x: int
+@export var offsetCaselle_y: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var test: Array[int]
 	test.resize(36)
 	test.fill(0)
-	test[1] = 5
-	
+	test[0] = 1
+	test[21] = 1
+	test[16] = 1
+	test[10] = 1
+	test[30] = 1
+	test[35] = 1 
+	test[34] = 1
+
 	placeFiches(test)
 	pass # Replace with function body.
 
@@ -28,15 +35,18 @@ func placeFiches(ficheArr: Array[int]) -> void:
 			new_fiche.value = chipsInNumber
 			
 			# calcolo le coordinate locali e lo inserisco
-			var riga: int = (idx+1) % 6
+			var riga: int = (idx) % 6
 			var colonna: int = floori(idx/6)
 			
-			if colonna <= 3:
-				colonna = colonna - 3
+			riga = riga - 3
+			colonna = colonna - 3
+			
+			var x = (riga*distanzaCaselle) + (offsetCaselle_x)
+			var y = (colonna*distanzaCaselle) + (offsetCaselle_y * sign(colonna))
 
 #				-3*offsetCaselle, (-3*offsetCaselle)-.5*offsetCaselle
-			var spawnPosition = Vector2(riga*offsetCaselle, colonna*offsetCaselle)
-			print("riga ",riga," colonna ",colonna)
+			var spawnPosition = Vector2(x,y)
+			print("idx ",idx, " riga ",riga," colonna ",colonna)
 			print("spawing in ", spawnPosition)
 			new_fiche.position = Vector2(spawnPosition)
 			

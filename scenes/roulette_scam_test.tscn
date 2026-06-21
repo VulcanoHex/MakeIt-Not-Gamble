@@ -93,7 +93,8 @@ texture = ExtResource("6_nw87x")
 position = Vector2(310, 0)
 script = ExtResource("8_6x76j")
 fiches = ExtResource("9_n3yoq")
-offsetCaselle = 90
+distanzaCaselle = 100
+offsetCaselle_x = 30
 
 [node name="Board Sprite" type="Sprite2D" parent="Camera2D/Schermo/Board" unique_id=681180018]
 texture = ExtResource("9_d06ee")
