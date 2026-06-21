@@ -1,6 +1,12 @@
 extends Node2D
 
 @export var maxStackSize: int = 5
+@onready var sfxPlayer = $SFXPlayer
+const SFX_SMLDROP = preload("res://assets/sounds/sfx/ChipsSFX_SmlDrop.wav")
+const SFX_MEDDROP = preload("res://assets/sounds/sfx/ChipsSFX_MedDrop.wav")
+const SFX_BIGDROP = preload("res://assets/sounds/sfx/ChipsSFX_BigDrop.wav")
+
+
 var value: int
 var tween: Tween
 
@@ -18,11 +24,22 @@ func _ready() -> void:
 		for chip in chipArray:
 			var target_y = chip.position.y + 73
 			chip.position.y -= 1000
-		#	cade
+			
+			#	cade
 			tween.tween_property(chip, "position:y", target_y, .1)\
 			.set_trans(Tween.TRANS_QUAD)\
 			.set_ease(Tween.EASE_IN)
-		
+			
+#			play sfx
+			if len(chipArray) == 5: 
+				sfxPlayer.stream = SFX_BIGDROP
+			elif  len(chipArray) >= 2 and len(chipArray) <= 4:
+				sfxPlayer.stream = SFX_MEDDROP
+			else:
+				sfxPlayer.stream = SFX_SMLDROP
+			tween.tween_callback(sfxPlayer.play)
+			
+			
 #		rimbalza
 			tween.tween_property(chip, "position:y", target_y-5, .05)
 			tween.tween_property(chip, "position:y", target_y, .01)
