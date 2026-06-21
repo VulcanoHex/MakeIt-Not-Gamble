@@ -16,7 +16,7 @@ size = Vector2(20, 108)
 radius = 344.0131
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oqjqy"]
-size = Vector2(20.688126, 72.2777)
+size = Vector2(41.27195, 72.2777)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1wt5t"]
 radius = 246.00813
@@ -46,7 +46,7 @@ position = Vector2(-314, -248)
 shape = SubResource("RectangleShape2D_1wt5t")
 
 [node name="Wheel" type="StaticBody2D" parent="Camera2D/Board" unique_id=1402797758]
-position = Vector2(-322, 16)
+position = Vector2(-321, 18)
 script = ExtResource("4_bani1")
 metadata/_edit_group_ = true
 
@@ -59,23 +59,25 @@ gravity_direction = Vector2(0, 0)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Board/Wheel/WheelGravity" unique_id=720652273]
 shape = SubResource("CircleShape2D_cb0m5")
 
-[node name="Wheel sprite" type="Sprite2D" parent="Camera2D/Board/Wheel" unique_id=294692740]
+[node name="Wheel sprite" type="Sprite2D" parent="Camera2D/Board/Wheel" unique_id=294692740 node_paths=PackedStringArray("intervalloScelto")]
 rotation = -1.3613569
 scale = Vector2(0.983705, 0.983705)
 texture = ExtResource("4_7ck7v")
 script = ExtResource("4_shndd")
 rotation_speed = 1.0
+intervalloScelto = NodePath("Test Casella Target")
 
-[node name="Test Pallina" type="Area2D" parent="Camera2D/Board/Wheel/Wheel sprite" unique_id=1390219992]
+[node name="Test Casella Target" type="Area2D" parent="Camera2D/Board/Wheel/Wheel sprite" unique_id=1390219992]
 
-[node name="Pallina" type="Sprite2D" parent="Camera2D/Board/Wheel/Wheel sprite/Test Pallina" unique_id=543451862]
+[node name="Pallina" type="Sprite2D" parent="Camera2D/Board/Wheel/Wheel sprite/Test Casella Target" unique_id=543451862]
 modulate = Color(1, 1, 0, 1)
 position = Vector2(270.2663, -24.190046)
 scale = Vector2(0.99999976, 0.99999976)
 texture = ExtResource("5_7ytnc")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Board/Wheel/Wheel sprite/Test Pallina" unique_id=120660663]
-position = Vector2(276.3909, -24.7124)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Board/Wheel/Wheel sprite/Test Casella Target" unique_id=120660663]
+position = Vector2(267.38623, -24.58133)
+rotation = -0.099483766
 scale = Vector2(0.9999999, 0.9999999)
 shape = SubResource("RectangleShape2D_oqjqy")
 
@@ -86,8 +88,9 @@ shape = SubResource("CircleShape2D_1wt5t")
 [node name="Pallina" type="RigidBody2D" parent="Camera2D/Board" unique_id=1588140073]
 position = Vector2(-374, -236)
 mass = 0.005
-gravity_scale = 0.45
+gravity_scale = 0.005
 script = ExtResource("8_tqikw")
+orbital_force = 300.0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Board/Pallina" unique_id=637736521]
@@ -96,6 +99,3 @@ shape = SubResource("CircleShape2D_oqjqy")
 [node name="Sprite2D" type="Sprite2D" parent="Camera2D/Board/Pallina/CollisionShape2D" unique_id=1396971501]
 modulate = Color(0.84385556, 0.14463034, 0.56344163, 1)
 texture = ExtResource("5_7ytnc")
-
-[connection signal="area_entered" from="Camera2D/Board/Marker Temporaneo" to="Camera2D/Board/Wheel/Wheel sprite" method="_on_marker_temporaneo_area_entered"]
-[connection signal="area_exited" from="Camera2D/Board/Marker Temporaneo" to="Camera2D/Board/Wheel/Wheel sprite" method="_on_marker_temporaneo_area_exited"]

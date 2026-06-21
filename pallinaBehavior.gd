@@ -8,7 +8,6 @@ var tangentVector: Vector2 = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var gravity_center: Area2D = $"../WheelGravity"
 	pass # Replace with function body.
 
 
@@ -42,7 +41,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		tangentVector = Vector2(-direction.y, direction.x)	
 #	applico le forze
 	if keyPress:
-		state.linear_velocity = tangentVector * 1000
+		state.linear_velocity = tangentVector * orbital_force
 	
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
