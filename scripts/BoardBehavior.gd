@@ -7,18 +7,46 @@ extends Node
 func _ready() -> void:
 	var test: Array[int]
 	test.resize(36)
-	test.fill(1)
-	test[0] = 1
-	test[21] = 1
-	test[16] = 1
-	test[10] = 1
-	test[30] = 1
-	test[35] = 1 
-	test[34] = 1
+	generateRoundBet(test)
+	#test.fill(1)
+#	test[0] = 1
+#	test[21] = 1
+#	test[16] = 1
+#	test[10] = 1
+#	test[30] = 1
+#	test[35] = 1 
+#	test[34] = 1
 
 	placeFiches(test)
 	pass # Replace with function body.
-
+	
+func generateRoundBet(ficheArr: Array[int]) -> void:
+	if (len(ficheArr) != 36):
+		print("Unvalid fiches array length, not spawning any")
+		return
+	
+	var probWeight: Array[float] = ([0.4, 0.2, 0.2, 0.1, 0.1])
+	var ranges: Array[int] = [0, 150, 250, 350, 500]
+	var rng = RandomNumberGenerator.new()	
+	
+	var roundrng = 0
+	var count = 0
+	var checkFive = 0
+	
+	while (count < 36): 
+		roundrng = ranges[rng.rand_weighted(probWeight)]
+		if (roundrng != 0):
+			ficheArr[count] = rng.randi_range(roundrng - 145, roundrng)
+			checkFive = ficheArr[count] % 5
+			if (checkFive != 0):
+				ficheArr[count] = ficheArr[count] - checkFive
+		else:
+			ficheArr[count] = 0
+		print("arr[", count, "] = ", ficheArr[count])
+		count+=1
+		 
+	pass
+	
 func placeFiches(ficheArr: Array[int]) -> void:
 	if (len(ficheArr) != 36):
 		print("Unvalid fiches array length, not spawning any")
