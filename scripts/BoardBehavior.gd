@@ -7,7 +7,7 @@ extends Node
 func _ready() -> void:
 	var test: Array[int]
 	test.resize(36)
-	test.fill(0)
+	test.fill(1)
 	test[0] = 1
 	test[21] = 1
 	test[16] = 1
