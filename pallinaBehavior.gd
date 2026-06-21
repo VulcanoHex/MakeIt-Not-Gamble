@@ -26,13 +26,6 @@ func _input(event: InputEvent) -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	if keyPress:
-		print("go")
-		state.linear_velocity = tangentVector * 1000
-
-
-
-func _physics_process(delta: float) -> void:
 	if not gravity_center:
 		print("non ho trovato il centro di gravita permanente")
 		return
@@ -48,8 +41,8 @@ func _physics_process(delta: float) -> void:
 #		se in senso antiorario ruoto il vettore di 90 gradi (applico trasformazione (x, y) -> (y, x)
 		tangentVector = Vector2(-direction.y, direction.x)	
 #	applico le forze
-	#apply_central_impulse(tangent_vector * orbital_force)
-		
+	if keyPress:
+		state.linear_velocity = tangentVector * 1000
 	
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
