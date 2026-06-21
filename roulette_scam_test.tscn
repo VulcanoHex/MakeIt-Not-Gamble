@@ -4,10 +4,10 @@
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="2_omdir"]
 [ext_resource type="Texture2D" uid="uid://cunmnjdk0twlp" path="res://assets/marker.png" id="3_7ck7v"]
 [ext_resource type="Texture2D" uid="uid://cntfghsdmm4ag" path="res://assets/particular wheel.png" id="4_7ck7v"]
-[ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://makeExternalCollision.gd" id="4_bani1"]
-[ext_resource type="Script" uid="uid://lb2bah615vbn" path="res://wheelBehavior.gd" id="4_shndd"]
+[ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/makeExternalCollision.gd" id="4_bani1"]
+[ext_resource type="Script" uid="uid://lb2bah615vbn" path="res://scripts/wheelBehavior.gd" id="4_shndd"]
 [ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/whcircle.png" id="5_7ytnc"]
-[ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://pallinaBehavior.gd" id="8_tqikw"]
+[ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://scripts/pallinaBehavior.gd" id="8_tqikw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1wt5t"]
 size = Vector2(20, 108)
