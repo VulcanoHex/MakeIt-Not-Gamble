@@ -17,7 +17,7 @@ func _ready() -> void:
 		var tween = create_tween()
 		for chip in chipArray:
 			var target_y = chip.position.y + 73
-			chip.position.y -= 300
+			chip.position.y -= 1000
 		#	cade
 			tween.tween_property(chip, "position:y", target_y, .45)\
 			.set_trans(Tween.TRANS_QUAD)\

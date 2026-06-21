@@ -25,7 +25,7 @@ func generateRoundBet(ficheArr: Array[int]) -> void:
 		print("Unvalid fiches array length, not spawning any")
 		return
 	
-	var probWeight: Array[float] = ([0.4, 0.2, 0.2, 0.1, 0.1])
+	var probWeight: Array[float] = ([5, 0.5, 0.4, 0.3, 0.2])
 	var ranges: Array[int] = [0, 150, 250, 350, 500]
 	var rng = RandomNumberGenerator.new()	
 	
