@@ -3,6 +3,9 @@ extends Node
 @export var distanzaCaselle: int
 @export var offsetCaselle_x: int
 @export var offsetCaselle_y: int
+
+signal allChipDropped
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var test: Array[int]
@@ -48,6 +51,8 @@ func generateRoundBet(ficheArr: Array[int]) -> void:
 	pass
 	
 func placeFiches(ficheArr: Array[int]) -> void:
+	var masterTween = create_tween()
+	#masterTween.set_parallel(true)
 	if (len(ficheArr) != 36):
 		print("Unvalid fiches array length, not spawning any")
 		return
@@ -61,7 +66,7 @@ func placeFiches(ficheArr: Array[int]) -> void:
 			# creo l'oggetto fiches per animarlo meglio dopo
 			var new_fiche = fiches.instantiate()
 			new_fiche.value = chipsInNumber
-			
+			new_fiche.tween = masterTween
 			# calcolo le coordinate locali e lo inserisco
 			var riga: int = (idx) % 6
 			var colonna: int = floori(idx/6)
@@ -80,7 +85,8 @@ func placeFiches(ficheArr: Array[int]) -> void:
 			
 			add_child(new_fiche)
 		idx += 1
-		
+#	metto in fondo alla coda di animazione il segnale per segnalare la fine dell'animazione
+	masterTween.chain().tween_callback(allChipDropped.emit)
 	pass
 
 

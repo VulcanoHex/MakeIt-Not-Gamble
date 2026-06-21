@@ -2,6 +2,7 @@ extends Node2D
 
 @export var maxStackSize: int = 5
 var value: int
+var tween: Tween
 
 # black 100
 # green 50
@@ -14,18 +15,17 @@ var chipValue = {"black": 100, "green": 50, "yellow": 25, "red": 10, "blue": 5}
 func _ready() -> void:
 	var chipArray = makeFichesStack()
 	if len(chipArray) != 0:
-		var tween = create_tween()
 		for chip in chipArray:
 			var target_y = chip.position.y + 73
 			chip.position.y -= 1000
 		#	cade
-			tween.tween_property(chip, "position:y", target_y, .45)\
+			tween.tween_property(chip, "position:y", target_y, .1)\
 			.set_trans(Tween.TRANS_QUAD)\
 			.set_ease(Tween.EASE_IN)
 		
 #		rimbalza
-			tween.tween_property(chip, "position:y", target_y-5, .1)
-			tween.tween_property(chip, "position:y", target_y, .1)
+			tween.tween_property(chip, "position:y", target_y-5, .05)
+			tween.tween_property(chip, "position:y", target_y, .01)
 	#	delete
 			#tween.chain().tween_callback(queue_free)
 pass # Replace with function body.
