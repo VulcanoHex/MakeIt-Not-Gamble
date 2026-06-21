@@ -27,7 +27,7 @@ func build_segment(points: Array):
 		segment.b = p2
 		collision.shape = segment
 		
-		print("made collision in {p1} {p2}".format({"p1": p1, "p2": p2}))
+		#print("made collision in {p1} {p2}".format({"p1": p1, "p2": p2}))
 		add_child(collision)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
