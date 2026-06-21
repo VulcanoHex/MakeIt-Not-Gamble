@@ -12,22 +12,23 @@ var chipValue = {"black": 100, "green": 50, "yellow": 25, "red": 10, "blue": 5}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var tween = create_tween()
 	var chipArray = makeFichesStack()
-	for chip in chipArray:
-		var target_y = chip.position.y + 73
-		chip.position.y -= 300
+	if len(chipArray) != 0:
+		var tween = create_tween()
+		for chip in chipArray:
+			var target_y = chip.position.y + 73
+			chip.position.y -= 300
 		#	cade
-		tween.tween_property(chip, "position:y", target_y, .45)\
-		.set_trans(Tween.TRANS_QUAD)\
-		.set_ease(Tween.EASE_IN)
+			tween.tween_property(chip, "position:y", target_y, .45)\
+			.set_trans(Tween.TRANS_QUAD)\
+			.set_ease(Tween.EASE_IN)
 		
 #		rimbalza
-		tween.tween_property(chip, "position:y", target_y-5, .1)
-		tween.tween_property(chip, "position:y", target_y, .1)
-#	delete
-	#tween.chain().tween_callback(queue_free)
-	pass # Replace with function body.
+			tween.tween_property(chip, "position:y", target_y-5, .1)
+			tween.tween_property(chip, "position:y", target_y, .1)
+	#	delete
+			#tween.chain().tween_callback(queue_free)
+pass # Replace with function body.
 
 func makeFichesStack() -> Array[Node2D]:
 	var chipArray: Array[Node2D] = []
