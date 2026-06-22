@@ -5,6 +5,7 @@ extends Node
 @export var offsetCaselle_y: int
 
 signal allChipDropped
+signal canLeave
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -47,7 +48,8 @@ func generateRoundBet(ficheArr: Array[int]) -> void:
 			ficheArr[count] = 0
 		print("arr[", count, "] = ", ficheArr[count])
 		count+=1
-		 
+	
+	set_meta("boardRoundValue", ficheArr)	 
 	pass
 	
 func placeFiches(ficheArr: Array[int]) -> void:
@@ -84,6 +86,9 @@ func placeFiches(ficheArr: Array[int]) -> void:
 			new_fiche.position = Vector2(spawnPosition)
 			
 			add_child(new_fiche)
+
+			if new_fiche.value != 0:
+				ficheArr[idx] -= new_fiche.value
 		idx += 1
 #	metto in fondo alla coda di animazione il segnale per segnalare la fine dell'animazione
 	masterTween.chain().tween_callback(allChipDropped.emit)
@@ -93,3 +98,14 @@ func placeFiches(ficheArr: Array[int]) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_board_button_container_target_selected(idx: int) -> void:
+	if has_meta("boardRoundValue"):
+		var ficheArr = get_meta("boardRoundValue")
+		canLeave.emit(idx, ficheArr)
+		print("idx: ", idx)
+		print("value: ", ficheArr[idx])
+	else:
+		print("cannot take board value")
+	pass # Replace with function body.

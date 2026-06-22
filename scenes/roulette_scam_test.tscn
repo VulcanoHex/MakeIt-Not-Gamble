@@ -37,6 +37,7 @@ boardMovement = 800
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Game Manager/Camera2D" unique_id=762029440]
 stream = ExtResource("1_45l5b")
 autoplay = true
+bus = &"Music"
 
 [node name="Schermo" type="Sprite2D" parent="Game Manager/Camera2D" unique_id=1984401507]
 texture_filter = 1
@@ -300,3 +301,5 @@ offset_transform_enabled = true
 texture_hover = ExtResource("11_lpcxd")
 
 [connection signal="allChipDropped" from="Game Manager/Camera2D/Schermo/Board" to="Game Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]
+[connection signal="canLeave" from="Game Manager/Camera2D/Schermo/Board" to="Game Manager" method="_on_board_can_leave"]
+[connection signal="targetSelected" from="Game Manager/Camera2D/Schermo/Board/BoardButtonContainer" to="Game Manager/Camera2D/Schermo/Board" method="_on_board_button_container_target_selected"]

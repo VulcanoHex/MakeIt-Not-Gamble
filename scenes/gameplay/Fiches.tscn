@@ -11,6 +11,7 @@
 script = ExtResource("1_cebs5")
 
 [node name="SFXPlayer" type="AudioStreamPlayer" parent="." unique_id=205864645]
+bus = &"Effects"
 
 [node name="black" type="Node2D" parent="." unique_id=1819027015]
 visible = false

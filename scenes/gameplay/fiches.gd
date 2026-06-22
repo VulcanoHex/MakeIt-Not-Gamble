@@ -6,7 +6,6 @@ const SFX_SMLDROP = preload("res://assets/sounds/sfx/ChipsSFX_SmlDrop.wav")
 const SFX_MEDDROP = preload("res://assets/sounds/sfx/ChipsSFX_MedDrop.wav")
 const SFX_BIGDROP = preload("res://assets/sounds/sfx/ChipsSFX_BigDrop.wav")
 
-
 var value: int
 var tween: Tween
 
