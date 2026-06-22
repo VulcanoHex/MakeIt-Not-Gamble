@@ -294,3 +294,4 @@ offset_transform_enabled = true
 texture_hover = ExtResource("11_lpcxd")
 
 [connection signal="allChipDropped" from="Camera2D/Schermo/Board" to="Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]
+[connection signal="targetSelected" from="Camera2D/Schermo/Board/BoardButtonContainer" to="Camera2D/Schermo/Board" method="_on_board_button_container_target_selected"]
