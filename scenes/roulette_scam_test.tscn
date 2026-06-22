@@ -27,8 +27,10 @@ radius = 246.00813
 
 [node name="RouletteScam" type="Node2D" unique_id=1526010917]
 
-[node name="Game Manager" type="Node2D" parent="." unique_id=1492148873]
+[node name="Game Manager" type="Node2D" parent="." unique_id=1492148873 node_paths=PackedStringArray("board")]
 script = ExtResource("1_5jdl3")
+board = NodePath("Camera2D/Schermo/Board")
+boardMovement = 800
 
 [node name="Camera2D" type="Camera2D" parent="Game Manager" unique_id=307702432]
 
@@ -96,7 +98,7 @@ modulate = Color(0.84385556, 0.14463034, 0.56344163, 1)
 texture = ExtResource("6_nw87x")
 
 [node name="Board" type="Node2D" parent="Game Manager/Camera2D/Schermo" unique_id=832768133]
-position = Vector2(310, 0)
+position = Vector2(310, -800)
 script = ExtResource("8_6x76j")
 fiches = ExtResource("9_n3yoq")
 distanzaCaselle = 100

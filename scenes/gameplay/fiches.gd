@@ -75,7 +75,6 @@ func makeFichesStack() -> Array[Node2D]:
 				
 				add_child(new_chip)
 				chipArray.append(new_chip)
-				
 		else:
 			break
 	return chipArray
