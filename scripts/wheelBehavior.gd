@@ -2,7 +2,7 @@ extends StaticBody2D
 
 @export var diameter : int= 580 # external diameter
 @export var outerBoundSegments : int = 40 # num segments
-@export var rotationSpeed: float = 0.0
+@export var rotationSpeed: float = .0
 var listaBuche: Array[Marker2D] = []
 
 
@@ -64,8 +64,8 @@ func generateMarkerForNumbers():
 		
 #		DEBUG REMOVE LATER
 		var debugCircle = ColorRect.new()
-		debugCircle.size = Vector2(30, 30)
-		debugCircle.position = Vector2(-15, -15) 
+		debugCircle.size = Vector2(8, 8)
+		debugCircle.position = Vector2(-4, -4) 
 		debugCircle.color = Color.GREEN
 		nuovaBuca.add_child(debugCircle)
 #		END DEBUG
