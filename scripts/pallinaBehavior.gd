@@ -5,18 +5,18 @@ extends RigidBody2D
 @onready var wheel: StaticBody2D = $"../Wheel"
 
 #test su buca 15
-@onready var target: Marker2D = wheel.listaBuche[14]
+@onready var target: Marker2D = wheel.listaBuche[18]
 
 # variabili modificabili pathfinding
 @export var orbitalSpeed: float = 400.0
-@export var orbitalRadius: float = 560.0
+@export var orbitalRadius: float = 330.0
 @export var regainOrbitMult: float = .8
-@export var breakingRad: float = .5
+@export var breakingRad: float = PI/10
+@export var clockwise: bool = false
 
 enum State {ORBITING, ARRIVING, STOPPED}
 var currentState: State = State.ORBITING
 
-@export var clockwise: bool = false
 
 var goToBuca: Signal
 
@@ -61,7 +61,8 @@ func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
 	# variabili per BLEND/ARRIVARE all' target
 	var currentAngle: float = (global_position - gravityCenter.global_position).angle()
 	var targetAngle: float = (target.global_position - gravityCenter.global_position).angle()
-	var deltaAngle: float = posmod(targetAngle - currentAngle + PI, 2*PI) - PI
+	#var deltaAngle: float = posmod(targetAngle - currentAngle + PI, 2*PI) - PI
+	var deltaAngle:float = targetAngle - currentAngle
 	
 	# CALCOLO VETTORE TANGENZIALE 
 	# calcola l'errore di orbita, in modo da rientrarci proporzionalmente
@@ -90,26 +91,47 @@ func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
 			
 			var angleProgress: float = clamp(abs(deltaAngle) / breakingRad, 0, 1.0)
 			
-			var targetPull = targetVector.normalized() * orbitalSpeed
+			var targetPull:Vector2 = targetVector.normalized() * orbitalSpeed
 			
-			#var breakingCoefficient: float = (targetDistance / (orbitalRadius * breakingRad))
 			
-			var breakingCoefficient: float = clamp(targetDistance/ 10, 0.1, 1)
+			var dynamicDeltaAngle: float = deltaAngle
+		
+			if clockwise:
+			# If moving clockwise, deltaAngle should be positive. 
+			# If it's negative, it means we overshot; add a full spin to keep going forward.
+				if dynamicDeltaAngle > breakingRad and dynamicDeltaAngle > PI:
+					dynamicDeltaAngle += 2.0 * PI
+			else:
+			# If moving counter-clockwise, deltaAngle should be negative.
+			# If it's positive, add a full spin in the negative direction.
+				if dynamicDeltaAngle < -breakingRad and dynamicDeltaAngle < -PI:
+					dynamicDeltaAngle -= 2.0 * PI
+		
+			if abs(dynamicDeltaAngle) > breakingRad * 1.5 and targetDistance > 30.0:
+				currentState = State.ORBITING
+				return
+		# Calculate progress based on the corrected directional angle
+			angleProgress = clamp(abs(dynamicDeltaAngle) / breakingRad, 0.0, 1.0)
+			
+			
+			var breakingCoefficient: float = 0.75
+			print("switched logic ", breakingCoefficient)
 			var desiredVelocity: Vector2 = tangentVelocity.lerp(targetPull, 1 - angleProgress)
 			
 			
-			print(targetVector,angleProgress,desiredVelocity, breakingCoefficient)
+			#print(targetVector,angleProgress,desiredVelocity, breakingCoefficient)
 			
-			#if targetDistance < 5.0:
-				#print(targetVector, targetDistance)
-				#phyState.linear_velocity = Vector2.ZERO
-				#currentState = State.STOPPED
+			if targetDistance < 10.0:
+				print(targetVector, targetDistance)
+				phyState.linear_velocity = Vector2.ZERO
+				currentState = State.STOPPED
 			
 			# apply breaking
 			desiredVelocity *= breakingCoefficient
 			#phyState.linear_velocity = targetPull
-			phyState.linear_velocity = phyState.linear_velocity.lerp(desiredVelocity, 5.0 * phyState.step)
+			phyState.linear_velocity = phyState.linear_velocity.lerp(desiredVelocity, 60.0 * phyState.step)
 		State.STOPPED:
+			reparent(wheel)
 			phyState.linear_velocity = Vector2.ZERO
 	
 			

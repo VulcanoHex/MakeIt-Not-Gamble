@@ -2,7 +2,7 @@ extends StaticBody2D
 
 @export var diameter : int= 580 # external diameter
 @export var outerBoundSegments : int = 40 # num segments
-@export var rotationSpeed: float = 0.0
+@export var rotationSpeed: float = 0.1
 var listaBuche: Array[Marker2D] = []
 
 
