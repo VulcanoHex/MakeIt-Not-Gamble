@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://biq6kdnkuauy3"
-path="res://.godot/imported/Base pc_Bordo computer.png-255927e5e5bd59e2897f615ad8ef84f1.ctex"
+uid="uid://cunmnjdk0twlp"
+path="res://.godot/imported/marker.png-6c08322beb4c43be32e9de2fb4449c6c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Base pc_Bordo computer.png"
-dest_files=["res://.godot/imported/Base pc_Bordo computer.png-255927e5e5bd59e2897f615ad8ef84f1.ctex"]
+source_file="res://assets/sprites/utilities/marker.png"
+dest_files=["res://.godot/imported/marker.png-6c08322beb4c43be32e9de2fb4449c6c.ctex"]
 
 [params]
 

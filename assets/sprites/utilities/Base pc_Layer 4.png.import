@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bplvde27jjfje"
-path="res://.godot/imported/Base pc_numbers.png-24ba0f8414b04287d8964573dd4ade8a.ctex"
+uid="uid://cxb0urchjmare"
+path="res://.godot/imported/Base pc_Layer 4.png-50330fc877959fed10df6759b5babd11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Base pc_numbers.png"
-dest_files=["res://.godot/imported/Base pc_numbers.png-24ba0f8414b04287d8964573dd4ade8a.ctex"]
+source_file="res://assets/sprites/utilities/Base pc_Layer 4.png"
+dest_files=["res://.godot/imported/Base pc_Layer 4.png-50330fc877959fed10df6759b5babd11.ctex"]
 
 [params]
 

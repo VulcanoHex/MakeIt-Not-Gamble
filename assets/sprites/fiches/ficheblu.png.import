@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cntfghsdmm4ag"
-path="res://.godot/imported/particular wheel.png-d6b2cdbb5d411daaba8ff15fb12b34d3.ctex"
+uid="uid://dfmt7eqoa0ljc"
+path="res://.godot/imported/ficheblu.png-66260b348ddaf07a7f11a1819f369716.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/particular wheel.png"
-dest_files=["res://.godot/imported/particular wheel.png-d6b2cdbb5d411daaba8ff15fb12b34d3.ctex"]
+source_file="res://assets/sprites/fiches/ficheblu.png"
+dest_files=["res://.godot/imported/ficheblu.png-66260b348ddaf07a7f11a1819f369716.ctex"]
 
 [params]
 

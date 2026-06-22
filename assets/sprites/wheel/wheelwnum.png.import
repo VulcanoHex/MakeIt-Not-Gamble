@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f07vspiceb4"
-path="res://.godot/imported/hoverbutton.png-94621ad1923e911f0500ce0b402ba688.ctex"
+uid="uid://b1c64iio8if8r"
+path="res://.godot/imported/wheelwnum.png-abfb1d6cd8b441cec6f3df77b746807b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/hoverbutton.png"
-dest_files=["res://.godot/imported/hoverbutton.png-94621ad1923e911f0500ce0b402ba688.ctex"]
+source_file="res://assets/sprites/wheel/wheelwnum.png"
+dest_files=["res://.godot/imported/wheelwnum.png-abfb1d6cd8b441cec6f3df77b746807b.ctex"]
 
 [params]
 

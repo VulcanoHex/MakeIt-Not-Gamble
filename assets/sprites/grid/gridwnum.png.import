@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rtd5ekq2i5r2"
-path="res://.godot/imported/ficheyellow.png-fb79529356e194866023c30cc50a10c1.ctex"
+uid="uid://x0ko351fhstx"
+path="res://.godot/imported/gridwnum.png-7c9eb2888bcb7592c4d77af993eb0e7e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ficheyellow.png"
-dest_files=["res://.godot/imported/ficheyellow.png-fb79529356e194866023c30cc50a10c1.ctex"]
+source_file="res://assets/sprites/grid/gridwnum.png"
+dest_files=["res://.godot/imported/gridwnum.png-7c9eb2888bcb7592c4d77af993eb0e7e.ctex"]
 
 [params]
 

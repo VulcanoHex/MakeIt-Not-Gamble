@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1c64iio8if8r"
-path="res://.godot/imported/wheelwnum.png-8eb9753ea2bcd0281252d4d183cc08c5.ctex"
+uid="uid://biq6kdnkuauy3"
+path="res://.godot/imported/Base pc_Bordo computer.png-dadb48ad7f82dadca4528b1511d75117.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/wheelwnum.png"
-dest_files=["res://.godot/imported/wheelwnum.png-8eb9753ea2bcd0281252d4d183cc08c5.ctex"]
+source_file="res://assets/sprites/utilities/Base pc_Bordo computer.png"
+dest_files=["res://.godot/imported/Base pc_Bordo computer.png-dadb48ad7f82dadca4528b1511d75117.ctex"]
 
 [params]
 

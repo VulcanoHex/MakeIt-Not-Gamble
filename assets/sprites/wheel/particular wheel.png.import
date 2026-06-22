@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cunmnjdk0twlp"
-path="res://.godot/imported/marker.png-8cbbb8b64cd0f1bbd7777b17234ffef3.ctex"
+uid="uid://cntfghsdmm4ag"
+path="res://.godot/imported/particular wheel.png-8208ba4e11540cd9cb104c1644bed444.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/marker.png"
-dest_files=["res://.godot/imported/marker.png-8cbbb8b64cd0f1bbd7777b17234ffef3.ctex"]
+source_file="res://assets/sprites/wheel/particular wheel.png"
+dest_files=["res://.godot/imported/particular wheel.png-8208ba4e11540cd9cb104c1644bed444.ctex"]
 
 [params]
 
