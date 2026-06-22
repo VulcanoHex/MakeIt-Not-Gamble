@@ -53,16 +53,20 @@ func calcScore(idx:int , ficheArr: Array[int]) -> void:
 	var multiplier = 1
 	var count = 1
 	
+	print("ficheArr ", ficheArr, " idx ", idx)
 	if ficheArr[idx] != 0:
 		base_score = -(ficheArr[idx])
 	
 	while count<3:
 		if ficheArr[(idx+count)%36] != 0:
+			print("fichearr[", (idx+count)%36, "] = ", ficheArr[(idx+count)%36])
 			base_score += ficheArr[(idx+count)%36]
 			multiplier += 1
-		if ficheArr[(idx+count)%36] != 0:
+		if ficheArr[(idx-count)%36] != 0:
+			print("fichearr[", (idx-count)%36, "] = ", ficheArr[(idx-count)%36])
 			base_score += ficheArr[(idx-count)%36]
 			multiplier += 1
+		count += 1
 	
 	print ("base_score: ", base_score)
 	print ("mult: ", multiplier)
