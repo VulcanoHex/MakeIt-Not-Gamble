@@ -84,5 +84,5 @@ func _process(delta: float) -> void:
 func _on_rank_meter_end_minigame(score: int) -> void:
 	if has_meta("target"):
 		var goToTarget = get_meta("target")
-		finalDestination.emit("target")
+		finalDestination.emit(goToTarget)
 	pass # Replace with function body.
