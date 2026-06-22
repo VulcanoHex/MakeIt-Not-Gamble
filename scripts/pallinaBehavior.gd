@@ -7,6 +7,10 @@ extends RigidBody2D
 #test su buca 15
 @onready var target: Marker2D = wheel.listaBuche[17]
 
+# signal to dest
+
+# signal to orbit
+
 
 # variabili modificabili pathfinding
 @export var orbitalSpeed: float = 400.0
@@ -35,7 +39,7 @@ var tempo_sosta = 2.0
 var timer_sosta = 0.0
 # END DEBUG
 func _ready() -> void:
-
+# connect to finalDest 
 	pass # Replace with function body.
 
 # La funzione per cui ho bestemmiato
@@ -109,7 +113,7 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			
 		State.STOPPED:
 			#tangential speed modulo to simulate la ball ferma
-			var modulo: float = currentRadius * 0.1
+			var modulo: float = currentRadius * wheel.rotationSpeed
 			var rotationVector = -tangentVector.normalized() * modulo
 			#reparent(wheel)
 			phyState.linear_velocity = rotationVector

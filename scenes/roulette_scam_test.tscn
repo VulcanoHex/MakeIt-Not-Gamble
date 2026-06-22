@@ -55,6 +55,7 @@ texture = ExtResource("2_n3yoq")
 [node name="Wheel" type="StaticBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1402797758]
 position = Vector2(-321, 0)
 script = ExtResource("5_5jdl3")
+rotationSpeed = 0.5
 metadata/_edit_group_ = true
 
 [node name="WheelGravity" type="Area2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=2081886920]
@@ -103,6 +104,7 @@ modulate = Color(0.84385556, 0.14463034, 0.56344163, 1)
 texture = ExtResource("6_nw87x")
 
 [node name="Board" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=832768133]
+top_level = true
 position = Vector2(310, -800)
 script = ExtResource("8_6x76j")
 fiches = ExtResource("9_n3yoq")
