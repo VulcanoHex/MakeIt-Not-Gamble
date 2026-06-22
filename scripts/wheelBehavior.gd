@@ -44,7 +44,7 @@ func generateMarkerForNumbers():
 	var buche = 36
 	var angoloPerBuca = 2 * PI / buche
 	
-	var offsetAngle =  -(PI/2) - (angoloPerBuca/2)
+	var offsetAngle =  -(PI/2) + (angoloPerBuca/2)
 	var offsetPosition = 40
 	
 	for i in range(buche):
