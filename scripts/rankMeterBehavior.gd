@@ -50,12 +50,16 @@ func resetvalues():
 
 func value_tap() -> void:
 	if activeHitbox["perfect"]:
+		print("perfect")
 		mgscore += 100
 	elif activeHitbox["good"]:
+		print("good")
 		mgscore += 75
 	elif activeHitbox["ok"]:
+		print("ok")
 		mgscore += 50
 	else:
+		print("miss")
 		mgscore += 25
 	pass
 	
