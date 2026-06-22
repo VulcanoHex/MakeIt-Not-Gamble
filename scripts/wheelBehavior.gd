@@ -2,7 +2,7 @@ extends StaticBody2D
 
 @export var diameter : int= 580 # external diameter
 @export var outerBoundSegments : int = 40 # num segments
-@export var rotationSpeed: float = 0.2
+@export var rotationSpeed: float = 0.0
 var listaBuche: Array[Marker2D] = []
 
 
@@ -44,7 +44,7 @@ func generateMarkerForNumbers():
 	var buche = 36
 	var angoloPerBuca = 2 * PI / buche
 	
-	var offsetAngle = angoloPerBuca/2
+	var offsetAngle =  -(PI/2) - (angoloPerBuca/2)
 	var offsetPosition = 40
 	
 	for i in range(buche):
@@ -68,6 +68,12 @@ func generateMarkerForNumbers():
 		debugCircle.position = Vector2(-4, -4) 
 		debugCircle.color = Color.GREEN
 		nuovaBuca.add_child(debugCircle)
+		var debugLabel = Label.new()
+		debugLabel.text = str(i) # Converts the int to a String
+		debugLabel.label_settings = LabelSettings.new()
+		debugLabel.label_settings.font_size = 10 # Keep it small
+		debugLabel.position = Vector2(10, -4) # Offset it slightly to the right
+		debugCircle.add_child(debugLabel)
 #		END DEBUG
 
 func _physics_process(delta: float) -> void:

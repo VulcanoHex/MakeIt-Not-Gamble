@@ -5,7 +5,7 @@ extends RigidBody2D
 @onready var wheel: StaticBody2D = $"../Wheel"
 
 #test su buca 15
-@onready var target: Marker2D = wheel.listaBuche[1]
+@onready var target: Marker2D = wheel.listaBuche[14]
 
 # variabili modificabili pathfinding
 @export var orbitalSpeed: float = 400.0
@@ -107,8 +107,8 @@ func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
 			
 			# apply breaking
 			desiredVelocity *= breakingCoefficient
-			phyState.linear_velocity = targetPull
-			#phyState.linear_velocity = phyState.linear_velocity.lerp(desiredVelocity, 5.0 * phyState.step)
+			#phyState.linear_velocity = targetPull
+			phyState.linear_velocity = phyState.linear_velocity.lerp(desiredVelocity, 5.0 * phyState.step)
 		State.STOPPED:
 			phyState.linear_velocity = Vector2.ZERO
 	
