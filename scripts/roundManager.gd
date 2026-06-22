@@ -4,6 +4,8 @@ extends Node2D
 @export var board: Node2D
 @export var boardMovement: int
 signal clearFiches
+signal startMinigame
+signal finalDestination
 
 var roundScore = {}
 
@@ -32,10 +34,13 @@ func roundHandler():
 	
 	print("easeOut ", " a[0]: ", args[0], " a[1]: ", args[1])
 	calcScore(args[0], args[1])
+	set_meta("target", args[0])
 	var rimuoviBoard: Tween = create_tween()
 	rimuoviBoard.tween_property(board, "position:y", board.position.y - boardMovement, 0.6)\
 		.set_trans(Tween.TRANS_SPRING)\
 		.set_ease(Tween.EASE_IN)
+		
+	startMinigame.emit()
 	pass # Replace with function body.
 
 
@@ -76,5 +81,8 @@ func calcScore(idx:int , ficheArr: Array[int]) -> void:
 func _process(delta: float) -> void:
 	pass
 
-
-#func _on_board_can_leave(idx, ficheArr) -> void:
+func _on_rank_meter_end_minigame(score: int) -> void:
+	if has_meta("target"):
+		var goToTarget = get_meta("target")
+		finalDestination.emit("target")
+	pass # Replace with function body.
