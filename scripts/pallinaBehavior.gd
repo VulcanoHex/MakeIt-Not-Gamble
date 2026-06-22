@@ -2,8 +2,8 @@ extends RigidBody2D
 
 
 @onready var gravityCenter: Area2D = $"../Wheel/WheelGravity"
+@onready var wheel: StaticBody2D = $"../Wheel"
 
-@onready var wheel: Node2D = $"../Wheel"
 #test su buca 15
 @onready var target: Marker2D = wheel.listaBuche[1]
 
@@ -25,6 +25,7 @@ var tangentVector: Vector2 = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
 	pass # Replace with function body.
 
 
@@ -93,21 +94,21 @@ func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
 			
 			#var breakingCoefficient: float = (targetDistance / (orbitalRadius * breakingRad))
 			
-			var breakingCoefficient: float = clamp(targetDistance/ 100, 0.1, 1)
+			var breakingCoefficient: float = clamp(targetDistance/ 10, 0.1, 1)
 			var desiredVelocity: Vector2 = tangentVelocity.lerp(targetPull, 1 - angleProgress)
 			
 			
 			print(targetVector,angleProgress,desiredVelocity, breakingCoefficient)
 			
-			if targetDistance < 5.0:
-				print(targetVector, targetDistance)
-				phyState.linear_velocity = Vector2.ZERO
-				currentState = State.STOPPED
+			#if targetDistance < 5.0:
+				#print(targetVector, targetDistance)
+				#phyState.linear_velocity = Vector2.ZERO
+				#currentState = State.STOPPED
 			
 			# apply breaking
 			desiredVelocity *= breakingCoefficient
-			
-			phyState.linear_velocity = phyState.linear_velocity.lerp(desiredVelocity, 5.0 * phyState.step)
+			phyState.linear_velocity = targetPull
+			#phyState.linear_velocity = phyState.linear_velocity.lerp(desiredVelocity, 5.0 * phyState.step)
 		State.STOPPED:
 			phyState.linear_velocity = Vector2.ZERO
 	

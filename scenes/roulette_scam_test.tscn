@@ -2,16 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cy5quveg2lp64" path="res://scripts/roundManager.gd" id="1_5jdl3"]
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="1_45l5b"]
-[ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/Base pc_Layer 4.png" id="2_n3yoq"]
-[ext_resource type="Texture2D" uid="uid://cntfghsdmm4ag" path="res://assets/particular wheel.png" id="4_enyeq"]
+[ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/sprites/utilities/Base pc_Layer 4.png" id="2_n3yoq"]
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
-[ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/whcircle.png" id="6_nw87x"]
+[ext_resource type="Texture2D" uid="uid://b1c64iio8if8r" path="res://assets/sprites/wheel/wheelwnum.png" id="5_enyeq"]
+[ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/sprites/wheel/whcircle.png" id="6_nw87x"]
 [ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://scripts/pallinaBehavior.gd" id="7_38uge"]
 [ext_resource type="Script" uid="uid://b07h4f5knjj10" path="res://scripts/BoardBehavior.gd" id="8_6x76j"]
-[ext_resource type="Texture2D" uid="uid://x0ko351fhstx" path="res://assets/gridwnum.png" id="9_d06ee"]
+[ext_resource type="Texture2D" uid="uid://x0ko351fhstx" path="res://assets/sprites/grid/gridwnum.png" id="9_d06ee"]
 [ext_resource type="PackedScene" uid="uid://dexstrlv7y2gk" path="res://scenes/gameplay/Fiches.tscn" id="9_n3yoq"]
 [ext_resource type="Script" uid="uid://j1bp4k2p38wn" path="res://scripts/boardButtonHandler.gd" id="11_enyeq"]
-[ext_resource type="Texture2D" uid="uid://f07vspiceb4" path="res://assets/hoverbutton.png" id="11_lpcxd"]
+[ext_resource type="Texture2D" uid="uid://f07vspiceb4" path="res://assets/sprites/grid/hoverbutton.png" id="11_lpcxd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cb0m5"]
 radius = 344.0131
@@ -43,6 +43,7 @@ texture = ExtResource("2_n3yoq")
 
 [node name="Wheel" type="StaticBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1402797758]
 position = Vector2(-321, 0)
+script = ExtResource("5_5jdl3")
 metadata/_edit_group_ = true
 
 [node name="WheelGravity" type="Area2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=2081886920]
@@ -56,8 +57,7 @@ visible = false
 shape = SubResource("CircleShape2D_cb0m5")
 
 [node name="Wheel sprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=294692740]
-texture = ExtResource("4_enyeq")
-script = ExtResource("5_5jdl3")
+texture = ExtResource("5_enyeq")
 
 [node name="Test Casella Target" type="Area2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite" unique_id=1390219992]
 
@@ -82,7 +82,6 @@ position = Vector2(-385, -256)
 mass = 0.005
 gravity_scale = 0.005
 script = ExtResource("7_38uge")
-orbital_force = 300.0
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Pallina" unique_id=637736521]

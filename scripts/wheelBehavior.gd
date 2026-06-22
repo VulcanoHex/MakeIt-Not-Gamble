@@ -1,12 +1,8 @@
-extends Sprite2D
+extends StaticBody2D
 
 @export var diameter : int= 580 # external diameter
 @export var outerBoundSegments : int = 40 # num segments
-<<<<<<< HEAD
 @export var rotationSpeed: float = 0.2
-=======
-@export var rotationSpeed: float = 0.2
->>>>>>> ec463f7ac5216ba6886fadbc27692c08a31e1172
 var listaBuche: Array[Marker2D] = []
 
 
