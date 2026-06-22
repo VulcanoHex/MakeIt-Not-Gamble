@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x0ko351fhstx"
-path="res://.godot/imported/gridwnum.png-3a6770e6481e8d67748d2251ca3bb698.ctex"
+uid="uid://c7bxesgmwphj5"
+path="res://.godot/imported/whcircle.png-ae562b786af70dd57a368d00fb72df7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gridwnum.png"
-dest_files=["res://.godot/imported/gridwnum.png-3a6770e6481e8d67748d2251ca3bb698.ctex"]
+source_file="res://assets/sprites/wheel/whcircle.png"
+dest_files=["res://.godot/imported/whcircle.png-ae562b786af70dd57a368d00fb72df7c.ctex"]
 
 [params]
 

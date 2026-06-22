@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dg8wpukvkecpn"
-path="res://.godot/imported/Base pc_grid.png-76f540f898e021bfb413e4f3d8769b60.ctex"
+uid="uid://cg4vcfnv3743r"
+path="res://.godot/imported/meter.png-a7c8b916d19c2886132ef5673db8a2b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Base pc_grid.png"
-dest_files=["res://.godot/imported/Base pc_grid.png-76f540f898e021bfb413e4f3d8769b60.ctex"]
+source_file="res://assets/sprites/utilities/meter.png"
+dest_files=["res://.godot/imported/meter.png-a7c8b916d19c2886132ef5673db8a2b1.ctex"]
 
 [params]
 
