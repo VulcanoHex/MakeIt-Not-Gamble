@@ -328,6 +328,7 @@ shape = SubResource("RectangleShape2D_g4v7s")
 [node name="OkHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeter/OkArea" unique_id=1152367059]
 position = Vector2(-90, 0)
 shape = SubResource("RectangleShape2D_d0u6y")
+debug_color = Color(0, 0.6, 0.69803923, 0.36078432)
 
 [connection signal="startMinigame" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_start_minigame"]
 [connection signal="allChipDropped" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]
