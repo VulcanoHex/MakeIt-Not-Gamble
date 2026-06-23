@@ -4,15 +4,17 @@ extends Sprite2D
 @onready var good_area: Area2D = $GoodArea
 @onready var ok_area: Area2D = $OkArea
 
+@onready var meter: Area2D = $Meter
+
 @onready var pallina: RigidBody2D = $"../Pallina"
 
 signal endMinigame
 
-var roundStarted = false
+var roundStarted = true
 var calculating = false
 var mgscore: int
 var count: int
-var activeHitbox = {"perfect": false, "good": false, "ok": false}
+var activeHitbox = {"PerfectArea": false, "GoodArea": false, "OkArea": false}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,10 +37,21 @@ func _input(event: InputEvent) -> void:
 			calculating = true
 			if roundStarted:
 				count += 1
-				value_tap()
-				if count == 5:
-					endMinigame.emit(mgscore)
-					resetvalues()				
+				if activeHitbox["PerfectArea"]:
+					print("perfect")
+					mgscore += 100
+				elif activeHitbox["GoodArea"]:
+					print("good")
+					mgscore += 75
+				elif activeHitbox["OkArea"]:
+					print("ok")
+					mgscore += 50
+				else:
+					print("miss")
+					mgscore += 25
+			if count == 5:
+				endMinigame.emit(mgscore)
+				resetvalues()				
 			calculating = false	
 
 func resetvalues():
@@ -47,30 +60,15 @@ func resetvalues():
 	calculating = 0
 	count = 0
 	pass
-
-func value_tap() -> void:
-	if activeHitbox["perfect"]:
-		print("perfect")
-		mgscore += 100
-	elif activeHitbox["good"]:
-		print("good")
-		mgscore += 75
-	elif activeHitbox["ok"]:
-		print("ok")
-		mgscore += 50
-	else:
-		print("miss")
-		mgscore += 25
-	pass
 	
 func _on_body_entered(body: Node2D, area: Area2D):
 	if body is RigidBody2D and !calculating:
-		activeHitbox[area] = true
+		activeHitbox[area.name] = true
 	pass
 	
 func _on_body_exited(body: Node2D, area: Area2D):
 	if body is RigidBody2D:
-		activeHitbox[area] = false
+		activeHitbox[area.name] = false
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
