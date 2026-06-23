@@ -50,6 +50,9 @@ boardMovement = 800
 
 [node name="Camera2D" type="Camera2D" parent="Round Manager" unique_id=307702432]
 
+[node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=326190641]
+bus = &"Effects"
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=762029440]
 stream = ExtResource("1_45l5b")
 autoplay = true
@@ -314,40 +317,44 @@ layout_mode = 2
 offset_transform_enabled = true
 texture_hover = ExtResource("11_lpcxd")
 
-[node name="RankMeter" type="Sprite2D" parent="Round Manager/Camera2D/Schermo" unique_id=576798676]
+[node name="RankMeterSprite" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=995833279]
 position = Vector2(40, 0)
-texture = ExtResource("13_5jdl3")
 script = ExtResource("14_nw87x")
 
-[node name="ProgressBar" type="ProgressBar" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=807193295]
+[node name="RankMeterSprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/RankMeterSprite" unique_id=576798676]
+texture = ExtResource("13_5jdl3")
+
+[node name="ProgressBar" type="ProgressBar" parent="Round Manager/Camera2D/Schermo/RankMeterSprite/RankMeterSprite" unique_id=807193295]
 offset_top = 180.64255
 offset_right = 361.3746
 offset_bottom = 225.64255
 rotation = -1.5707964
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wt5t")
+min_value = 1.0
+max_value = 501.0
 value = 1.0
 
-[node name="PerfectArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=1569882486]
+[node name="PerfectArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeterSprite/RankMeterSprite" unique_id=1569882486]
 
-[node name="PerfectHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeter/PerfectArea" unique_id=50650181]
+[node name="PerfectHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeterSprite/RankMeterSprite/PerfectArea" unique_id=50650181]
 position = Vector2(-90.5, 0)
 shape = SubResource("RectangleShape2D_57qmd")
 
-[node name="GoodArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=1160550826]
+[node name="GoodArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeterSprite/RankMeterSprite" unique_id=1160550826]
 
-[node name="GoodHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeter/GoodArea" unique_id=546441847]
+[node name="GoodHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeterSprite/RankMeterSprite/GoodArea" unique_id=546441847]
 position = Vector2(-90, 0)
 shape = SubResource("RectangleShape2D_g4v7s")
 
-[node name="OkArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=1760219383]
+[node name="OkArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeterSprite/RankMeterSprite" unique_id=1760219383]
 
-[node name="OkHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeter/OkArea" unique_id=1152367059]
+[node name="OkHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeterSprite/RankMeterSprite/OkArea" unique_id=1152367059]
 position = Vector2(-90, 0)
 shape = SubResource("RectangleShape2D_d0u6y")
 debug_color = Color(0, 0.6, 0.69803923, 0.36078432)
 
-[connection signal="startMinigame" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_start_minigame"]
+[connection signal="startMinigame" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeterSprite" method="_on_round_manager_start_minigame"]
 [connection signal="allChipDropped" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]
 [connection signal="canLeave" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager" method="_on_board_can_leave"]
 [connection signal="targetSelected" from="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" to="Round Manager/Camera2D/Schermo/Board" method="_on_board_button_container_target_selected"]
-[connection signal="endMinigame" from="Round Manager/Camera2D/Schermo/RankMeter" to="Round Manager" method="_on_rank_meter_end_minigame"]
+[connection signal="endMinigame" from="Round Manager/Camera2D/Schermo/RankMeterSprite" to="Round Manager" method="_on_rank_meter_end_minigame"]
