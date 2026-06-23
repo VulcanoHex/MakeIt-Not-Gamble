@@ -26,6 +26,12 @@ radius = 249.00201
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oqjqy"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wt5t"]
+bg_color = Color(0.89068604, 0.17614338, 5.7756904e-07, 1)
+border_width_right = 10
+border_color = Color(0.79435444, 0.33468553, 0.06690736, 1)
+border_blend = true
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57qmd"]
 size = Vector2(90, 20)
 
@@ -310,6 +316,14 @@ texture_hover = ExtResource("11_lpcxd")
 position = Vector2(40, 0)
 texture = ExtResource("13_5jdl3")
 script = ExtResource("14_nw87x")
+
+[node name="ProgressBar" type="ProgressBar" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=807193295]
+offset_top = 180.64255
+offset_right = 361.3746
+offset_bottom = 225.64255
+rotation = -1.5707964
+theme_override_styles/fill = SubResource("StyleBoxFlat_1wt5t")
+value = 1.0
 
 [node name="PerfectArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=1569882486]
 

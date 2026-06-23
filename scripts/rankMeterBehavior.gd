@@ -4,6 +4,8 @@ extends Sprite2D
 @onready var good_area: Area2D = $GoodArea
 @onready var ok_area: Area2D = $OkArea
 
+@onready var meter: Area2D = $Meter
+
 @onready var pallina: RigidBody2D = $"../Pallina"
 
 signal endMinigame
