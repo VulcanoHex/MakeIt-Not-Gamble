@@ -4,13 +4,11 @@ extends RigidBody2D
 @onready var gravityCenter: Area2D = $"../Wheel/WheelGravity"
 @onready var wheel: StaticBody2D = $"../Wheel"
 
-#test su buca 15
-@onready var target: Marker2D = wheel.listaBuche[17]
-
+@export var RoundHandler: Node2D
 # signal to dest
-
-# signal to orbit
-
+@onready var goToBuca: Signal = RoundHandler.finalDestination
+# TODO signal to orbit
+@export var goToOrbit: Signal 
 
 # variabili modificabili pathfinding
 @export var orbitalSpeed: float = 400.0
@@ -24,23 +22,35 @@ extends RigidBody2D
 
 @export var clockwise: bool = false
 
-enum State {ORBITING, ARRIVING, STOPPED}
+enum State {ORBITING, LOCKED, ARRIVING, STOPPED}
 var currentState: State = State.ORBITING
+var target: Marker2D
 
-var goToBuca: Signal
-
-var keyPress: bool = false
 var tangentVector: Vector2 = Vector2(0,0)
 
 # Called when the node enters the scene tree for the first time.
 # DEBUG
-var indice_buca_corrente = 0
-var tempo_sosta = 2.0
-var timer_sosta = 0.0
+#var indice_buca_corrente = 0
+#var tempo_sosta = 2.0
+#var timer_sosta = 0.0
 # END DEBUG
 func _ready() -> void:
-# connect to finalDest 
+	# connect to finalDest 
+	goToBuca.connect(handleGoToBuca)
+	
+	# connect to goToOrbit
+	goToOrbit.connect(handleOrbit)
 	pass # Replace with function body.
+
+func handleOrbit():
+	currentState = State.ORBITING
+
+func handleGoToBuca(numeroBuca: int):
+	# set target
+	target = wheel.listaBuche[numeroBuca]	
+	# set state to Locked in
+	currentState = State.LOCKED
+	
 
 # La funzione per cui ho bestemmiato
 func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
@@ -57,12 +67,7 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 	var currentRadius: float = toCenter.length()
 	var radialDirection: Vector2 = toCenter.normalized()
 
-	# variabili per ARRIVARE alla buca target
-	# Calcolo dell'angolo corrente e dell'angolo target e relativo delta (angolo in radianti dal punto di vista globale)
-	var currentAngle: float = (global_position - gravityCenter.global_position).angle()
-	var targetAngle: float = (buca.global_position - gravityCenter.global_position).angle()
-	var deltaAngle:float = targetAngle - currentAngle
-	
+
 	# calcola l'errore di orbita, in modo da rientrarci proporzionalmente 
 	var orbitError: float = currentRadius - orbitalRadius
 	var radialVelocity = radialDirection * orbitError * regainOrbitMult
@@ -80,16 +85,33 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 	
 	# Inizio della stateMachine
 	match currentState:
+		# Non ho ricevuto un target e sto in idle
 		State.ORBITING:
+			phyState.linear_velocity = tangentVelocity + radialVelocity
+			
+		# Ho ricevuto un target e orbito finche non sono abbastanza vicino
+		State.LOCKED:
+			# variabili per ARRIVARE alla buca target
+			# Calcolo dell'angolo corrente e dell'angolo target e relativo delta (angolo in radianti dal punto di vista globale)
+			var currentAngle: float = (global_position - gravityCenter.global_position).angle()
+			var targetAngle: float = (buca.global_position - gravityCenter.global_position).angle()
+			var deltaAngle:float = targetAngle - currentAngle
+			
 			# Applico sia il vettore radiale (fa salire pallina) sia il vettore tangente (la fa muovere in avanti)
 			phyState.linear_velocity = tangentVelocity + radialVelocity
 			
 			# DEBUG: FIXLATER aggiungi la condizione in cui abbiamo ricevuto la buca
-			timer_sosta = tempo_sosta
+			#timer_sosta = tempo_sosta
 			# END DEBUG
 			if abs(deltaAngle) < breakingRad:
 				currentState = State.ARRIVING
 		State.ARRIVING:
+			# variabili per ARRIVARE alla buca target
+			# Calcolo dell'angolo corrente e dell'angolo target e relativo delta (angolo in radianti dal punto di vista globale)
+			var currentAngle: float = (global_position - gravityCenter.global_position).angle()
+			var targetAngle: float = (buca.global_position - gravityCenter.global_position).angle()
+			var deltaAngle:float = targetAngle - currentAngle
+			
 			# Calcolo il vettore target e la distanza solo quando sono relativamente vicino
 			var targetVector: Vector2 = buca.global_position - global_position
 			var targetDistance: float = targetVector.length()
@@ -119,20 +141,20 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			phyState.linear_velocity = rotationVector
 			
 			# DEBUG
-			# 2. --- LOGICA DEL TIMER DI CONTROLLO ---
-			# Riduciamo il tempo rimanente usando il delta time della fisica (phyState.step)
-			timer_sosta -= phyState.step
-			
-			# 3. --- CAMBIO DI TARGET ACQUISITO ---
-			if timer_sosta <= 0.0:
-				print("Tempo scaduto! Lascio la buca ", indice_buca_corrente, " e vado alla prossima.")
-				
-				# Passiamo alla buca successiva nell'array
-				indice_buca_corrente += 1
-				
-				# Riportiamo lo stato a ORBITING. Al prossimo frame, 'buca_attiva' sarà la successiva,
-				# e la pallina riprenderà la velocità orbitale piena per raggiungerla.
-				currentState = State.ORBITING
+			## 2. --- LOGICA DEL TIMER DI CONTROLLO ---
+			## Riduciamo il tempo rimanente usando il delta time della fisica (phyState.step)
+			#timer_sosta -= phyState.step
+			#
+			## 3. --- CAMBIO DI TARGET ACQUISITO ---
+			#if timer_sosta <= 0.0:
+				#print("Tempo scaduto! Lascio la buca ", indice_buca_corrente, " e vado alla prossima.")
+				#
+				## Passiamo alla buca successiva nell'array
+				#indice_buca_corrente += 1
+				#
+				## Riportiamo lo stato a ORBITING. Al prossimo frame, 'buca_attiva' sarà la successiva,
+				## e la pallina riprenderà la velocità orbitale piena per raggiungerla.
+				#currentState = State.ORBITING
 			# END DEBUG
 	
 		
@@ -142,10 +164,8 @@ pass
 
 
 func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
-	# DEBUG
-	var buca_attiva = wheel.listaBuche[indice_buca_corrente]
-	targetBuca(buca_attiva, phyState)
-	# END DEBUG
+	targetBuca(target, phyState)
+
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

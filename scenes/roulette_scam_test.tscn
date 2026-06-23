@@ -95,18 +95,19 @@ shape = SubResource("RectangleShape2D_oqjqy")
 [node name="Wheel internal collision" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=1097310473]
 shape = SubResource("CircleShape2D_1wt5t")
 
-[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073]
+[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073 node_paths=PackedStringArray("RoundHandler")]
 position = Vector2(-385, -256)
 mass = 0.005
 gravity_scale = 0.005
 script = ExtResource("7_38uge")
+RoundHandler = NodePath("../../..")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Pallina" unique_id=637736521]
 shape = SubResource("CircleShape2D_oqjqy")
 
 [node name="Sprite2D" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Pallina/CollisionShape2D" unique_id=1396971501]
-modulate = Color(0.84385556, 0.14463034, 0.56344163, 1)
+modulate = Color(0, 0.26927632, 0.59913516, 1)
 texture = ExtResource("6_nw87x")
 
 [node name="Board" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=832768133]
