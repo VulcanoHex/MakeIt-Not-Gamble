@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dexstrlv7y2gk"]
 
 [ext_resource type="Script" uid="uid://8ixpmtpgc7ca" path="res://scenes/gameplay/fiches.gd" id="1_cebs5"]
-[ext_resource type="Texture2D" uid="uid://dfmt7eqoa0ljc" path="res://assets/ficheblu.png" id="2_cebs5"]
-[ext_resource type="Texture2D" uid="uid://bart8hmkdk6c1" path="res://assets/ficheblack.png" id="2_gxcj2"]
-[ext_resource type="Texture2D" uid="uid://by5ia7pc6i23f" path="res://assets/fichegreen.png" id="4_3japf"]
-[ext_resource type="Texture2D" uid="uid://rtd5ekq2i5r2" path="res://assets/ficheyellow.png" id="5_ptpos"]
-[ext_resource type="Texture2D" uid="uid://b06klwtguuuqo" path="res://assets/fichered.png" id="6_wsit3"]
+[ext_resource type="Texture2D" uid="uid://dfmt7eqoa0ljc" path="res://assets/sprites/fiches/ficheblu.png" id="2_cebs5"]
+[ext_resource type="Texture2D" uid="uid://bart8hmkdk6c1" path="res://assets/sprites/fiches/ficheblack.png" id="2_gxcj2"]
+[ext_resource type="Texture2D" uid="uid://by5ia7pc6i23f" path="res://assets/sprites/fiches/fichegreen.png" id="4_3japf"]
+[ext_resource type="Texture2D" uid="uid://rtd5ekq2i5r2" path="res://assets/sprites/fiches/ficheyellow.png" id="5_ptpos"]
+[ext_resource type="Texture2D" uid="uid://b06klwtguuuqo" path="res://assets/sprites/fiches/fichered.png" id="6_wsit3"]
 
 [node name="Fiches" type="Node2D" unique_id=852670032]
 script = ExtResource("1_cebs5")

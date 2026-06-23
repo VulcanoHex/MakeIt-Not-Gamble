@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://0365mdiy3yj5"
-path="res://.godot/imported/ChipsSFX_BigDrop.wav-904ca04a83f48a94e23b86d451865071.sample"
+path="res://.godot/imported/ChipsSFX_BigDrop.wav-c5b27a408e115a5a839f5a6c46fbfc6c.sample"
 
 [deps]
 
-source_file="res://assets/sounds/sfx/ChipsSFX_BigDrop.wav"
-dest_files=["res://.godot/imported/ChipsSFX_BigDrop.wav-904ca04a83f48a94e23b86d451865071.sample"]
+source_file="res://assets/sounds/sfx/Chips/ChipsSFX_BigDrop.wav"
+dest_files=["res://.godot/imported/ChipsSFX_BigDrop.wav-c5b27a408e115a5a839f5a6c46fbfc6c.sample"]
 
 [params]
 
