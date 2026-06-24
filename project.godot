@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Make it Gamble"
-run/main_scene="uid://cdyql3nn00514"
+run/main_scene="uid://ddf4t0jbq6c8n"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 

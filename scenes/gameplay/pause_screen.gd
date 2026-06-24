@@ -12,8 +12,8 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 #	TODO: aggiungi condizione per non mettere pausa nel menu iniziale
-	#if get_tree().current_scene.name == "MenuIniziale":
-		#return
+	if get_tree().current_scene.name == "StartMenu":
+		return
 	if event.is_action_pressed("ui_cancel"):
 		togglePause()
 
