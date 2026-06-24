@@ -194,8 +194,7 @@ func _on_rank_meter_end_minigame(score: float) -> void:
 			mgResult = targetScope[3].keys()[0]
 		else:
 			mgResult = calcFinalDestination(targetScope, score)
-		
-		finalDestination.emit(mgResult)
+		finalDestination.emit(mgResult, true if tchoice == mgResult else false)
 		
 		updateGameState.emit(targetScope, mgResult, true if tchoice == mgResult else false)
 		

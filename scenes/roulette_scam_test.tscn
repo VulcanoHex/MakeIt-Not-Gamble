@@ -101,12 +101,12 @@ shape = SubResource("RectangleShape2D_oqjqy")
 [node name="Wheel internal collision" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=1097310473]
 shape = SubResource("CircleShape2D_1wt5t")
 
-[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073 node_paths=PackedStringArray("RoundHandler")]
+[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073 node_paths=PackedStringArray("soundEffectPlayer")]
 position = Vector2(-385, -256)
 mass = 0.005
 gravity_scale = 0.005
 script = ExtResource("7_38uge")
-RoundHandler = NodePath("../../..")
+soundEffectPlayer = NodePath("../../SoundEffectsPlayer")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Pallina" unique_id=637736521]
@@ -386,8 +386,10 @@ text = "Preview punteggio"
 
 [connection signal="startNewRound" from="." to="Round Manager" method="_on_game_manager_start_new_round"]
 [connection signal="clearFiches" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_clear_fiches"]
+[connection signal="finalDestination" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_final_destination"]
 [connection signal="setAllValues" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_set_all_values"]
 [connection signal="startMinigame" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_start_minigame"]
+[connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_start_new_round"]
 [connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_start_new_round"]
 [connection signal="updateGameState" from="Round Manager" to="." method="_on_round_manager_update_game_state"]
 [connection signal="allChipDropped" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]

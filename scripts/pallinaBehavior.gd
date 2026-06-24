@@ -1,56 +1,39 @@
 extends RigidBody2D
 
-
 @onready var gravityCenter: Area2D = $"../Wheel/WheelGravity"
 @onready var wheel: StaticBody2D = $"../Wheel"
+@export var soundEffectPlayer: AudioStreamPlayer
 
-@export var RoundHandler: Node2D
-# signal to dest
-@onready var goToBuca: Signal = RoundHandler.finalDestination
-# TODO signal to orbit
-@onready var goToOrbit: Signal = RoundHandler.startNewRound
+@export var tempoSosta = 1.0
 
 # variabili modificabili pathfinding
 @export var orbitalSpeed: float = 400.0
-@export var orbitalRadius: float = 330.0
-@export var regainOrbitMult: float = 10
+@export var clockwise: bool = false
+var orbitalRadius: float = 330.0
+var regainOrbitMult: float = 10
 # in ambito della frenata dell'orbita della pallina rispettivamente 
 # angolo in dopo cui il target e' considerata vicino 
 # (CAMBIA QUESTE VARIABILI A TUO RISCHIO E PERICOLO)
-@export var breakingRad: float = PI/8
-@export var breakingCoefficient: float = 0.75
+var breakingRad: float = PI/8
+var breakingCoefficient: float = 0.75
 
-@export var clockwise: bool = false
+var goodBucaSFX = preload("res://assets/sounds/sfx/Buca/HoleSFX_Good2.wav")
+var badBucaSFX = preload("res://assets/sounds/sfx/Buca/HoleSFX_Bad2.wav")
 
-enum State {ORBITING, LOCKED, ARRIVING, STOPPED}
+
+signal myJobHereIsDone
+
+enum State {ORBITING, LOCKED, ARRIVING, STOPPED, READYTODEPARTURE}
 var currentState: State = State.ORBITING
 var target: Marker2D
+var bucaGiusta: bool
 
 var tangentVector: Vector2 = Vector2(0,0)
 
-# Called when the node enters the scene tree for the first time.
-# DEBUG
-#var indice_buca_corrente = 0
-#var tempo_sosta = 2.0
-#var timer_sosta = 0.0
-# END DEBUG
+var timerSosta = 0.0
+
 func _ready() -> void:
-	# connect to finalDest 
-	goToBuca.connect(handleGoToBuca)
-	
-	# connect to goToOrbit
-	goToOrbit.connect(handleOrbit)
 	pass # Replace with function body.
-
-func handleOrbit():
-	currentState = State.ORBITING
-
-func handleGoToBuca(numeroBuca: int):
-	# set target
-	target = wheel.listaBuche[numeroBuca]	
-	# set state to Locked in
-	currentState = State.LOCKED
-	
 
 # La funzione per cui ho bestemmiato
 func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
@@ -131,15 +114,33 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			# Se sono arrivato mi fermo e cambio stato in ARRIVED
 			if targetDistance < 10.0:
 				phyState.linear_velocity = Vector2.ZERO
+				# Carico il timerigno di sosta
+				timerSosta = tempoSosta
 				currentState = State.STOPPED
 			
 		State.STOPPED:
 			#tangential speed modulo to simulate la ball ferma
 			var modulo: float = currentRadius * wheel.rotationSpeed
 			var rotationVector = -tangentVector.normalized() * modulo
-			#reparent(wheel)
 			phyState.linear_velocity = rotationVector
+
+			# Riduciamo il tempo rimanente usando il delta time della fisica (phyState.step)
+			timerSosta -= phyState.step		
 			
+			if timerSosta <= 0:
+				# Setto SFX
+				if bucaGiusta:
+					soundEffectPlayer.stream = goodBucaSFX
+				else:
+					soundEffectPlayer.stream = badBucaSFX
+					
+				# Emetto SFX
+				soundEffectPlayer.play()
+				# Emetto il segnale
+				myJobHereIsDone.emit()
+				# Siamo pronti a ripartire
+				currentState = State.READYTODEPARTURE
+				
 			# DEBUG
 			## 2. --- LOGICA DEL TIMER DI CONTROLLO ---
 			## Riduciamo il tempo rimanente usando il delta time della fisica (phyState.step)
@@ -151,11 +152,17 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 				#
 				## Passiamo alla buca successiva nell'array
 				#indice_buca_corrente += 1
-				#
+				
 				## Riportiamo lo stato a ORBITING. Al prossimo frame, 'buca_attiva' sarà la successiva,
 				## e la pallina riprenderà la velocità orbitale piena per raggiungerla.
 				#currentState = State.ORBITING
 			# END DEBUG
+		State.READYTODEPARTURE:
+			# Still orbiting just in case
+			var modulo: float = currentRadius * wheel.rotationSpeed
+			var rotationVector = -tangentVector.normalized() * modulo
+			phyState.linear_velocity = rotationVector
+				
 	
 		
 pass
@@ -171,3 +178,19 @@ func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
 func _process(delta: float) -> void:
 	
 	pass
+
+
+func _on_round_manager_final_destination(numeroBuca: int, giusta: bool) -> void:
+	# set target
+	target = wheel.listaBuche[numeroBuca]	
+	# setto flag buca giusta
+	bucaGiusta = giusta
+	
+	# set state to Locked in
+	currentState = State.LOCKED
+	pass # Replace with function body.
+
+
+func _on_round_manager_start_new_round() -> void:
+	currentState = State.ORBITING
+	pass # Replace with function body.

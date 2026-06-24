@@ -63,7 +63,6 @@ func _input(event: InputEvent) -> void:
 				SFXplayer.play()
 				updateMeter()
 			if count == 5:
-				print("end")
 				endMinigame.emit(mgscore)
 				resetvalues()				
 			calculating = false	
