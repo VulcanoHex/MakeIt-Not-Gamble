@@ -2,13 +2,16 @@
 
 [ext_resource type="Script" uid="uid://b6n1cj37vxafy" path="res://scenes/gameplay/pause_screen.gd" id="1_wvl8y"]
 
+[sub_resource type="GDScript" id="GDScript_wvl8y"]
+script/source = "extends HSlider
+"
+
 [node name="PauseScreen" type="CanvasLayer" unique_id=1417289655]
 process_mode = 3
 layer = 50
 script = ExtResource("1_wvl8y")
 
 [node name="MenuPanel" type="Control" parent="." unique_id=1631235274]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,7 +29,7 @@ offset_bottom = 788.0
 mouse_filter = 1
 color = Color(0, 0, 0, 0.50980395)
 
-[node name="ButtonContainer" type="VBoxContainer" parent="MenuPanel" unique_id=1865267060]
+[node name="MenuContainer" type="VBoxContainer" parent="MenuPanel" unique_id=1865267060]
 layout_mode = 0
 offset_left = 174.0
 offset_top = 82.0
@@ -35,13 +38,48 @@ offset_bottom = 644.0
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="ResumeButton" type="Button" parent="MenuPanel/ButtonContainer" unique_id=862677809]
+[node name="ResumeButton" type="Button" parent="MenuPanel/MenuContainer" unique_id=862677809]
 layout_mode = 2
 text = "Resume Game"
 
-[node name="QuitGame" type="Button" parent="MenuPanel/ButtonContainer" unique_id=1635665080]
+[node name="SFX" type="HBoxContainer" parent="MenuPanel/MenuContainer" unique_id=1847622462]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="SFX Slider" type="HSlider" parent="MenuPanel/MenuContainer/SFX" unique_id=1073252972]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 0.7
+script = SubResource("GDScript_wvl8y")
+
+[node name="Label" type="Label" parent="MenuPanel/MenuContainer/SFX" unique_id=1446030892]
+layout_mode = 2
+text = "SFX"
+
+[node name="Music" type="HBoxContainer" parent="MenuPanel/MenuContainer" unique_id=384327993]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Music Slider" type="HSlider" parent="MenuPanel/MenuContainer/Music" unique_id=419326646]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 0.4
+
+[node name="Label" type="Label" parent="MenuPanel/MenuContainer/Music" unique_id=957485608]
+layout_mode = 2
+text = "Music"
+
+[node name="QuitGame" type="Button" parent="MenuPanel/MenuContainer" unique_id=1635665080]
 layout_mode = 2
 text = "Quit Game"
 
-[connection signal="pressed" from="MenuPanel/ButtonContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="MenuPanel/ButtonContainer/QuitGame" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="MenuPanel/MenuContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="value_changed" from="MenuPanel/MenuContainer/SFX/SFX Slider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="MenuPanel/MenuContainer/Music/Music Slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="pressed" from="MenuPanel/MenuContainer/QuitGame" to="." method="_on_quit_game_pressed"]
