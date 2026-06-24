@@ -53,6 +53,7 @@ boardMovement = 800
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=762029440]
 stream = ExtResource("1_45l5b")
 autoplay = true
+bus = &"Music"
 
 [node name="Schermo" type="Sprite2D" parent="Round Manager/Camera2D" unique_id=1984401507]
 texture_filter = 1
