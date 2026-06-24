@@ -46,6 +46,10 @@ text = "Resume Game"
 layout_mode = 2
 theme_override_constants/separation = 40
 
+[node name="Label" type="Label" parent="MenuPanel/MenuContainer/SFX" unique_id=1446030892]
+layout_mode = 2
+text = "SFX"
+
 [node name="SFX Slider" type="HSlider" parent="MenuPanel/MenuContainer/SFX" unique_id=1073252972]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -55,13 +59,13 @@ step = 0.01
 value = 0.7
 script = SubResource("GDScript_wvl8y")
 
-[node name="Label" type="Label" parent="MenuPanel/MenuContainer/SFX" unique_id=1446030892]
-layout_mode = 2
-text = "SFX"
-
 [node name="Music" type="HBoxContainer" parent="MenuPanel/MenuContainer" unique_id=384327993]
 layout_mode = 2
 theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MenuPanel/MenuContainer/Music" unique_id=957485608]
+layout_mode = 2
+text = "Music"
 
 [node name="Music Slider" type="HSlider" parent="MenuPanel/MenuContainer/Music" unique_id=419326646]
 layout_mode = 2
@@ -70,10 +74,6 @@ size_flags_vertical = 1
 max_value = 1.0
 step = 0.01
 value = 0.4
-
-[node name="Label" type="Label" parent="MenuPanel/MenuContainer/Music" unique_id=957485608]
-layout_mode = 2
-text = "Music"
 
 [node name="QuitGame" type="Button" parent="MenuPanel/MenuContainer" unique_id=1635665080]
 layout_mode = 2
