@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dexstrlv7y2gk"]
+
+[ext_resource type="Script" uid="uid://8ixpmtpgc7ca" path="res://scenes/gameplay/fiches.gd" id="1_cebs5"]
+[ext_resource type="Texture2D" uid="uid://dfmt7eqoa0ljc" path="res://assets/sprites/fiches/ficheblu.png" id="2_cebs5"]
+[ext_resource type="Texture2D" uid="uid://bart8hmkdk6c1" path="res://assets/sprites/fiches/ficheblack.png" id="2_gxcj2"]
+[ext_resource type="Texture2D" uid="uid://by5ia7pc6i23f" path="res://assets/sprites/fiches/fichegreen.png" id="4_3japf"]
+[ext_resource type="Texture2D" uid="uid://rtd5ekq2i5r2" path="res://assets/sprites/fiches/ficheyellow.png" id="5_ptpos"]
+[ext_resource type="Texture2D" uid="uid://b06klwtguuuqo" path="res://assets/sprites/fiches/fichered.png" id="6_wsit3"]
+
+[node name="Fiches" type="Node2D" unique_id=852670032]
+script = ExtResource("1_cebs5")
+
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="." unique_id=205864645]
+bus = &"Effects"
+
+[node name="black" type="Node2D" parent="." unique_id=1819027015]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="black" unique_id=443044913]
+texture = ExtResource("2_gxcj2")
+
+[node name="blue" type="Node2D" parent="." unique_id=1033887354]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="blue" unique_id=1963828544]
+texture = ExtResource("2_cebs5")
+
+[node name="green" type="Node2D" parent="." unique_id=2066486593]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="green" unique_id=228947636]
+texture = ExtResource("4_3japf")
+
+[node name="yellow" type="Node2D" parent="." unique_id=1034718836]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="yellow" unique_id=1039977011]
+texture = ExtResource("5_ptpos")
+
+[node name="red" type="Node2D" parent="." unique_id=1381561115]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="red" unique_id=463429022]
+texture = ExtResource("6_wsit3")

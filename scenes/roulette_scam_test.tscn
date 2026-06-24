@@ -1,0 +1,398 @@
+[gd_scene format=3 uid="uid://cdyql3nn00514"]
+
+[ext_resource type="Script" uid="uid://cy5quveg2lp64" path="res://scripts/roundManager.gd" id="1_5jdl3"]
+[ext_resource type="Script" uid="uid://xylg6v5v20m0" path="res://scenes/gameManager.gd" id="1_38uge"]
+[ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="1_45l5b"]
+[ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/sprites/utilities/Base pc_Layer 4.png" id="2_n3yoq"]
+[ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
+[ext_resource type="Texture2D" uid="uid://b1c64iio8if8r" path="res://assets/sprites/wheel/wheelwnum.png" id="5_enyeq"]
+[ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/sprites/wheel/whcircle.png" id="6_nw87x"]
+[ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://scripts/pallinaBehavior.gd" id="7_38uge"]
+[ext_resource type="Script" uid="uid://b07h4f5knjj10" path="res://scripts/BoardBehavior.gd" id="8_6x76j"]
+[ext_resource type="Texture2D" uid="uid://x0ko351fhstx" path="res://assets/sprites/grid/gridwnum.png" id="9_d06ee"]
+[ext_resource type="PackedScene" uid="uid://dexstrlv7y2gk" path="res://scenes/gameplay/Fiches.tscn" id="9_n3yoq"]
+[ext_resource type="Script" uid="uid://j1bp4k2p38wn" path="res://scripts/boardButtonHandler.gd" id="11_enyeq"]
+[ext_resource type="Texture2D" uid="uid://f07vspiceb4" path="res://assets/sprites/grid/hoverbutton.png" id="11_lpcxd"]
+[ext_resource type="Texture2D" uid="uid://cg4vcfnv3743r" path="res://assets/sprites/utilities/meter.png" id="13_5jdl3"]
+[ext_resource type="Script" uid="uid://bk5sl7jr3goij" path="res://scripts/rankMeterBehavior.gd" id="14_nw87x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cb0m5"]
+radius = 344.0131
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqjqy"]
+size = Vector2(41.27195, 72.2777)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1wt5t"]
+radius = 249.00201
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oqjqy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1wt5t"]
+bg_color = Color(0.89068604, 0.17614338, 5.7756904e-07, 1)
+border_width_right = 10
+border_color = Color(0.79435444, 0.33468553, 0.06690736, 1)
+border_blend = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57qmd"]
+size = Vector2(90, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(90, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0u6y"]
+size = Vector2(90, 60)
+
+[node name="Game Manager" type="Node2D" unique_id=1526010917]
+script = ExtResource("1_38uge")
+
+[node name="Round Manager" type="Node2D" parent="." unique_id=1492148873 node_paths=PackedStringArray("board")]
+script = ExtResource("1_5jdl3")
+board = NodePath("Camera2D/Schermo/Board")
+boardMovement = 800
+
+[node name="Camera2D" type="Camera2D" parent="Round Manager" unique_id=307702432]
+
+[node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=326190641]
+bus = &"Effects"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=762029440]
+stream = ExtResource("1_45l5b")
+autoplay = true
+bus = &"Music"
+
+[node name="Schermo" type="Sprite2D" parent="Round Manager/Camera2D" unique_id=1984401507]
+texture_filter = 1
+texture = ExtResource("2_n3yoq")
+
+[node name="Wheel" type="StaticBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1402797758]
+position = Vector2(-321, 0)
+script = ExtResource("5_5jdl3")
+rotationSpeed = 0.5
+metadata/_edit_group_ = true
+
+[node name="WheelGravity" type="Area2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=2081886920]
+gravity_space_override = 1
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel/WheelGravity" unique_id=720652273]
+visible = false
+shape = SubResource("CircleShape2D_cb0m5")
+
+[node name="Wheel sprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=294692740]
+texture = ExtResource("5_enyeq")
+
+[node name="Test Casella Target" type="Area2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite" unique_id=1390219992]
+
+[node name="Pallina" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite/Test Casella Target" unique_id=543451862]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(270.2663, -24.190046)
+scale = Vector2(0.99999976, 0.99999976)
+texture = ExtResource("6_nw87x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite/Test Casella Target" unique_id=120660663]
+visible = false
+position = Vector2(267.38623, -24.58133)
+rotation = -0.099483766
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("RectangleShape2D_oqjqy")
+
+[node name="Wheel internal collision" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=1097310473]
+shape = SubResource("CircleShape2D_1wt5t")
+
+[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073 node_paths=PackedStringArray("RoundHandler")]
+position = Vector2(-385, -256)
+mass = 0.005
+gravity_scale = 0.005
+script = ExtResource("7_38uge")
+RoundHandler = NodePath("../../..")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Pallina" unique_id=637736521]
+shape = SubResource("CircleShape2D_oqjqy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Pallina/CollisionShape2D" unique_id=1396971501]
+modulate = Color(0, 0.26927632, 0.59913516, 1)
+texture = ExtResource("6_nw87x")
+
+[node name="Board" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=832768133]
+top_level = true
+position = Vector2(310, -800)
+script = ExtResource("8_6x76j")
+fiches = ExtResource("9_n3yoq")
+distanzaCaselle = 100
+offsetCaselle_x = 30
+
+[node name="Board Sprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Board" unique_id=681180018]
+texture = ExtResource("9_d06ee")
+
+[node name="BoardButtonContainer" type="GridContainer" parent="Round Manager/Camera2D/Schermo/Board" unique_id=497227279]
+propagate_maximum_size = false
+offset_left = -294.0
+offset_top = -294.0
+offset_right = 293.0
+offset_bottom = 293.0
+offset_transform_enabled = true
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 7
+columns = 6
+script = ExtResource("11_enyeq")
+
+[node name="Button1" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1004236885]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button2" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1896031657]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button3" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=838605896]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button4" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=2049089684]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button5" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1005473780]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button6" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1574902419]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button7" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1752302960]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button8" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1016318980]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button9" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1231986598]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button10" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1742227504]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button11" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=705871185]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button12" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=111728917]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button13" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=588037887]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button14" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=6254167]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button15" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1394082096]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button16" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=196037606]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button17" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1527568005]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button18" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=161435933]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button19" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1381076762]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button20" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=743511808]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button21" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=476873828]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button22" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1533579307]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button23" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1668787370]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button24" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=853307845]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button25" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1927197082]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button26" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1778065681]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button27" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1127870388]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button28" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=776809173]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button29" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=570002019]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button30" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=2053271671]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button31" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=2060139102]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button32" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1106262248]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button33" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=1091600537]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button34" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=2004342159]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button35" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=2021921265]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="Button36" type="TextureButton" parent="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" unique_id=635059356]
+layout_mode = 2
+offset_transform_enabled = true
+texture_hover = ExtResource("11_lpcxd")
+
+[node name="RankMeter" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=995833279]
+position = Vector2(40, 0)
+script = ExtResource("14_nw87x")
+
+[node name="RankMeterSprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=576798676]
+texture = ExtResource("13_5jdl3")
+
+[node name="ProgressBar" type="ProgressBar" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=807193295]
+offset_top = 180.64255
+offset_right = 361.3746
+offset_bottom = 225.64255
+rotation = -1.5707964
+theme_override_styles/fill = SubResource("StyleBoxFlat_1wt5t")
+max_value = 500.0
+value = 1.0
+
+[node name="PerfectArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=1569882486]
+
+[node name="PerfectHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite/PerfectArea" unique_id=50650181]
+position = Vector2(-90.5, 0)
+shape = SubResource("RectangleShape2D_57qmd")
+
+[node name="GoodArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=1160550826]
+
+[node name="GoodHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite/GoodArea" unique_id=546441847]
+position = Vector2(-90, 0)
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="OkArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=1760219383]
+
+[node name="OkHitbox" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite/OkArea" unique_id=1152367059]
+position = Vector2(-90, 0)
+shape = SubResource("RectangleShape2D_d0u6y")
+debug_color = Color(0, 0.6, 0.69803923, 0.36078432)
+
+[node name="TestUI" type="Control" parent="Round Manager/Camera2D" unique_id=1435673195]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Punteggio" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=1652198961]
+layout_mode = 0
+offset_left = -88.0
+offset_top = -338.0
+offset_right = 216.0
+offset_bottom = -284.0
+text = "Punteggio"
+
+[node name="Round" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=889673190]
+layout_mode = 0
+offset_left = -87.0
+offset_top = -292.0
+offset_right = 130.0
+offset_bottom = -241.0
+text = "Round"
+
+[node name="PreviewPunteggio" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=1494393926]
+layout_mode = 0
+offset_left = 30.0
+offset_top = -358.0
+offset_right = 583.0
+offset_bottom = -304.0
+text = "Preview punteggio"
+
+[connection signal="startNewRound" from="." to="Round Manager" method="_on_game_manager_start_new_round"]
+[connection signal="clearFiches" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_clear_fiches"]
+[connection signal="setAllValues" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_set_all_values"]
+[connection signal="startMinigame" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_start_minigame"]
+[connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_start_new_round"]
+[connection signal="updateGameState" from="Round Manager" to="." method="_on_round_manager_update_game_state"]
+[connection signal="allChipDropped" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]
+[connection signal="canLeave" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager" method="_on_board_can_leave"]
+[connection signal="showPreviewFromBoard" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager" method="_on_board_show_preview_from_board"]
+[connection signal="showPreview" from="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" to="Round Manager/Camera2D/Schermo/Board" method="_on_board_button_container_show_preview"]
+[connection signal="targetSelected" from="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" to="Round Manager/Camera2D/Schermo/Board" method="_on_board_button_container_target_selected"]
+[connection signal="endMinigame" from="Round Manager/Camera2D/Schermo/RankMeter" to="Round Manager" method="_on_rank_meter_end_minigame"]
