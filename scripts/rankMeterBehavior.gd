@@ -5,7 +5,7 @@ extends Node2D
 @onready var ok_area: Area2D = $RankMeterSprite/OkArea
 
 @onready var visibleMeter: ProgressBar = $RankMeterSprite/ProgressBar
-
+@onready var RoundManager: Node2D = $"../../.."
 @onready var pallina: RigidBody2D = $"../Pallina"
 
 @onready var SFXplayer: AudioStreamPlayer = $"../../SoundEffectsPlayer"
@@ -19,12 +19,23 @@ signal endMinigame
 
 var roundStarted = false
 var calculating = false
-var mgscore: int
+var mgscore: float
 var count: int
-var activeHitbox = {"PerfectArea": false, "GoodArea": false, "OkArea": false}
+var activeHitbox = {"PerfectArea": false, "GoodArea": false, "OkArea": false, "MissArea": true}
+var hitScores: Dictionary
+var hitSFX: Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	
+	hitSFX = {
+		"PerfectArea": SFXPerfect,
+		"GoodArea": SFXGood,
+		"OkArea": SFXOk,
+		"MissArea": SFXMiss
+	}
+	
 	perfect_area.body_entered.connect(_on_body_entered.bind(perfect_area))
 	perfect_area.body_exited.connect(_on_body_exited.bind(perfect_area))
 	
@@ -42,40 +53,37 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
 		if event.keycode == KEY_SPACE:
 			calculating = true
-			var hitScore = 0
 			if roundStarted:
 				count += 1
-				if activeHitbox["PerfectArea"]:
-					print("perfect")
-					SFXplayer.stream = SFXPerfect
-					hitScore = 100
-				elif activeHitbox["GoodArea"]:
-					print("good")
-					SFXplayer.stream = SFXGood
-					hitScore = 75
-				elif activeHitbox["OkArea"]:
-					print("ok")
-					SFXplayer.stream = SFXGood
-					hitScore = 50
-				else:
-					print("miss")
-					SFXplayer.stream = SFXMiss
-					hitScore = 25
+				for area in activeHitbox:
+					if activeHitbox[area]: 
+						SFXplayer.stream = hitSFX[area]
+						mgscore += hitScores[area]
+						break
 				SFXplayer.play()
-				mgscore += hitScore
-				updateMeter(mgscore)
+				updateMeter()
 			if count == 5:
+				print("end")
 				endMinigame.emit(mgscore)
 				resetvalues()				
 			calculating = false	
 
-func updateMeter(hitScore: int):
+func updateMeter():
 	var updateBar = create_tween()
 	
 	updateBar.tween_property(visibleMeter, "value", mgscore, 0.8)\
 		.set_trans(Tween.TRANS_QUAD)\
 		.set_ease(Tween.EASE_OUT)
 	pass
+
+func updateValues(maxScore):
+	visibleMeter.max_value = maxScore
+	hitScores = {
+		"PerfectArea": maxScore / 5,
+		"GoodArea": (maxScore / 5) * 0.75,
+		"OkArea": (maxScore / 5) * 0.5,
+		"MissArea": (maxScore / 5) * 0.1
+	}
 
 func resetvalues():
 	roundStarted = false
@@ -99,4 +107,10 @@ func _process(delta: float) -> void:
 
 func _on_round_manager_start_minigame() -> void:
 	roundStarted = true
+	pass # Replace with function body.
+
+
+func _on_round_manager_set_all_values() -> void:
+	var maxScore = RoundManager.maxScore
+	updateValues(maxScore)
 	pass # Replace with function body.
