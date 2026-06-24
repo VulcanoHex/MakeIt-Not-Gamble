@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cr6qdss2orgyp"]
+
+[ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="2_omdir"]
+
+[node name="RouletteScam" type="Node2D" unique_id=1526010917]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=307702432]
+
+[node name="Sprite2D" type="Sprite2D" parent="Camera2D" unique_id=1984401507]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Camera2D" unique_id=762029440]
+stream = ExtResource("2_omdir")
+autoplay = true

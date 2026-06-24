@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ddf4t0jbq6c8n"]
+
+[ext_resource type="Script" uid="uid://d103a1ypgnhvj" path="res://scenes/gameplay/start_screen.gd" id="1_qppq1"]
+[ext_resource type="PackedScene" uid="uid://cdyql3nn00514" path="res://scenes/roulette_scam_test.tscn" id="2_616d8"]
+
+[node name="StartMenu" type="CanvasLayer" unique_id=1643158990]
+script = ExtResource("1_qppq1")
+MainScene = ExtResource("2_616d8")
+
+[node name="StartPanel" type="Control" parent="." unique_id=1277441900]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TEMPCOLOR" type="ColorRect" parent="StartPanel" unique_id=856382943]
+layout_mode = 0
+offset_right = 1359.0
+offset_bottom = 834.0
+color = Color(1, 0.59607846, 0.12156863, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StartPanel" unique_id=2144800176]
+layout_mode = 0
+offset_left = 468.0
+offset_top = 398.0
+offset_right = 834.0
+offset_bottom = 628.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="StartButton" type="Button" parent="StartPanel/VBoxContainer" unique_id=1613006036]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Start Game"
+
+[node name="Quit" type="Button" parent="StartPanel/VBoxContainer" unique_id=1169821022]
+layout_mode = 2
+text = "Quit Game"
+
+[connection signal="pressed" from="StartPanel/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="StartPanel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
