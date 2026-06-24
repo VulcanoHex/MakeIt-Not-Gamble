@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cdyql3nn00514"]
 
 [ext_resource type="Script" uid="uid://cy5quveg2lp64" path="res://scripts/roundManager.gd" id="1_5jdl3"]
+[ext_resource type="Script" uid="uid://xylg6v5v20m0" path="res://scenes/gameManager.gd" id="1_38uge"]
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="1_45l5b"]
 [ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/sprites/utilities/Base pc_Layer 4.png" id="2_n3yoq"]
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
@@ -42,6 +43,7 @@ size = Vector2(90, 40)
 size = Vector2(90, 60)
 
 [node name="Game Manager" type="Node2D" unique_id=1526010917]
+script = ExtResource("1_38uge")
 
 [node name="Round Manager" type="Node2D" parent="." unique_id=1492148873 node_paths=PackedStringArray("board")]
 script = ExtResource("1_5jdl3")
@@ -352,34 +354,45 @@ position = Vector2(-90, 0)
 shape = SubResource("RectangleShape2D_d0u6y")
 debug_color = Color(0, 0.6, 0.69803923, 0.36078432)
 
-[node name="TestUI" type="Control" parent="." unique_id=1435673195]
+[node name="TestUI" type="Control" parent="Round Manager/Camera2D" unique_id=1435673195]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Punteggio" type="RichTextLabel" parent="TestUI" unique_id=1652198961]
+[node name="Punteggio" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=1652198961]
 layout_mode = 0
 offset_left = -88.0
 offset_top = -338.0
 offset_right = 216.0
 offset_bottom = -284.0
+text = "Punteggio"
 
-[node name="Round" type="RichTextLabel" parent="TestUI" unique_id=889673190]
+[node name="Round" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=889673190]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -87.0
+offset_top = -292.0
+offset_right = 130.0
+offset_bottom = -241.0
+text = "Round"
 
-[node name="PreviewPunteggio" type="RichTextLabel" parent="TestUI" unique_id=1494393926]
+[node name="PreviewPunteggio" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=1494393926]
 layout_mode = 0
-offset_left = -86.0
-offset_top = -301.0
-offset_right = -46.0
-offset_bottom = -261.0
+offset_left = 30.0
+offset_top = -358.0
+offset_right = 583.0
+offset_bottom = -304.0
+text = "Preview punteggio"
 
+[connection signal="startNewRound" from="." to="Round Manager" method="_on_game_manager_start_new_round"]
+[connection signal="clearFiches" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_clear_fiches"]
 [connection signal="setAllValues" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_set_all_values"]
 [connection signal="startMinigame" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_start_minigame"]
+[connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_start_new_round"]
+[connection signal="updateGameState" from="Round Manager" to="." method="_on_round_manager_update_game_state"]
 [connection signal="allChipDropped" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]
 [connection signal="canLeave" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager" method="_on_board_can_leave"]
+[connection signal="showPreviewFromBoard" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager" method="_on_board_show_preview_from_board"]
+[connection signal="showPreview" from="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" to="Round Manager/Camera2D/Schermo/Board" method="_on_board_button_container_show_preview"]
 [connection signal="targetSelected" from="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" to="Round Manager/Camera2D/Schermo/Board" method="_on_board_button_container_target_selected"]
 [connection signal="endMinigame" from="Round Manager/Camera2D/Schermo/RankMeter" to="Round Manager" method="_on_rank_meter_end_minigame"]

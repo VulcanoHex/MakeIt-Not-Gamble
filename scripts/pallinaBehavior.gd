@@ -8,7 +8,7 @@ extends RigidBody2D
 # signal to dest
 @onready var goToBuca: Signal = RoundHandler.finalDestination
 # TODO signal to orbit
-@export var goToOrbit: Signal 
+@onready var goToOrbit: Signal = RoundHandler.startNewRound
 
 # variabili modificabili pathfinding
 @export var orbitalSpeed: float = 400.0

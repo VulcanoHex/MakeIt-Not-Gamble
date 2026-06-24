@@ -4,25 +4,30 @@ extends Node
 @export var offsetCaselle_x: int
 @export var offsetCaselle_y: int
 
+var fichesStack: Array
+
+signal killFiches
+signal showPreviewFromBoard
 signal allChipDropped
 signal canLeave
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var test: Array[int]
-	test.resize(36)
-	generateRoundBet(test)
-	#test.fill(1)
-#	test[0] = 1
-#	test[21] = 1
-#	test[16] = 1
-#	test[10] = 1
-#	test[30] = 1
-#	test[35] = 1 
-#	test[34] = 1
-
-	placeFiches(test)
+	#var test: Array[int]
+	#test.resize(36)
+	#generateRoundBet(test)
+	##test.fill(1)
+##	test[0] = 1
+##	test[21] = 1
+##	test[16] = 1
+##	test[10] = 1
+##	test[30] = 1
+##	test[35] = 1 
+##	test[34] = 1
+#
+	#placeFiches(test)
 	pass # Replace with function body.
+
 	
 func generateRoundBet(ficheArr: Array[int]) -> void:
 	if (len(ficheArr) != 36):
@@ -55,6 +60,7 @@ func generateRoundBet(ficheArr: Array[int]) -> void:
 func placeFiches(ficheArr: Array[int]) -> void:
 	var masterTween = create_tween()
 	#masterTween.set_parallel(true)
+	fichesStack.resize(0)
 	if (len(ficheArr) != 36):
 		print("Unvalid fiches array length, not spawning any")
 		return
@@ -86,7 +92,8 @@ func placeFiches(ficheArr: Array[int]) -> void:
 			new_fiche.position = Vector2(spawnPosition)
 			
 			add_child(new_fiche)
-
+			fichesStack.append(new_fiche)
+			
 			if new_fiche.value != 0:
 				ficheArr[idx] -= new_fiche.value
 		idx += 1
@@ -108,4 +115,29 @@ func _on_board_button_container_target_selected(idx: int) -> void:
 		print("value: ", ficheArr[idx])
 	else:
 		print("cannot take board value")
+	pass # Replace with function body.
+
+
+func _on_board_button_container_show_preview(idx: int) -> void:
+	if has_meta("boardRoundValue"):
+		var ficheArr = get_meta("boardRoundValue")
+		showPreviewFromBoard.emit(idx, ficheArr)
+	else:
+		print("cannot take board value")
+	pass # Replace with function body.
+
+
+func _on_round_manager_start_new_round() -> void:
+	var ficheArr: Array[int]
+	ficheArr.resize(36)
+	generateRoundBet(ficheArr)
+	placeFiches(ficheArr)
+	pass # Replace with function body.
+
+
+func _on_round_manager_clear_fiches() -> void:
+	for stack in fichesStack:
+		for child in stack.get_children(true):
+			child.queue_free()
+		stack.queue_free()
 	pass # Replace with function body.

@@ -77,6 +77,7 @@ func updateMeter():
 	pass
 
 func updateValues(maxScore):
+	print ("update")
 	visibleMeter.max_value = maxScore
 	hitScores = {
 		"PerfectArea": maxScore / 5,

@@ -14,7 +14,7 @@ var mScore: float
 @export var RSTatStart = 0.6
 @export var RSTatEnd = 0.85
 #round corrente
-var currRound: int
+var currRound: int = 0
 #Round Score Target attuale
 var roundScoreTarget: float
 
@@ -26,11 +26,14 @@ var roundScoreTarget: float
 const SFX_board_in = preload("res://assets/sounds/sfx/Board/BoardSFX_enter3.wav")
 const SFX_board_out = preload("res://assets/sounds/sfx/Board/BoardSFX_exit3.wav")
 
+@onready var previewBox: RichTextLabel = $Camera2D/TestUI/PreviewPunteggio
 
 signal setAllValues
 signal clearFiches
 signal startMinigame 
-signal finalDestination   
+signal finalDestination
+signal updateGameState 
+signal startNewRound  
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -57,11 +60,13 @@ func roundHandler():
 	mostraBoard.tween_property(board, "position:y", board.position.y + boardMovement, 0.6)\
 	.set_trans(Tween.TRANS_SPRING)\
 	.set_ease(Tween.EASE_OUT) 
+	startNewRound.emit()
 	
 	# Fine Fase 1:
 	# sul segnale dalla BoardBehavior (dopo targetSelected)  
 	# eseguo il tween per spostare la board
 	var args = await board.canLeave
+	
 	
 	print("easeOut ", " a[0]: ", args[0], " a[1]: ", args[1])
 	calcScore(args[0], args[1])
@@ -75,6 +80,7 @@ func roundHandler():
 	
 
 	startMinigame.emit()
+	clearFiches.emit()
 	pass # Replace with function body.
 
 
@@ -89,7 +95,7 @@ func roundHandler():
 func calcScore(idx:int , ficheArr: Array[int]) -> void:
 	# calcola lo score e lo manda al round
 	var base_score = 0
-	var multiplier = 1
+	var multiplier = 0
 	var count = 1
 	var idxP = 0
 	var idxM = 0
@@ -129,24 +135,17 @@ func calcScore(idx:int , ficheArr: Array[int]) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-
 	pass
 
 func initializeValues():
-	#print("Istanza attiva su: ", get_path(), " | maxScore: ", maxScore)
-	#if (maxScore != null 
-		#and RSTatStart != null 
-		#and RSTatEnd != null
-		#and maxRoundNumber != null
-		#and hitQty != null):
-		#print("didit")
-	currRound = 0
-	roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, currRound / maxRoundNumber)
-	pScore = maxScore / 5
-	gScore = (maxScore / 5) * 0.75
-	oScore = (maxScore / 5) * 0.5
-	mScore = (maxScore / 5) * 0.1
-	setAllValues.emit()
+	currRound += 1
+	roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, (currRound - 1) / maxRoundNumber)
+	if currRound == 1:
+		pScore = maxScore / 5
+		gScore = (maxScore / 5) * 0.75
+		oScore = (maxScore / 5) * 0.5
+		mScore = (maxScore / 5) * 0.1
+		setAllValues.emit()
 	pass
 
 func calcFinalDestination(scope: Array, score: float) -> int:
@@ -154,8 +153,6 @@ func calcFinalDestination(scope: Array, score: float) -> int:
 	var weightArr: Array[float]
 	weightArr.resize(7)
 	weightArr.fill(0)
-	#var maxRange = 100
-	#var minRange = 1
 	
 	var tchoice = scope[3]
 	
@@ -186,12 +183,6 @@ func calcFinalDestination(scope: Array, score: float) -> int:
 	
 	return scope[rng.rand_weighted(weightArr)].keys()[0]
 	pass
-
-#wOl: win (true) OR lose(false)
-func updateGameState(mgResult: int, wOl: bool):
-	
-	
-	pass
 	
 func _on_rank_meter_end_minigame(score: float) -> void:
 	if has_meta("Scope"):
@@ -206,6 +197,43 @@ func _on_rank_meter_end_minigame(score: float) -> void:
 		
 		finalDestination.emit(mgResult)
 		
-		updateGameState(mgResult, true if tchoice == mgResult else false)
+		updateGameState.emit(targetScope, mgResult, true if tchoice == mgResult else false)
 		
+	pass # Replace with function body.
+
+func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
+	var base_score = 0
+	var multiplier = 0
+	var count = 1
+	var idxP = 0
+	var idxM = 0
+	
+	if ficheArr[idx] != 0:
+		base_score = -(ficheArr[idx])
+		
+	while count<4:
+		idxP = posmod(idx + count, 36)
+		idxM = posmod(idx - count, 36)
+		
+		if ficheArr[idxP] != 0:
+			#print("fichearr[", (idx+count)%36, "] = ", ficheArr[(idx+count)%36])
+			base_score += ficheArr[idxP]
+			multiplier += 1
+			
+		if ficheArr[idxM] != 0:
+			#print("fichearr[", (idx-count)%36, "] = ", ficheArr[(idx-count)%36])
+			base_score += ficheArr[idxM]
+			multiplier += 1
+		count += 1
+		
+	previewBox.text = " Base: {base} Mult: {mult}".format({
+		"base": base_score,
+		"mult": multiplier
+	})
+	pass # Replace with function body.
+
+
+func _on_game_manager_start_new_round() -> void:
+	initializeValues()
+	roundHandler()
 	pass # Replace with function body.

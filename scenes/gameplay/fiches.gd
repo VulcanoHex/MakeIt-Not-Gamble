@@ -46,6 +46,34 @@ func _ready() -> void:
 			#tween.chain().tween_callback(queue_free)
 pass # Replace with function body.
 
+func chipAnimation():
+	var chipArray = makeFichesStack()
+	if len(chipArray) != 0:
+		for chip in chipArray:
+			var target_y = chip.position.y + 73
+			chip.position.y -= 1000
+			
+			#	cade
+			tween.tween_property(chip, "position:y", target_y, .1)\
+			.set_trans(Tween.TRANS_QUAD)\
+			.set_ease(Tween.EASE_IN)
+			
+#			play sfx
+			if len(chipArray) == 5: 
+				sfxPlayer.stream = SFX_BIGDROP
+			elif  len(chipArray) >= 2 and len(chipArray) <= 4:
+				sfxPlayer.stream = SFX_MEDDROP
+			else:
+				sfxPlayer.stream = SFX_SMLDROP
+			tween.tween_callback(sfxPlayer.play)
+			
+			
+#		rimbalza
+			tween.tween_property(chip, "position:y", target_y-5, .05)
+			tween.tween_property(chip, "position:y", target_y, .01)
+	pass
+	
+
 func makeFichesStack() -> Array[Node2D]:
 	var chipArray: Array[Node2D] = []
 	var stackHeight = 0
