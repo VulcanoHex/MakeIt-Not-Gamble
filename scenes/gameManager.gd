@@ -2,9 +2,13 @@ extends Node2D
 
 var playerScore: int
 var dailyObjective: int
+var day: int
 
-@onready var scoreText: RichTextLabel = $"Round Manager/Camera2D/TestUI/Punteggio"
-@onready var pallina: RigidBody2D = $"Round Manager/Camera2D/Schermo/Pallina"
+
+@onready var scoreText: RichTextLabel = $"Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerSc/ScoreReal"
+@onready var daylyObjText: RichTextLabel = $"Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerDO/DailyObjReal"
+@onready var dayText: RichTextLabel = $"Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerDay/DayReal"
+
 signal startNewRound
 
 
@@ -12,7 +16,13 @@ signal startNewRound
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	playerScore = 0
+	scoreText.text = "{score}".format({"score": playerScore})
+	day = 1
+	dayText.text = "{day}".format({"day": day})
 	dailyObjective = 5000
+	daylyObjText.text = "{DObj}".format({"DObj": dailyObjective})
+	
+	
 	pass # Replace with function body.
 
 

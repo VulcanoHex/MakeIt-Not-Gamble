@@ -24,7 +24,7 @@ var badBucaSFX = preload("res://assets/sounds/sfx/Buca/HoleSFX_Bad2.wav")
 
 signal myJobHereIsDone
 
-enum State {ORBITING, LOCKED, ARRIVING, STOPPED, READYTODEPARTURE}
+enum State {ORBITING, LOCKED, ARRIVING, STOPPED}
 var currentState: State = State.ORBITING
 var target: Marker2D
 var bucaGiusta: bool
@@ -141,8 +141,6 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 				# Emetto il segnale
 				myJobHereIsDone.emit()
 				# Siamo pronti a ripartire
-				print("goodbye old friend")
-				#currentState = State.READYTODEPARTURE
 				
 			# DEBUG
 			## 2. --- LOGICA DEL TIMER DI CONTROLLO ---
@@ -160,13 +158,6 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 				## e la pallina riprenderà la velocità orbitale piena per raggiungerla.
 				#currentState = State.ORBITING
 			# END DEBUG
-		State.READYTODEPARTURE:
-			# Still orbiting just in case
-			print("ready to departure")
-			
-			var modulo: float = currentRadius * wheel.rotationSpeed
-			var rotationVector = -tangentVector.normalized() * modulo
-			phyState.linear_velocity = rotationVector
 				
 	
 		
@@ -191,7 +182,6 @@ func _on_round_manager_final_destination(numeroBuca: int, giusta: bool) -> void:
 	pass # Replace with function body.
 
 func _on_round_manager_start_new_round() -> void:
-	print("i wish u were here")
 	currentState = State.ORBITING
 	sosta = false
 	pass # Replace with function body.

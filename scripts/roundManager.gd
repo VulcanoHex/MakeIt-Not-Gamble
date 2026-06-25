@@ -26,7 +26,7 @@ var roundScoreTarget: float
 const SFX_board_in = preload("res://assets/sounds/sfx/Board/BoardSFX_enter3.wav")
 const SFX_board_out = preload("res://assets/sounds/sfx/Board/BoardSFX_exit3.wav")
 
-@onready var previewBox: RichTextLabel = $Camera2D/TestUI/PreviewPunteggio
+@onready var previewBox: RichTextLabel = $Camera2D/Schermo/TestUI/PreviewPunteggio
 
 signal setAllValues
 signal clearFiches
