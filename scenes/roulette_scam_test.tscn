@@ -392,6 +392,7 @@ text = "Preview punteggio"
 [connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_start_new_round"]
 [connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_start_new_round"]
 [connection signal="updateGameState" from="Round Manager" to="." method="_on_round_manager_update_game_state"]
+[connection signal="myJobHereIsDone" from="Round Manager/Camera2D/Schermo/Pallina" to="." method="_on_pallina_my_job_here_is_done"]
 [connection signal="allChipDropped" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]
 [connection signal="canLeave" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager" method="_on_board_can_leave"]
 [connection signal="showPreviewFromBoard" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager" method="_on_board_show_preview_from_board"]

@@ -7,6 +7,7 @@ extends Node2D
 @onready var visibleMeter: ProgressBar = $RankMeterSprite/ProgressBar
 @onready var RoundManager: Node2D = $"../../.."
 @onready var pallina: RigidBody2D = $"../Pallina"
+@onready var board: Node2D = $"../Board"
 
 @onready var SFXplayer: AudioStreamPlayer = $"../../SoundEffectsPlayer"
 
@@ -64,6 +65,7 @@ func _input(event: InputEvent) -> void:
 				updateMeter()
 			if count == 5:
 				endMinigame.emit(mgscore)
+				var wfsig = await board.allChipDropped
 				resetvalues()				
 			calculating = false	
 
@@ -90,6 +92,7 @@ func resetvalues():
 	mgscore = 0
 	calculating = 0
 	count = 0
+	visibleMeter.value = 0
 	pass
 	
 func _on_body_entered(body: Node2D, area: Area2D):

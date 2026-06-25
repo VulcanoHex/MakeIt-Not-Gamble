@@ -4,7 +4,7 @@ var playerScore: int
 var dailyObjective: int
 
 @onready var scoreText: RichTextLabel = $"Round Manager/Camera2D/TestUI/Punteggio"
-
+@onready var pallina: RigidBody2D = $"Round Manager/Camera2D/Schermo/Pallina"
 signal startNewRound
 
 
@@ -42,5 +42,12 @@ func _on_round_manager_update_game_state(targetScope: Array, finalDest: int, res
 	scoreText.text = "punteggio: {score}".format({
 		"score": playerScore
 	})
+	
+	#await pallina.myJobHereIsDone
+	#startNewRound.emit()
+	pass # Replace with function body.
+
+
+func _on_pallina_my_job_here_is_done() -> void:
 	startNewRound.emit()
 	pass # Replace with function body.

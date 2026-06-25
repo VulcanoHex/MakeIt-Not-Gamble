@@ -4,7 +4,8 @@ extends RigidBody2D
 @onready var wheel: StaticBody2D = $"../Wheel"
 @export var soundEffectPlayer: AudioStreamPlayer
 
-@export var tempoSosta = 1.0
+@export var tempoSosta = 2.0
+var sosta: bool = false
 
 # variabili modificabili pathfinding
 @export var orbitalSpeed: float = 400.0
@@ -127,8 +128,9 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			# Riduciamo il tempo rimanente usando il delta time della fisica (phyState.step)
 			timerSosta -= phyState.step		
 			
-			if timerSosta <= 0:
+			if timerSosta <= 0 and not sosta:
 				# Setto SFX
+				sosta = true
 				if bucaGiusta:
 					soundEffectPlayer.stream = goodBucaSFX
 				else:
@@ -139,7 +141,8 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 				# Emetto il segnale
 				myJobHereIsDone.emit()
 				# Siamo pronti a ripartire
-				currentState = State.READYTODEPARTURE
+				print("goodbye old friend")
+				#currentState = State.READYTODEPARTURE
 				
 			# DEBUG
 			## 2. --- LOGICA DEL TIMER DI CONTROLLO ---
@@ -159,6 +162,8 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			# END DEBUG
 		State.READYTODEPARTURE:
 			# Still orbiting just in case
+			print("ready to departure")
+			
 			var modulo: float = currentRadius * wheel.rotationSpeed
 			var rotationVector = -tangentVector.normalized() * modulo
 			phyState.linear_velocity = rotationVector
@@ -167,18 +172,13 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 		
 pass
 
-
-
-
 func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
 	targetBuca(target, phyState)
-
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
 	pass
-
 
 func _on_round_manager_final_destination(numeroBuca: int, giusta: bool) -> void:
 	# set target
@@ -190,7 +190,8 @@ func _on_round_manager_final_destination(numeroBuca: int, giusta: bool) -> void:
 	currentState = State.LOCKED
 	pass # Replace with function body.
 
-
 func _on_round_manager_start_new_round() -> void:
+	print("i wish u were here")
 	currentState = State.ORBITING
+	sosta = false
 	pass # Replace with function body.
