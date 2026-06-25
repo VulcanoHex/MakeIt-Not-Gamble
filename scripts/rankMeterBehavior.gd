@@ -54,6 +54,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
 		if event.keycode == KEY_SPACE:
 			calculating = true
+			print(roundStarted)
 			if roundStarted:
 				count += 1
 				for area in activeHitbox:
@@ -63,10 +64,11 @@ func _input(event: InputEvent) -> void:
 						break
 				SFXplayer.play()
 				updateMeter()
-			if count == 5:
-				endMinigame.emit(mgscore)
-				var wfsig = await board.allChipDropped
-				resetvalues()				
+				if count == 5:
+					endMinigame.emit(mgscore)
+					roundStarted = false
+					await board.allChipDropped
+					resetvalues()				
 			calculating = false	
 
 func updateMeter():
@@ -78,7 +80,6 @@ func updateMeter():
 	pass
 
 func updateValues(maxScore):
-	print ("update")
 	visibleMeter.max_value = maxScore
 	hitScores = {
 		"PerfectArea": maxScore / 5,
@@ -90,7 +91,7 @@ func updateValues(maxScore):
 func resetvalues():
 	roundStarted = false
 	mgscore = 0
-	calculating = 0
+	calculating = false
 	count = 0
 	visibleMeter.value = 0
 	pass

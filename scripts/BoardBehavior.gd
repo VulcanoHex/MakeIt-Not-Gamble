@@ -13,19 +13,6 @@ signal canLeave
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#var test: Array[int]
-	#test.resize(36)
-	#generateRoundBet(test)
-	##test.fill(1)
-##	test[0] = 1
-##	test[21] = 1
-##	test[16] = 1
-##	test[10] = 1
-##	test[30] = 1
-##	test[35] = 1 
-##	test[34] = 1
-#
-	#placeFiches(test)
 	pass # Replace with function body.
 
 	

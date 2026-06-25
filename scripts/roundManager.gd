@@ -8,7 +8,7 @@ var oScore: float
 var mScore: float
 #Q.ta' di hit in un round
 @export var hitQty = 5
-#numero massimo di round settati in questa partita
+#numero massimo di round settati in questa giornata
 @export var maxRoundNumber = 5
 #RST: Round Score Target
 @export var RSTatStart = 0.6
@@ -17,6 +17,8 @@ var mScore: float
 var currRound: int = 0
 #Round Score Target attuale
 var roundScoreTarget: float
+var base_score: int = 0
+var multiplier: int = 0
 
 # Variabili 1a Fase
 @export var board: Node2D
@@ -27,6 +29,9 @@ const SFX_board_in = preload("res://assets/sounds/sfx/Board/BoardSFX_enter3.wav"
 const SFX_board_out = preload("res://assets/sounds/sfx/Board/BoardSFX_exit3.wav")
 
 @onready var previewBox: RichTextLabel = $Camera2D/Schermo/TestUI/PreviewPunteggio
+@onready var roundBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerRo/RoundRealDx
+@onready var baseBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerPSc/PrScoreRealBase
+@onready var multBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerPSc/PrScoreRealMult
 
 signal setAllValues
 signal clearFiches
@@ -94,8 +99,8 @@ func roundHandler():
 
 func calcScore(idx:int , ficheArr: Array[int]) -> void:
 	# calcola lo score e lo manda al round
-	var base_score = 0
-	var multiplier = 0
+	base_score = 0
+	multiplier = 0
 	var count = 1
 	var idxP = 0
 	var idxM = 0
@@ -131,6 +136,8 @@ func calcScore(idx:int , ficheArr: Array[int]) -> void:
 	print (targetScope)
 	print ("base_score: ", base_score)
 	print ("mult: ", multiplier)
+	baseBox.text = "{base}".format({"base": base_score})
+	multBox.text = "{mult}".format({"mult": multiplier})
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -139,6 +146,7 @@ func _process(delta: float) -> void:
 
 func initializeValues():
 	currRound += 1
+	roundBox.text = "{round}".format({"round": currRound})
 	roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, (currRound - 1) / maxRoundNumber)
 	if currRound == 1:
 		pScore = maxScore / 5
@@ -184,19 +192,26 @@ func calcFinalDestination(scope: Array, score: float) -> int:
 	return scope[rng.rand_weighted(weightArr)].keys()[0]
 	pass
 	
-func _on_rank_meter_end_minigame(score: float) -> void:
+func _on_rank_meter_end_minigame(mgScore: float) -> void:
 	if has_meta("Scope"):
-		print("score: ", score, ". RTS: ", roundScoreTarget)
+		print("score: ", mgScore, ". RTS: ", roundScoreTarget)
 		var targetScope = get_meta("Scope")
 		var tchoice = targetScope[3].keys()[0]
 		var mgResult: int
-		if score >= roundScoreTarget:
+		var wOl = false
+		if mgScore >= roundScoreTarget:
 			mgResult = targetScope[3].keys()[0]
+			wOl = true
 		else:
-			mgResult = calcFinalDestination(targetScope, score)
-		finalDestination.emit(mgResult, true if tchoice == mgResult else false)
+			mgResult = calcFinalDestination(targetScope, mgScore)
+		finalDestination.emit(mgResult, wOl)
 		
-		updateGameState.emit(targetScope, mgResult, true if tchoice == mgResult else false)
+		if wOl or mgResult == tchoice:
+			updateGameState.emit(base_score * multiplier)
+		else:
+			for elem in targetScope:
+				if elem.keys()[0] == mgResult:
+					updateGameState.emit(-elem.values()[0])
 		
 	pass # Replace with function body.
 
@@ -235,4 +250,9 @@ func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
 func _on_game_manager_start_new_round() -> void:
 	initializeValues()
 	roundHandler()
+	pass # Replace with function body.
+
+
+func _on_game_manager_new_day_has_come() -> void:
+	currRound = 0
 	pass # Replace with function body.

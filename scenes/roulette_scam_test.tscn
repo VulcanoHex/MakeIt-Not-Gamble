@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cdyql3nn00514"]
 
 [ext_resource type="Script" uid="uid://cy5quveg2lp64" path="res://scripts/roundManager.gd" id="1_5jdl3"]
-[ext_resource type="Script" uid="uid://xylg6v5v20m0" path="res://scenes/gameManager.gd" id="1_38uge"]
+[ext_resource type="Script" uid="uid://xylg6v5v20m0" path="res://scripts/gameManager.gd" id="1_38uge"]
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="1_45l5b"]
 [ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/sprites/utilities/Base pc_Layer 4.png" id="2_n3yoq"]
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
@@ -339,7 +339,6 @@ offset_bottom = 225.64255
 rotation = -1.5707964
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wt5t")
 max_value = 500.0
-value = 1.0
 
 [node name="PerfectArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=1569882486]
 
@@ -448,7 +447,7 @@ theme_override_constants/shadow_offset_x = -2
 theme_override_constants/shadow_offset_y = 2
 theme_override_font_sizes/normal_font_size = 42
 theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
-text = "Score"
+text = "Daily Score"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -652,6 +651,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="newDayHasCome" from="." to="Round Manager" method="_on_game_manager_new_day_has_come"]
 [connection signal="startNewRound" from="." to="Round Manager" method="_on_game_manager_start_new_round"]
 [connection signal="clearFiches" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_clear_fiches"]
 [connection signal="finalDestination" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_final_destination"]
