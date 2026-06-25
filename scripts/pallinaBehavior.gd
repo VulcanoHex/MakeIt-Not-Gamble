@@ -21,7 +21,7 @@ var breakingCoefficient: float = 0.75
 var goodBucaSFX = preload("res://assets/sounds/sfx/Buca/HoleSFX_Good2.wav")
 var badBucaSFX = preload("res://assets/sounds/sfx/Buca/HoleSFX_Bad2.wav")
 
-
+signal iStillStanding
 signal myJobHereIsDone
 
 enum State {ORBITING, LOCKED, ARRIVING, STOPPED}
@@ -120,6 +120,7 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 				currentState = State.STOPPED
 			
 		State.STOPPED:
+			iStillStanding.emit()
 			#tangential speed modulo to simulate la ball ferma
 			var modulo: float = currentRadius * wheel.rotationSpeed
 			var rotationVector = -tangentVector.normalized() * modulo

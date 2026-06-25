@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://cr5d2ml04pmb0"
 [autoload]
 
 PauseScreen="*uid://ctpvif64w5g5h"
+LoseScreen="uid://dwk0ni15bdj21"
 
 [display]
 

@@ -82,10 +82,10 @@ func updateMeter():
 func updateValues(maxScore):
 	visibleMeter.max_value = maxScore
 	hitScores = {
-		"PerfectArea": maxScore / 5,
-		"GoodArea": (maxScore / 5) * 0.75,
-		"OkArea": (maxScore / 5) * 0.5,
-		"MissArea": (maxScore / 5) * 0.1
+		"PerfectArea": maxScore / RoundManager.hitQty * RoundManager.pScore,
+		"GoodArea": (maxScore / RoundManager.hitQty) * RoundManager.gScore,
+		"OkArea": (maxScore / RoundManager.hitQty) * RoundManager.oScore,
+		"MissArea": (maxScore / RoundManager.hitQty) * RoundManager.mScore
 	}
 
 func resetvalues():

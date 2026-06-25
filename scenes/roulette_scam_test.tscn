@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cy5quveg2lp64" path="res://scripts/roundManager.gd" id="1_5jdl3"]
 [ext_resource type="Script" uid="uid://xylg6v5v20m0" path="res://scripts/gameManager.gd" id="1_38uge"]
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="1_45l5b"]
+[ext_resource type="PackedScene" uid="uid://dwk0ni15bdj21" path="res://scenes/gameplay/lose_screen.tscn" id="2_hp2pp"]
 [ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/sprites/utilities/Base pc_Layer 4.png" id="2_n3yoq"]
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
 [ext_resource type="Texture2D" uid="uid://b1c64iio8if8r" path="res://assets/sprites/wheel/wheelwnum.png" id="5_enyeq"]
@@ -50,6 +51,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Game Manager" type="Node2D" unique_id=1526010917]
 script = ExtResource("1_38uge")
+loseScreenScene = ExtResource("2_hp2pp")
 
 [node name="Round Manager" type="Node2D" parent="." unique_id=1492148873 node_paths=PackedStringArray("board")]
 script = ExtResource("1_5jdl3")

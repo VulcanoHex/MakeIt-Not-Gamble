@@ -2,23 +2,24 @@ extends Node2D
 
 #Max Score (setta pure progressbar e hitscores)
 @export var maxScore = 500.0
-var pScore: float
-var gScore: float
-var oScore: float
-var mScore: float
+@export var pScore: float = 1.0
+@export var gScore: float = 0.75
+@export var oScore: float = 0.5
+@export var mScore: float = 0.2
 #Q.ta' di hit in un round
 @export var hitQty = 5
-#numero massimo di round settati in questa giornata
-@export var maxRoundNumber = 5
 #RST: Round Score Target
 @export var RSTatStart = 0.6
 @export var RSTatEnd = 0.85
 #round corrente
 var currRound: int = 0
+var maxRoundNumber: int
 #Round Score Target attuale
 var roundScoreTarget: float
 var base_score: int = 0
 var multiplier: int = 0
+
+var valuesFlag = true
 
 # Variabili 1a Fase
 @export var board: Node2D
@@ -42,13 +43,6 @@ signal startNewRound
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	initializeValues()
-	#roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, currRound / maxRoundNumber)
-	#pScore = maxScore / 5
-	#gScore = (maxScore / 5) * 0.75
-	#oScore = (maxScore / 5) * 0.5
-	#mScore = (maxScore / 5) * 0.1
-	roundHandler()
 	pass # Replace with function body.
 
 # Game Logic (Le varie giornate vanno qui)
@@ -147,12 +141,9 @@ func _process(delta: float) -> void:
 func initializeValues():
 	currRound += 1
 	roundBox.text = "{round}".format({"round": currRound})
-	roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, (currRound - 1) / maxRoundNumber)
-	if currRound == 1:
-		pScore = maxScore / 5
-		gScore = (maxScore / 5) * 0.75
-		oScore = (maxScore / 5) * 0.5
-		mScore = (maxScore / 5) * 0.1
+	roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, float(currRound - 1) / float(maxRoundNumber))
+	if valuesFlag:
+		valuesFlag = false
 		setAllValues.emit()
 	pass
 
@@ -176,7 +167,7 @@ func calcFinalDestination(scope: Array, score: float) -> int:
 	)
 	print(scope)
 	
-	var proportion = remap(score, mScore * hitQty, roundScoreTarget, 0.0, 1.0)
+	var proportion = remap(score, maxScore * mScore, roundScoreTarget, 0.0, 1.0)
 	var bellCentre = 1 - proportion
 	print (proportion)
 	if proportion == 0.0:
@@ -253,6 +244,9 @@ func _on_game_manager_start_new_round() -> void:
 	pass # Replace with function body.
 
 
-func _on_game_manager_new_day_has_come() -> void:
+func _on_game_manager_new_day_has_come(maxRound: int) -> void:
+	maxRoundNumber = maxRound
 	currRound = 0
+	initializeValues()
+	roundHandler()
 	pass # Replace with function body.
