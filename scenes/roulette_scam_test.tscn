@@ -8,12 +8,12 @@
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
 [ext_resource type="Texture2D" uid="uid://b1c64iio8if8r" path="res://assets/sprites/wheel/wheelwnum.png" id="5_enyeq"]
 [ext_resource type="Script" uid="uid://cpji0q8msgmki" path="res://scenes/sound_effects_player.gd" id="5_oe1la"]
-[ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/sprites/wheel/whcircle.png" id="6_nw87x"]
 [ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://scripts/pallinaBehavior.gd" id="7_38uge"]
 [ext_resource type="Texture2D" uid="uid://coeufknyf4ba6" path="res://assets/sprites/utilities/sprite_tavolo.png" id="7_oe1la"]
 [ext_resource type="Script" uid="uid://b07h4f5knjj10" path="res://scripts/BoardBehavior.gd" id="8_6x76j"]
 [ext_resource type="PackedScene" uid="uid://dexstrlv7y2gk" path="res://scenes/gameplay/Fiches.tscn" id="9_n3yoq"]
 [ext_resource type="Script" uid="uid://j1bp4k2p38wn" path="res://scripts/boardButtonHandler.gd" id="11_enyeq"]
+[ext_resource type="Texture2D" uid="uid://bnar2f1qtukut" path="res://assets/sprites/wheel/circleILGRIGIO.png" id="11_loo3n"]
 [ext_resource type="Texture2D" uid="uid://f07vspiceb4" path="res://assets/sprites/grid/hoverbutton.png" id="11_lpcxd"]
 [ext_resource type="Texture2D" uid="uid://cg4vcfnv3743r" path="res://assets/sprites/utilities/meter.png" id="13_5jdl3"]
 [ext_resource type="Script" uid="uid://bk5sl7jr3goij" path="res://scripts/rankMeterBehavior.gd" id="14_nw87x"]
@@ -106,8 +106,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_oqjqy")
 
 [node name="Sprite2D" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Pallina/CollisionShape2D" unique_id=1396971501]
-modulate = Color(0, 0.26927632, 0.59913516, 1)
-texture = ExtResource("6_nw87x")
+texture = ExtResource("11_loo3n")
 
 [node name="Board" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=832768133]
 top_level = true
