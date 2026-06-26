@@ -18,8 +18,11 @@ var roundInDay: Array[int]
 @onready var dayText: RichTextLabel = $"Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerDay/DayReal"
 @onready var roundSxText: RichTextLabel = $"Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerRo/RoundRealSx"
 
+@onready var sfxPlayer: AudioStreamPlayer = $"Round Manager/Camera2D/SoundEffectsPlayer"
 @export var loseScreenScene: PackedScene
 @export var winScreenScene: PackedScene
+const LOSE_SFX = preload("uid://2r6w8srnilex")
+const WIN_SFX = preload("uid://c3melcjb8t3jt")
 
 
 signal startNewRound
@@ -82,12 +85,16 @@ func _on_round_manager_update_game_state(finalScore: int) -> void:
 				var winScreen = winScreenScene.instantiate()
 				add_child(winScreen)
 				winScreen.gg()
+				sfxPlayer.playSound(WIN_SFX)
 		#se non hai superato l'obiettivo giornaliero hai perso (skill issue)
 		else:
 			print("skill issue hai perso")
 			var loseScreen = loseScreenScene.instantiate()
 			add_child(loseScreen)
 			loseScreen.skill_issue()
+			sfxPlayer.playSound(LOSE_SFX)
+
+			
 	else:
 		scoreText.text = "{score}".format({"score": playerScore})
 		await pallina.myJobHereIsDone
