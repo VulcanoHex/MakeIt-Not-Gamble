@@ -24,6 +24,7 @@ var valuesFlag = true
 # Variabili 1a Fase
 @export var board: Node2D
 @onready var sfxPlayer = $Camera2D/SoundEffectsPlayer
+@export var timerBoard: float = .4
 
 @onready var previewBox: RichTextLabel = $Camera2D/Schermo/TestUI/PreviewPunteggio
 @onready var roundBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerRo/RoundRealDx
@@ -46,10 +47,17 @@ func gameHandler():
 	pass
 
 # Gestisce l'esecuzione ogni Round, si occupa di arbitrare i vari nodi
-func roundHandler():
+func roundHandler(isFirstRoundOfPlay: bool):
 	# Fase 1: Faccio scendere la board
-	print("easeIn")
-	board.makeBoardDescend()
+	print("creating timer", isFirstRoundOfPlay)
+	if isFirstRoundOfPlay:
+		await get_tree().create_timer(timerBoard).timeout
+		print("timer done")
+
+		board.makeBoardDescend()
+	else:
+		board.makeBoardDescend()
+	
 	resetGameObjects.emit()
 	await board.boardDropped
 	# Fine Fase 1:
@@ -226,13 +234,13 @@ func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
 
 func _on_game_manager_start_new_round() -> void:
 	initializeValues()
-	roundHandler()
+	roundHandler(false)
 	pass # Replace with function body.
 
 
-func _on_game_manager_new_day_has_come(maxRound: int) -> void:
+func _on_game_manager_new_day_has_come(maxRound: int, isFirstDay: bool) -> void:
 	maxRoundNumber = maxRound
 	currRound = 0
 	initializeValues()
-	roundHandler()
+	roundHandler(isFirstDay)
 	pass # Replace with function body.

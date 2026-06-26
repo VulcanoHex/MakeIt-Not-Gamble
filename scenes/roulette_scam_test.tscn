@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cy8s5esxo04ty" path="res://scenes/gameplay/win_screen.tscn" id="3_xmh0b"]
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
 [ext_resource type="Texture2D" uid="uid://b1c64iio8if8r" path="res://assets/sprites/wheel/wheelwnum.png" id="5_enyeq"]
+[ext_resource type="Script" uid="uid://cpji0q8msgmki" path="res://scenes/sound_effects_player.gd" id="5_oe1la"]
 [ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/sprites/wheel/whcircle.png" id="6_nw87x"]
 [ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://scripts/pallinaBehavior.gd" id="7_38uge"]
 [ext_resource type="Script" uid="uid://b07h4f5knjj10" path="res://scripts/BoardBehavior.gd" id="8_6x76j"]
@@ -63,6 +64,7 @@ board = NodePath("Camera2D/Schermo/Board")
 
 [node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=326190641]
 bus = &"Effects"
+script = ExtResource("5_oe1la")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=762029440]
 stream = ExtResource("1_45l5b")

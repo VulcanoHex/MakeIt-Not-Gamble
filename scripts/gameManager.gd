@@ -53,7 +53,7 @@ func setValues():
 	daylyObjText.text = "{DObj}".format({"DObj": dailyObjective[day - 1]})
 	roundSxText.text = "{rounds}".format({"rounds": roundInDay[day - 1]})
 	
-	newDayHasCome.emit(roundInDay[day - 1])
+	newDayHasCome.emit(roundInDay[day - 1], day == 1 and roundInformation.currRound == 0)
 	pass
 
 func _on_round_manager_update_game_state(finalScore: int) -> void:
@@ -76,7 +76,7 @@ func _on_round_manager_update_game_state(finalScore: int) -> void:
 				daylyObjText.text = "{DObj}".format({"DObj": dailyObjective[day - 1]})
 				roundSxText.text = "{rounds}".format({"rounds": roundInDay[day - 1]})
 				await pallina.myJobHereIsDone
-				newDayHasCome.emit(roundInDay[day - 1])
+				newDayHasCome.emit(roundInDay[day - 1], false)
 			else:
 				print("gg")
 				var winScreen = winScreenScene.instantiate()

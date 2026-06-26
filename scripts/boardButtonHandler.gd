@@ -25,8 +25,7 @@ func buttonHover(idx:int):
 	
 func buttonPressed(idx: int):
 	setButtonsState(true)
-	SFXplayer.stream = clickSfx
-	SFXplayer.play() 
+	SFXplayer.playSound(clickSfx)
 	targetSelected.emit(idx)
 	print("tasto: ", idx)
 

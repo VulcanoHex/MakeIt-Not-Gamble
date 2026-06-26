@@ -118,6 +118,12 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 				phyState.linear_velocity = Vector2.ZERO
 				# Carico il timerigno di sosta
 				timerSosta = tempoSosta
+				# faccio il suono
+				if bucaGiusta:
+					soundEffectPlayer.playSound(goodBucaSFX)
+				else:
+					soundEffectPlayer.playSound(badBucaSFX)
+				# I'M STILL STANDING YEAH YEAH NANANANANAN
 				iStillStanding.emit()
 				currentState = State.STOPPED
 			
@@ -134,13 +140,7 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			if timerSosta <= 0 and not sosta:
 				# Setto SFX
 				sosta = true
-				if bucaGiusta:
-					soundEffectPlayer.stream = goodBucaSFX
-				else:
-					soundEffectPlayer.stream = badBucaSFX
-					
 				# Emetto SFX
-				soundEffectPlayer.play()
 				# Emetto il segnale
 				myJobHereIsDone.emit()
 				# Siamo pronti a ripartire

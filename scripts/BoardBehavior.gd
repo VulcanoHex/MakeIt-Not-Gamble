@@ -24,8 +24,8 @@ func _ready() -> void:
 
 func makeBoardDescend() -> void:
 	var mostraBoard: Tween = create_tween()
-	sfxPlayer.stream = SFX_board_in
-	mostraBoard.tween_callback(sfxPlayer.play)
+	#sfxPlayer.stream = 
+	mostraBoard.tween_callback(sfxPlayer.playSound.bind(SFX_board_in))
 	mostraBoard.tween_property(self, "position:y", self.position.y + boardMovement, 0.6)\
 	.set_trans(Tween.TRANS_SPRING)\
 	.set_ease(Tween.EASE_OUT) 
@@ -33,8 +33,8 @@ func makeBoardDescend() -> void:
 	
 func makeBoardAscend() -> void:
 	var rimuoviBoard: Tween = create_tween()
-	sfxPlayer.stream = SFX_board_out
-	rimuoviBoard.tween_callback(sfxPlayer.play)
+	#sfxPlayer.stream = SFX_board_out
+	rimuoviBoard.tween_callback(sfxPlayer.playSound.bind(SFX_board_out))
 	rimuoviBoard.tween_property(self, "position:y", self.position.y - boardMovement, 0.6)\
 		.set_trans(Tween.TRANS_SPRING)\
 		.set_ease(Tween.EASE_IN)

@@ -59,10 +59,9 @@ func _input(event: InputEvent) -> void:
 				count += 1
 				for area in activeHitbox:
 					if activeHitbox[area]: 
-						SFXplayer.stream = hitSFX[area]
+						SFXplayer.playSound(hitSFX[area])
 						mgscore += hitScores[area]
 						break
-				SFXplayer.play()
 				updateMeter()
 				if count == 5:
 					endMinigame.emit(mgscore)
