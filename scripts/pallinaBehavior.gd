@@ -133,7 +133,6 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			
 			if timerSosta <= 0 and not sosta:
 				# Setto SFX
-				changeStateToStopped()
 				sosta = true
 				if bucaGiusta:
 					soundEffectPlayer.stream = goodBucaSFX
@@ -167,8 +166,6 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 		
 pass
 
-func changeStateToStopped():
-	iStillStanding.emit()
 
 func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
 	targetBuca(target, phyState)

@@ -59,9 +59,7 @@ func setValues():
 func _on_round_manager_update_game_state(finalScore: int) -> void:
 
 	playerScore += finalScore 
-	
-	scoreText.text = "{score}".format({"score": playerScore})
-	
+		
 	if roundInformation.currRound == roundInDay[day - 1]:
 		if playerScore >= dailyObjective[day - 1]:
 			if day < maxDays:

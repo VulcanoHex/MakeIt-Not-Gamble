@@ -51,9 +51,7 @@ func roundHandler():
 	print("easeIn")
 	board.makeBoardDescend()
 	resetGameObjects.emit()
-	print("pre await")
 	await board.boardDropped
-	print("post await")
 	# Fine Fase 1:
 	# sul segnale dalla BoardBehavior (dopo targetSelected)  
 	# eseguo il tween per spostare la board
