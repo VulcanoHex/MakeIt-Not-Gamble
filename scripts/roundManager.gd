@@ -193,8 +193,8 @@ func _on_rank_meter_end_minigame(mgScore: float) -> void:
 	pass # Replace with function body.
 
 func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
-	var base_score = 0
-	var multiplier = 0
+	var bScore = 0
+	var mPlier = 0
 	var count = 1
 	var idxP = 0
 	var idxM = 0
@@ -208,18 +208,18 @@ func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
 		
 		if ficheArr[idxP] != 0:
 			#print("fichearr[", (idx+count)%36, "] = ", ficheArr[(idx+count)%36])
-			base_score += ficheArr[idxP]
-			multiplier += 1
+			bScore += ficheArr[idxP]
+			mPlier += 1
 			
 		if ficheArr[idxM] != 0:
 			#print("fichearr[", (idx-count)%36, "] = ", ficheArr[(idx-count)%36])
-			base_score += ficheArr[idxM]
-			multiplier += 1
+			bScore += ficheArr[idxM]
+			mPlier += 1
 		count += 1
 		
 	previewBox.text = " Base: {base} Mult: {mult}".format({
-		"base": base_score,
-		"mult": multiplier
+		"base": bScore,
+		"mult": mPlier
 	})
 	pass # Replace with function body.
 

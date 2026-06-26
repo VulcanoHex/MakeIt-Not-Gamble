@@ -58,33 +58,45 @@ func setValues():
 
 func _on_round_manager_update_game_state(finalScore: int) -> void:
 
-	playerScore += finalScore 
-		
+	playerScore += finalScore
+	#aspetta che la pallina vada in buca per aggiornare la UI 
+	await pallina.iStillStanding
+	
+	#verifica che sia l'ultimo round della giornata
 	if roundInformation.currRound == roundInDay[day - 1]:
+		#verifica se hai superato la giornata con lo score
 		if playerScore >= dailyObjective[day - 1]:
+			#verifica se sono o non sono finite le giornate
 			if day < maxDays:
+				#se sei qui dentro aggiorni tutta la ui
 				day += 1
 				playerScore = 0
-				await pallina.iStillStanding
 				scoreText.text = "{score}".format({"score": playerScore})
 				dayText.text = "{day}".format({"day": day})
 				daylyObjText.text = "{DObj}".format({"DObj": dailyObjective[day - 1]})
 				roundSxText.text = "{rounds}".format({"rounds": roundInDay[day - 1]})
+				await pallina.myJobHereIsDone
 				newDayHasCome.emit(roundInDay[day - 1])
 			else:
 				print("gg")
 				var winScreen = winScreenScene.instantiate()
 				add_child(winScreen)
 				winScreen.gg()
+		#se non hai superato l'obiettivo giornaliero hai perso (skill issue)
 		else:
 			print("skill issue hai perso")
 			var loseScreen = loseScreenScene.instantiate()
 			add_child(loseScreen)
 			loseScreen.skill_issue()
+	else:
+		scoreText.text = "{score}".format({"score": playerScore})
+		await pallina.myJobHereIsDone
+		startNewRound.emit()	
+		
 			
 	pass # Replace with function body.
 
 
 func _on_pallina_my_job_here_is_done() -> void:
-	startNewRound.emit()
+	#startNewRound.emit()
 	pass # Replace with function body.
