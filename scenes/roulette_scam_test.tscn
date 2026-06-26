@@ -15,13 +15,14 @@
 [ext_resource type="Script" uid="uid://j1bp4k2p38wn" path="res://scripts/boardButtonHandler.gd" id="11_enyeq"]
 [ext_resource type="Texture2D" uid="uid://bnar2f1qtukut" path="res://assets/sprites/wheel/circleILGRIGIO.png" id="11_loo3n"]
 [ext_resource type="Texture2D" uid="uid://f07vspiceb4" path="res://assets/sprites/grid/hoverbutton.png" id="11_lpcxd"]
-[ext_resource type="Texture2D" uid="uid://cg4vcfnv3743r" path="res://assets/sprites/utilities/meter.png" id="13_5jdl3"]
 [ext_resource type="Script" uid="uid://bk5sl7jr3goij" path="res://scripts/rankMeterBehavior.gd" id="14_nw87x"]
 [ext_resource type="Texture2D" uid="uid://bolcxanhypln6" path="res://assets/sprites/grid/gridwnumFinale.png" id="14_oe1la"]
 [ext_resource type="Texture2D" uid="uid://dtklct6dbmp16" path="res://assets/sprites/UI/BaseUI.png" id="16_6x76j"]
 [ext_resource type="Texture2D" uid="uid://cwn1tj67dqhqy" path="res://assets/sprites/UI/UILayerType1.png" id="17_d06ee"]
 [ext_resource type="Texture2D" uid="uid://dviikglsulvr5" path="res://assets/sprites/utilities/suppLayerPreview.png" id="17_loo3n"]
 [ext_resource type="Texture2D" uid="uid://dfkn8kfl4y4n4" path="res://assets/sprites/UI/UILayerType2.png" id="18_pmlrr"]
+[ext_resource type="Texture2D" uid="uid://bcof6kj1aqmqr" path="res://assets/sprites/utilities/rankmeter.png" id="19_omxds"]
+[ext_resource type="Texture2D" uid="uid://cn0c24vs4boai" path="res://assets/sprites/utilities/rankmeterGlass.png" id="20_xpibg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cb0m5"]
 radius = 344.0131
@@ -333,16 +334,18 @@ position = Vector2(40, 0)
 script = ExtResource("14_nw87x")
 
 [node name="RankMeterSprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=576798676]
-texture = ExtResource("13_5jdl3")
+texture = ExtResource("19_omxds")
 
 [node name="ProgressBar" type="ProgressBar" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=807193295]
-offset_top = 180.64255
-offset_right = 361.3746
-offset_bottom = 225.64255
+offset_left = -9.374519
+offset_top = 184.11852
+offset_right = 358.08307
+offset_bottom = 245.83711
 rotation = -1.5707964
 mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wt5t")
 max_value = 500.0
+show_percentage = false
 
 [node name="PerfectArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=1569882486]
 
@@ -362,6 +365,9 @@ shape = SubResource("RectangleShape2D_g4v7s")
 position = Vector2(-90, 0)
 shape = SubResource("RectangleShape2D_d0u6y")
 debug_color = Color(0, 0.6, 0.69803923, 0.36078432)
+
+[node name="Sprite2D" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=1028038419]
+texture = ExtResource("20_xpibg")
 
 [node name="TestUI" type="Control" parent="Round Manager/Camera2D/Schermo" unique_id=1435673195]
 layout_mode = 3
