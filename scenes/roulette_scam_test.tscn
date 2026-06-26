@@ -25,9 +25,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_cb0m5"]
 radius = 344.0131
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqjqy"]
-size = Vector2(41.27195, 72.2777)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_1wt5t"]
 radius = 249.00201
 
@@ -93,21 +90,6 @@ shape = SubResource("CircleShape2D_cb0m5")
 
 [node name="Wheel sprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=294692740]
 texture = ExtResource("5_enyeq")
-
-[node name="Test Casella Target" type="Area2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite" unique_id=1390219992]
-
-[node name="Pallina" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite/Test Casella Target" unique_id=543451862]
-modulate = Color(1, 1, 0, 1)
-position = Vector2(270.2663, -24.190046)
-scale = Vector2(0.99999976, 0.99999976)
-texture = ExtResource("6_nw87x")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite/Test Casella Target" unique_id=120660663]
-visible = false
-position = Vector2(267.38623, -24.58133)
-rotation = -0.099483766
-scale = Vector2(0.9999999, 0.9999999)
-shape = SubResource("RectangleShape2D_oqjqy")
 
 [node name="Wheel internal collision" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=1097310473]
 shape = SubResource("CircleShape2D_1wt5t")
