@@ -24,17 +24,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func buttonExit(idx: int):
-	#var startScope = (idx - 3) % 36
-	#var endScope = (idx + 3) % 36
-	#var currIdx = 0
-	#for child in get_children():
-		#currIdx = child.get_index()
-		#
-		#if (currIdx >= startScope and
-			#currIdx <= endScope and 
-			#currIdx != idx):
-			#child.texture_normal = null
-			#child.self_modulate.a = 1
 	for offset in range(-3, 4):
 		if offset == 0:
 			continue
@@ -46,18 +35,6 @@ func buttonExit(idx: int):
 
 func buttonHover(idx: int):
 	showPreview.emit(idx)
-	#var startScope = (idx - 3) % 36
-	#var endScope = (idx + 3) % 36
-	#var currIdx = 0
-	#for child in get_children():
-		#currIdx = child.get_index()
-		#
-		#if (currIdx >= startScope and
-			#currIdx <= endScope and 
-			#currIdx != idx):
-			#child.texture_normal = textureButtonInScope
-			#child.self_modulate.a = .4
-			#
 	for offset in range(-3, 4):
 		if offset == 0:
 			continue

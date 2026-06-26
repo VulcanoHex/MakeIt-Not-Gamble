@@ -4,13 +4,13 @@
 [ext_resource type="Script" uid="uid://xylg6v5v20m0" path="res://scripts/gameManager.gd" id="1_38uge"]
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="1_45l5b"]
 [ext_resource type="PackedScene" uid="uid://dwk0ni15bdj21" path="res://scenes/gameplay/lose_screen.tscn" id="2_hp2pp"]
-[ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/sprites/utilities/Base pc_Layer 4.png" id="2_n3yoq"]
 [ext_resource type="PackedScene" uid="uid://cy8s5esxo04ty" path="res://scenes/gameplay/win_screen.tscn" id="3_xmh0b"]
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
 [ext_resource type="Texture2D" uid="uid://b1c64iio8if8r" path="res://assets/sprites/wheel/wheelwnum.png" id="5_enyeq"]
 [ext_resource type="Script" uid="uid://cpji0q8msgmki" path="res://scenes/sound_effects_player.gd" id="5_oe1la"]
 [ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/sprites/wheel/whcircle.png" id="6_nw87x"]
 [ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://scripts/pallinaBehavior.gd" id="7_38uge"]
+[ext_resource type="Texture2D" uid="uid://coeufknyf4ba6" path="res://assets/sprites/utilities/sprite_tavolo.png" id="7_oe1la"]
 [ext_resource type="Script" uid="uid://b07h4f5knjj10" path="res://scripts/BoardBehavior.gd" id="8_6x76j"]
 [ext_resource type="PackedScene" uid="uid://dexstrlv7y2gk" path="res://scenes/gameplay/Fiches.tscn" id="9_n3yoq"]
 [ext_resource type="Script" uid="uid://j1bp4k2p38wn" path="res://scripts/boardButtonHandler.gd" id="11_enyeq"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bolcxanhypln6" path="res://assets/sprites/grid/gridwnumFinale.png" id="14_oe1la"]
 [ext_resource type="Texture2D" uid="uid://dtklct6dbmp16" path="res://assets/sprites/UI/BaseUI.png" id="16_6x76j"]
 [ext_resource type="Texture2D" uid="uid://cwn1tj67dqhqy" path="res://assets/sprites/UI/UILayerType1.png" id="17_d06ee"]
+[ext_resource type="Texture2D" uid="uid://dviikglsulvr5" path="res://assets/sprites/utilities/suppLayerPreview.png" id="17_loo3n"]
 [ext_resource type="Texture2D" uid="uid://dfkn8kfl4y4n4" path="res://assets/sprites/UI/UILayerType2.png" id="18_pmlrr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cb0m5"]
@@ -70,7 +71,7 @@ bus = &"Music"
 
 [node name="Schermo" type="Sprite2D" parent="Round Manager/Camera2D" unique_id=1984401507]
 texture_filter = 1
-texture = ExtResource("2_n3yoq")
+texture = ExtResource("7_oe1la")
 
 [node name="Wheel" type="StaticBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1402797758]
 position = Vector2(-321, 0)
@@ -311,6 +312,23 @@ layout_mode = 2
 offset_transform_enabled = true
 texture_hover = ExtResource("11_lpcxd")
 
+[node name="TextureRect" type="TextureRect" parent="Round Manager/Camera2D/Schermo/Board" unique_id=598676838]
+offset_left = -200.0
+offset_top = -360.0
+offset_right = 200.0
+offset_bottom = -300.0
+texture = ExtResource("17_loo3n")
+
+[node name="PreviewPunteggio" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/Board" unique_id=1494393926]
+offset_left = -171.0
+offset_top = -349.0
+offset_right = 172.0
+offset_bottom = -301.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="RankMeter" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=995833279]
 position = Vector2(40, 0)
 script = ExtResource("14_nw87x")
@@ -323,6 +341,7 @@ offset_top = 180.64255
 offset_right = 361.3746
 offset_bottom = 225.64255
 rotation = -1.5707964
+mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wt5t")
 max_value = 500.0
 
@@ -351,15 +370,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-
-[node name="PreviewPunteggio" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI" unique_id=1494393926]
-layout_mode = 0
-offset_left = 30.0
-offset_top = -358.0
-offset_right = 583.0
-offset_bottom = -304.0
-mouse_filter = 2
-text = "Preview punteggio"
 
 [node name="BaseUI" type="TextureRect" parent="Round Manager/Camera2D/Schermo/TestUI" unique_id=1136595456]
 layout_mode = 0

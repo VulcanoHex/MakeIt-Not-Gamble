@@ -5,7 +5,7 @@ var playerScore: int
 @export var minRound: int = 2
 @export var maxRound: int = 4
 @export var minObj: int = 1500
-@export var maxObj: int = 3000
+@export var maxObj: int = 3500
 var day: int
 var dailyObjective: Array[int]
 var roundInDay: Array[int]

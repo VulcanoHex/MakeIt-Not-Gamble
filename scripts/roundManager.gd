@@ -26,7 +26,7 @@ var valuesFlag = true
 @onready var sfxPlayer = $Camera2D/SoundEffectsPlayer
 @export var timerBoard: float = .4
 
-@onready var previewBox: RichTextLabel = $Camera2D/Schermo/TestUI/PreviewPunteggio
+@onready var previewBox: RichTextLabel = $Camera2D/Schermo/Board/PreviewPunteggio
 @onready var roundBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerRo/RoundRealDx
 @onready var baseBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerPSc/PrScoreRealBase
 @onready var multBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerPSc/PrScoreRealMult
@@ -225,7 +225,7 @@ func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
 			mPlier += 1
 		count += 1
 		
-	previewBox.text = " Base: {base} Mult: {mult}".format({
+	previewBox.text = "{base} X {mult}".format({
 		"base": bScore,
 		"mult": mPlier
 	})
