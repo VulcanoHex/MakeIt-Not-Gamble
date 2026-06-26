@@ -2,6 +2,9 @@ extends GridContainer
 signal targetSelected
 signal showPreview
 
+@export var textureButtonInScope: Texture2D = preload("res://assets/sprites/grid/hoverbutton.png")
+@export var opacityInScope = .5
+
 @onready var SFXplayer: AudioStreamPlayer = $"../../../SoundEffectsPlayer"
 @onready var clickSfx = preload("res://assets/sounds/sfx/Click/ClickSFX_1.wav")
 
@@ -14,13 +17,54 @@ func _ready() -> void:
 		if child is TextureButton:
 			child.pressed.connect(buttonPressed.bind(child.get_index()))
 			child.mouse_entered.connect(buttonHover.bind(child.get_index()))
+			child.mouse_exited.connect(buttonExit.bind(child.get_index()))
 			child.disabled = true
 			
 	print("stacca stacca")
 	pass # Replace with function body.
 
-func buttonHover(idx:int):
+func buttonExit(idx: int):
+	#var startScope = (idx - 3) % 36
+	#var endScope = (idx + 3) % 36
+	#var currIdx = 0
+	#for child in get_children():
+		#currIdx = child.get_index()
+		#
+		#if (currIdx >= startScope and
+			#currIdx <= endScope and 
+			#currIdx != idx):
+			#child.texture_normal = null
+			#child.self_modulate.a = 1
+	for offset in range(-3, 4):
+		if offset == 0:
+			continue
+		
+		var child = get_child(posmod(idx + offset, 36))
+		child.texture_normal = null
+		child.self_modulate.a = 1
+	pass
+
+func buttonHover(idx: int):
 	showPreview.emit(idx)
+	#var startScope = (idx - 3) % 36
+	#var endScope = (idx + 3) % 36
+	#var currIdx = 0
+	#for child in get_children():
+		#currIdx = child.get_index()
+		#
+		#if (currIdx >= startScope and
+			#currIdx <= endScope and 
+			#currIdx != idx):
+			#child.texture_normal = textureButtonInScope
+			#child.self_modulate.a = .4
+			#
+	for offset in range(-3, 4):
+		if offset == 0:
+			continue
+		
+		var child = get_child(posmod(idx + offset, 36))
+		child.texture_normal = textureButtonInScope
+		child.self_modulate.a = .4
 	pass
 	
 func buttonPressed(idx: int):

@@ -12,12 +12,12 @@
 [ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/sprites/wheel/whcircle.png" id="6_nw87x"]
 [ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://scripts/pallinaBehavior.gd" id="7_38uge"]
 [ext_resource type="Script" uid="uid://b07h4f5knjj10" path="res://scripts/BoardBehavior.gd" id="8_6x76j"]
-[ext_resource type="Texture2D" uid="uid://x0ko351fhstx" path="res://assets/sprites/grid/gridwnum.png" id="9_d06ee"]
 [ext_resource type="PackedScene" uid="uid://dexstrlv7y2gk" path="res://scenes/gameplay/Fiches.tscn" id="9_n3yoq"]
 [ext_resource type="Script" uid="uid://j1bp4k2p38wn" path="res://scripts/boardButtonHandler.gd" id="11_enyeq"]
 [ext_resource type="Texture2D" uid="uid://f07vspiceb4" path="res://assets/sprites/grid/hoverbutton.png" id="11_lpcxd"]
 [ext_resource type="Texture2D" uid="uid://cg4vcfnv3743r" path="res://assets/sprites/utilities/meter.png" id="13_5jdl3"]
 [ext_resource type="Script" uid="uid://bk5sl7jr3goij" path="res://scripts/rankMeterBehavior.gd" id="14_nw87x"]
+[ext_resource type="Texture2D" uid="uid://bolcxanhypln6" path="res://assets/sprites/grid/gridwnumFinale.png" id="14_oe1la"]
 [ext_resource type="Texture2D" uid="uid://dtklct6dbmp16" path="res://assets/sprites/UI/BaseUI.png" id="16_6x76j"]
 [ext_resource type="Texture2D" uid="uid://cwn1tj67dqhqy" path="res://assets/sprites/UI/UILayerType1.png" id="17_d06ee"]
 [ext_resource type="Texture2D" uid="uid://dfkn8kfl4y4n4" path="res://assets/sprites/UI/UILayerType2.png" id="18_pmlrr"]
@@ -135,7 +135,7 @@ distanzaCaselle = 100
 offsetCaselle_x = 30
 
 [node name="Board Sprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Board" unique_id=681180018]
-texture = ExtResource("9_d06ee")
+texture = ExtResource("14_oe1la")
 
 [node name="BoardButtonContainer" type="GridContainer" parent="Round Manager/Camera2D/Schermo/Board" unique_id=497227279]
 propagate_maximum_size = false

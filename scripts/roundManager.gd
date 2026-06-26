@@ -208,7 +208,7 @@ func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
 	var idxM = 0
 	
 	if ficheArr[idx] != 0:
-		base_score = -(ficheArr[idx])
+		bScore = -(ficheArr[idx])
 		
 	while count<4:
 		idxP = posmod(idx + count, 36)
