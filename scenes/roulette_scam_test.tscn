@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="1_45l5b"]
 [ext_resource type="PackedScene" uid="uid://dwk0ni15bdj21" path="res://scenes/gameplay/lose_screen.tscn" id="2_hp2pp"]
 [ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/sprites/utilities/Base pc_Layer 4.png" id="2_n3yoq"]
+[ext_resource type="PackedScene" uid="uid://cy8s5esxo04ty" path="res://scenes/gameplay/win_screen.tscn" id="3_xmh0b"]
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
 [ext_resource type="Texture2D" uid="uid://b1c64iio8if8r" path="res://assets/sprites/wheel/wheelwnum.png" id="5_enyeq"]
 [ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/sprites/wheel/whcircle.png" id="6_nw87x"]
@@ -52,6 +53,7 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [node name="Game Manager" type="Node2D" unique_id=1526010917]
 script = ExtResource("1_38uge")
 loseScreenScene = ExtResource("2_hp2pp")
+winScreenScene = ExtResource("3_xmh0b")
 
 [node name="Round Manager" type="Node2D" parent="." unique_id=1492148873 node_paths=PackedStringArray("board")]
 script = ExtResource("1_5jdl3")
@@ -109,12 +111,11 @@ shape = SubResource("RectangleShape2D_oqjqy")
 [node name="Wheel internal collision" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=1097310473]
 shape = SubResource("CircleShape2D_1wt5t")
 
-[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073 node_paths=PackedStringArray("soundEffectPlayer")]
+[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073]
 position = Vector2(-385, -256)
 mass = 0.005
 gravity_scale = 0.005
 script = ExtResource("7_38uge")
-soundEffectPlayer = NodePath("../../SoundEffectsPlayer")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Pallina" unique_id=637736521]
@@ -131,6 +132,7 @@ script = ExtResource("8_6x76j")
 fiches = ExtResource("9_n3yoq")
 distanzaCaselle = 100
 offsetCaselle_x = 30
+offsetCaselle_y = null
 
 [node name="Board Sprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Board" unique_id=681180018]
 texture = ExtResource("9_d06ee")
@@ -657,10 +659,10 @@ vertical_alignment = 1
 [connection signal="startNewRound" from="." to="Round Manager" method="_on_game_manager_start_new_round"]
 [connection signal="clearFiches" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_clear_fiches"]
 [connection signal="finalDestination" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_final_destination"]
+[connection signal="resetGameObjects" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_reset_game_objects"]
+[connection signal="resetGameObjects" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_reset_game_objects"]
 [connection signal="setAllValues" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_set_all_values"]
 [connection signal="startMinigame" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_start_minigame"]
-[connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_start_new_round"]
-[connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_start_new_round"]
 [connection signal="updateGameState" from="Round Manager" to="." method="_on_round_manager_update_game_state"]
 [connection signal="myJobHereIsDone" from="Round Manager/Camera2D/Schermo/Pallina" to="." method="_on_pallina_my_job_here_is_done"]
 [connection signal="allChipDropped" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]

@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://dwk0ni15bdj21"]
+[gd_scene format=3 uid="uid://cy8s5esxo04ty"]
 
-[ext_resource type="Script" uid="uid://hb1uec8qu0q4" path="res://scenes/gameplay/lose_screen.gd" id="1_5bji4"]
-[ext_resource type="Texture2D" uid="uid://bxtnsmra8yoi5" path="res://assets/sprites/utilities/black_square.png" id="1_fc5ro"]
+[ext_resource type="Script" uid="uid://yi6mlfwk7qbc" path="res://scenes/gameplay/win_screen.gd" id="1_p5b3k"]
+[ext_resource type="Texture2D" uid="uid://bxtnsmra8yoi5" path="res://assets/sprites/utilities/black_square.png" id="2_tbw0h"]
 
 [sub_resource type="Animation" id="Animation_5bji4"]
 length = 0.001
@@ -20,7 +20,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("blackScreen/YouLosetext:position")
+tracks/1/path = NodePath("blackScreen/YouWintext:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -32,7 +32,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("blackScreen/YouLosetext:rotation")
+tracks/2/path = NodePath("blackScreen/YouWintext:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -108,7 +108,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("blackScreen/YouLosetext:position")
+tracks/1/path = NodePath("blackScreen/YouWintext:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -120,7 +120,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("blackScreen/YouLosetext:rotation")
+tracks/2/path = NodePath("blackScreen/YouWintext:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -184,8 +184,8 @@ _data = {
 &"showScreen": SubResource("Animation_jxdtr")
 }
 
-[node name="loseScreen" type="CanvasLayer" unique_id=1241855694]
-script = ExtResource("1_5bji4")
+[node name="winScreen" type="CanvasLayer" unique_id=1241855694]
+script = ExtResource("1_p5b3k")
 
 [node name="blackScreen" type="TextureRect" parent="." unique_id=327698628]
 self_modulate = Color(0.003921569, 0.003921569, 0.003921569, 0)
@@ -199,16 +199,16 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(80, 45)
 mouse_filter = 2
-texture = ExtResource("1_fc5ro")
+texture = ExtResource("2_tbw0h")
 
-[node name="YouLosetext" type="RichTextLabel" parent="blackScreen" unique_id=844613081]
+[node name="YouWintext" type="RichTextLabel" parent="blackScreen" unique_id=844613081]
 top_level = true
 layout_mode = 0
 offset_left = 230.0
 offset_top = -347.0
 offset_right = 1035.0
 theme_override_font_sizes/normal_font_size = 116
-text = "You Lose"
+text = "You Win"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -235,7 +235,7 @@ text = "Exit
 
 "
 
-[node name="LoseAnimation" type="AnimationPlayer" parent="." unique_id=2081135004]
+[node name="WinAnimation" type="AnimationPlayer" parent="." unique_id=2081135004]
 libraries/ = SubResource("AnimationLibrary_8u37j")
 
 [connection signal="pressed" from="ButtonRetry" to="." method="_on_button_retry_pressed"]

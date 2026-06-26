@@ -2,10 +2,10 @@ extends Node2D
 
 var playerScore: int
 @export var maxDays: int = 3
-@export var minRound: int = 3
-@export var maxRound: int = 5
-@export var minObj: int = 5000
-@export var maxObj: int = 8000
+@export var minRound: int = 2
+@export var maxRound: int = 4
+@export var minObj: int = 1500
+@export var maxObj: int = 3000
 var day: int
 var dailyObjective: Array[int]
 var roundInDay: Array[int]
@@ -19,15 +19,15 @@ var roundInDay: Array[int]
 @onready var roundSxText: RichTextLabel = $"Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerRo/RoundRealSx"
 
 @export var loseScreenScene: PackedScene
+@export var winScreenScene: PackedScene
+
 
 signal startNewRound
 signal newDayHasCome
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var loseScreen = loseScreenScene.instantiate()
-	add_child(loseScreen)
-	set_meta("loseScene", loseScreen)
+
 	setValues()
 	pass # Replace with function body.
 
@@ -64,7 +64,7 @@ func _on_round_manager_update_game_state(finalScore: int) -> void:
 	
 	if roundInformation.currRound == roundInDay[day - 1]:
 		if playerScore >= dailyObjective[day - 1]:
-			if day <= maxDays:
+			if day < maxDays:
 				day += 1
 				playerScore = 0
 				await pallina.iStillStanding
@@ -74,11 +74,15 @@ func _on_round_manager_update_game_state(finalScore: int) -> void:
 				roundSxText.text = "{rounds}".format({"rounds": roundInDay[day - 1]})
 				newDayHasCome.emit(roundInDay[day - 1])
 			else:
-				print("gg hai vinto")
+				print("gg")
+				var winScreen = winScreenScene.instantiate()
+				add_child(winScreen)
+				winScreen.gg()
 		else:
 			print("skill issue hai perso")
-			var lose = get_meta("loseScene")
-			lose.skill_issue()
+			var loseScreen = loseScreenScene.instantiate()
+			add_child(loseScreen)
+			loseScreen.skill_issue()
 			
 	pass # Replace with function body.
 

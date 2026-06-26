@@ -2,7 +2,8 @@ extends RigidBody2D
 
 @onready var gravityCenter: Area2D = $"../Wheel/WheelGravity"
 @onready var wheel: StaticBody2D = $"../Wheel"
-@export var soundEffectPlayer: AudioStreamPlayer
+#@export var soundEffectPlayer: AudioStreamPlayer
+@onready var soundEffectPlayer: AudioStreamPlayer = $"../../SoundEffectsPlayer"
 
 @export var tempoSosta = 2.0
 var sosta: bool = false
@@ -113,14 +114,15 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			phyState.linear_velocity = phyState.linear_velocity.lerp(desiredVelocity, 69.0 * phyState.step)
 
 			# Se sono arrivato mi fermo e cambio stato in ARRIVED
-			if targetDistance < 10.0:
+			if targetDistance < 9.0:
 				phyState.linear_velocity = Vector2.ZERO
 				# Carico il timerigno di sosta
 				timerSosta = tempoSosta
+				iStillStanding.emit()
 				currentState = State.STOPPED
 			
 		State.STOPPED:
-			iStillStanding.emit()
+			
 			#tangential speed modulo to simulate la ball ferma
 			var modulo: float = currentRadius * wheel.rotationSpeed
 			var rotationVector = -tangentVector.normalized() * modulo
@@ -131,6 +133,7 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 			
 			if timerSosta <= 0 and not sosta:
 				# Setto SFX
+				changeStateToStopped()
 				sosta = true
 				if bucaGiusta:
 					soundEffectPlayer.stream = goodBucaSFX
@@ -164,6 +167,9 @@ func targetBuca(buca: Marker2D, phyState:PhysicsDirectBodyState2D) -> void:
 		
 pass
 
+func changeStateToStopped():
+	iStillStanding.emit()
+
 func _integrate_forces(phyState: PhysicsDirectBodyState2D) -> void:
 	targetBuca(target, phyState)
 	
@@ -182,7 +188,7 @@ func _on_round_manager_final_destination(numeroBuca: int, giusta: bool) -> void:
 	currentState = State.LOCKED
 	pass # Replace with function body.
 
-func _on_round_manager_start_new_round() -> void:
+func _on_round_manager_reset_game_objects() -> void:
 	currentState = State.ORBITING
 	sosta = false
 	pass # Replace with function body.

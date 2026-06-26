@@ -5,16 +5,41 @@ extends Node
 @export var offsetCaselle_y: int
 
 var fichesStack: Array
+var boardMovement: int = 800
 
 signal killFiches
 signal showPreviewFromBoard
 signal allChipDropped
 signal canLeave
+signal boardDropped
+signal boardAscended
+
+@onready var sfxPlayer: AudioStreamPlayer = $"../../SoundEffectsPlayer"
+const SFX_board_in = preload("res://assets/sounds/sfx/Board/BoardSFX_enter3.wav")
+const SFX_board_out = preload("res://assets/sounds/sfx/Board/BoardSFX_exit3.wav")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
+func makeBoardDescend() -> void:
+	var mostraBoard: Tween = create_tween()
+	sfxPlayer.stream = SFX_board_in
+	mostraBoard.tween_callback(sfxPlayer.play)
+	mostraBoard.tween_property(self, "position:y", self.position.y + boardMovement, 0.6)\
+	.set_trans(Tween.TRANS_SPRING)\
+	.set_ease(Tween.EASE_OUT) 
+	mostraBoard.tween_callback(boardDropped.emit)
+	
+func makeBoardAscend() -> void:
+	var rimuoviBoard: Tween = create_tween()
+	sfxPlayer.stream = SFX_board_out
+	rimuoviBoard.tween_callback(sfxPlayer.play)
+	rimuoviBoard.tween_property(self, "position:y", self.position.y - boardMovement, 0.6)\
+		.set_trans(Tween.TRANS_SPRING)\
+		.set_ease(Tween.EASE_IN)
+	rimuoviBoard.tween_callback(boardAscended.emit)
+	
 	
 func generateRoundBet(ficheArr: Array[int]) -> void:
 	if (len(ficheArr) != 36):
@@ -114,17 +139,17 @@ func _on_board_button_container_show_preview(idx: int) -> void:
 	pass # Replace with function body.
 
 
-func _on_round_manager_start_new_round() -> void:
-	var ficheArr: Array[int]
-	ficheArr.resize(36)
-	generateRoundBet(ficheArr)
-	placeFiches(ficheArr)
-	pass # Replace with function body.
-
-
 func _on_round_manager_clear_fiches() -> void:
 	for stack in fichesStack:
 		for child in stack.get_children(true):
 			child.queue_free()
 		stack.queue_free()
+	pass # Replace with function body.
+
+
+func _on_round_manager_reset_game_objects() -> void:
+	var ficheArr: Array[int]
+	ficheArr.resize(36)
+	generateRoundBet(ficheArr)
+	placeFiches(ficheArr)
 	pass # Replace with function body.

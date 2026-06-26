@@ -1,16 +1,15 @@
 extends CanvasLayer
 
-@onready var animation: AnimationPlayer = $LoseAnimation
+@onready var animation: AnimationPlayer = $WinAnimation
 @onready var retryButton: BaseButton = $ButtonRetry
 @onready var exitButton: BaseButton = $ButtonExit
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#animation.play("showLoseScreen")
 	pass # Replace with function body.
 
-func skill_issue():
+func gg():
 	animation.play("showScreen")
 	pass
 

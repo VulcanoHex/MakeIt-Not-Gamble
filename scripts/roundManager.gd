@@ -23,11 +23,7 @@ var valuesFlag = true
 
 # Variabili 1a Fase
 @export var board: Node2D
-@export var boardMovement: int
 @onready var sfxPlayer = $Camera2D/SoundEffectsPlayer
-
-const SFX_board_in = preload("res://assets/sounds/sfx/Board/BoardSFX_enter3.wav")
-const SFX_board_out = preload("res://assets/sounds/sfx/Board/BoardSFX_exit3.wav")
 
 @onready var previewBox: RichTextLabel = $Camera2D/Schermo/TestUI/PreviewPunteggio
 @onready var roundBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerRo/RoundRealDx
@@ -39,7 +35,7 @@ signal clearFiches
 signal startMinigame 
 signal finalDestination
 signal updateGameState 
-signal startNewRound  
+signal resetGameObjects  
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -53,14 +49,11 @@ func gameHandler():
 func roundHandler():
 	# Fase 1: Faccio scendere la board
 	print("easeIn")
-	var mostraBoard: Tween = create_tween()
-	sfxPlayer.stream = SFX_board_in
-	mostraBoard.tween_callback(sfxPlayer.play)
-	mostraBoard.tween_property(board, "position:y", board.position.y + boardMovement, 0.6)\
-	.set_trans(Tween.TRANS_SPRING)\
-	.set_ease(Tween.EASE_OUT) 
-	startNewRound.emit()
-	
+	board.makeBoardDescend()
+	resetGameObjects.emit()
+	print("pre await")
+	await board.boardDropped
+	print("post await")
 	# Fine Fase 1:
 	# sul segnale dalla BoardBehavior (dopo targetSelected)  
 	# eseguo il tween per spostare la board
@@ -70,13 +63,8 @@ func roundHandler():
 	print("easeOut ", " a[0]: ", args[0], " a[1]: ", args[1])
 	calcScore(args[0], args[1])
 	set_meta("target", args[0])
-	var rimuoviBoard: Tween = create_tween()
-	sfxPlayer.stream = SFX_board_out
-	rimuoviBoard.tween_callback(sfxPlayer.play)
-	rimuoviBoard.tween_property(board, "position:y", board.position.y - boardMovement, 0.6)\
-		.set_trans(Tween.TRANS_SPRING)\
-		.set_ease(Tween.EASE_IN)
-	
+	board.makeBoardAscend()
+	await board.boardAscended
 
 	startMinigame.emit()
 	clearFiches.emit()
