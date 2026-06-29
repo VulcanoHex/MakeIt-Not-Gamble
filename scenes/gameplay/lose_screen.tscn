@@ -1,0 +1,242 @@
+[gd_scene format=3 uid="uid://dwk0ni15bdj21"]
+
+[ext_resource type="Script" uid="uid://hb1uec8qu0q4" path="res://scenes/gameplay/lose_screen.gd" id="1_5bji4"]
+[ext_resource type="Texture2D" uid="uid://bxtnsmra8yoi5" path="res://assets/sprites/utilities/black_square.png" id="1_fc5ro"]
+
+[sub_resource type="Animation" id="Animation_5bji4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blackScreen:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.003921569, 0.003921569, 0.003921569, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blackScreen/YouLosetext:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(230, -347)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("blackScreen/YouLosetext:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ButtonRetry:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ButtonExit:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ButtonExit:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ButtonRetry:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jxdtr"]
+resource_name = "showScreen"
+length = 3.0000000000000004
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blackScreen:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.55),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.003921569, 0.003921569, 0.003921569, 0), Color(0.003921569, 0.003921569, 0.003921569, 0.7058824)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blackScreen/YouLosetext:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.37, 2.32),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(230, -347), Vector2(230, 122)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("blackScreen/YouLosetext:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2.33),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ButtonRetry:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.44, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ButtonExit:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(2.44, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ButtonExit:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2.44),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ButtonRetry:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2.4333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8u37j"]
+_data = {
+&"RESET": SubResource("Animation_5bji4"),
+&"showScreen": SubResource("Animation_jxdtr")
+}
+
+[node name="loseScreen" type="CanvasLayer" unique_id=1241855694]
+script = ExtResource("1_5bji4")
+
+[node name="blackScreen" type="TextureRect" parent="." unique_id=327698628]
+self_modulate = Color(0.003921569, 0.003921569, 0.003921569, 0)
+texture_repeat = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1264.0
+offset_bottom = -704.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(80, 45)
+mouse_filter = 2
+texture = ExtResource("1_fc5ro")
+
+[node name="YouLosetext" type="RichTextLabel" parent="blackScreen" unique_id=844613081]
+top_level = true
+layout_mode = 0
+offset_left = 230.0
+offset_top = -347.0
+offset_right = 1035.0
+theme_override_font_sizes/normal_font_size = 116
+text = "You Lose"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonRetry" type="Button" parent="." unique_id=1861435942]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 582.0
+offset_top = 448.0
+offset_right = 676.0
+offset_bottom = 482.0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "Retry
+"
+
+[node name="ButtonExit" type="Button" parent="." unique_id=1983986728]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = 582.0
+offset_top = 515.0
+offset_right = 676.0
+offset_bottom = 559.0
+theme_override_font_sizes/font_size = 35
+disabled = true
+text = "Exit
+
+"
+
+[node name="LoseAnimation" type="AnimationPlayer" parent="." unique_id=2081135004]
+libraries/ = SubResource("AnimationLibrary_8u37j")
+
+[connection signal="pressed" from="ButtonRetry" to="." method="_on_button_retry_pressed"]
+[connection signal="pressed" from="ButtonExit" to="." method="_on_button_exit_pressed"]

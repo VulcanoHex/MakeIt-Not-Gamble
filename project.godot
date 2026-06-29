@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://cr5d2ml04pmb0"
 [autoload]
 
 PauseScreen="*uid://ctpvif64w5g5h"
+LoseScreen="uid://dwk0ni15bdj21"
 
 [display]
 
@@ -34,6 +35,10 @@ window/stretch/aspect="expand"
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[gui]
+
+theme/custom_font="uid://dlt0jaqiel4sd"
 
 [input]
 

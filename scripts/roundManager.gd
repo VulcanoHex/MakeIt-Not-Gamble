@@ -2,48 +2,44 @@ extends Node2D
 
 #Max Score (setta pure progressbar e hitscores)
 @export var maxScore = 500.0
-var pScore: float
-var gScore: float
-var oScore: float
-var mScore: float
+@export var pScore: float = 1.0
+@export var gScore: float = 0.75
+@export var oScore: float = 0.5
+@export var mScore: float = 0.2
 #Q.ta' di hit in un round
 @export var hitQty = 5
-#numero massimo di round settati in questa partita
-@export var maxRoundNumber = 5
 #RST: Round Score Target
 @export var RSTatStart = 0.6
 @export var RSTatEnd = 0.85
 #round corrente
 var currRound: int = 0
+var maxRoundNumber: int
 #Round Score Target attuale
 var roundScoreTarget: float
+var base_score: int = 0
+var multiplier: int = 0
+
+var valuesFlag = true
 
 # Variabili 1a Fase
 @export var board: Node2D
-@export var boardMovement: int
 @onready var sfxPlayer = $Camera2D/SoundEffectsPlayer
+@export var timerBoard: float = .4
 
-const SFX_board_in = preload("res://assets/sounds/sfx/Board/BoardSFX_enter3.wav")
-const SFX_board_out = preload("res://assets/sounds/sfx/Board/BoardSFX_exit3.wav")
-
-@onready var previewBox: RichTextLabel = $Camera2D/TestUI/PreviewPunteggio
+@onready var previewBox: RichTextLabel = $Camera2D/Schermo/Board/PreviewPunteggio
+@onready var roundBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerRo/RoundRealDx
+@onready var baseBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerPSc/PrScoreRealBase
+@onready var multBox: RichTextLabel = $Camera2D/Schermo/TestUI/BaseUI/LayerPSc/PrScoreRealMult
 
 signal setAllValues
 signal clearFiches
 signal startMinigame 
 signal finalDestination
 signal updateGameState 
-signal startNewRound  
+signal resetGameObjects  
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	initializeValues()
-	#roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, currRound / maxRoundNumber)
-	#pScore = maxScore / 5
-	#gScore = (maxScore / 5) * 0.75
-	#oScore = (maxScore / 5) * 0.5
-	#mScore = (maxScore / 5) * 0.1
-	roundHandler()
 	pass # Replace with function body.
 
 # Game Logic (Le varie giornate vanno qui)
@@ -51,17 +47,19 @@ func gameHandler():
 	pass
 
 # Gestisce l'esecuzione ogni Round, si occupa di arbitrare i vari nodi
-func roundHandler():
+func roundHandler(isFirstRoundOfPlay: bool):
 	# Fase 1: Faccio scendere la board
-	print("easeIn")
-	var mostraBoard: Tween = create_tween()
-	sfxPlayer.stream = SFX_board_in
-	mostraBoard.tween_callback(sfxPlayer.play)
-	mostraBoard.tween_property(board, "position:y", board.position.y + boardMovement, 0.6)\
-	.set_trans(Tween.TRANS_SPRING)\
-	.set_ease(Tween.EASE_OUT) 
-	startNewRound.emit()
+	print("creating timer", isFirstRoundOfPlay)
+	if isFirstRoundOfPlay:
+		await get_tree().create_timer(timerBoard).timeout
+		print("timer done")
+
+		board.makeBoardDescend()
+	else:
+		board.makeBoardDescend()
 	
+	resetGameObjects.emit()
+	await board.boardDropped
 	# Fine Fase 1:
 	# sul segnale dalla BoardBehavior (dopo targetSelected)  
 	# eseguo il tween per spostare la board
@@ -71,13 +69,8 @@ func roundHandler():
 	print("easeOut ", " a[0]: ", args[0], " a[1]: ", args[1])
 	calcScore(args[0], args[1])
 	set_meta("target", args[0])
-	var rimuoviBoard: Tween = create_tween()
-	sfxPlayer.stream = SFX_board_out
-	rimuoviBoard.tween_callback(sfxPlayer.play)
-	rimuoviBoard.tween_property(board, "position:y", board.position.y - boardMovement, 0.6)\
-		.set_trans(Tween.TRANS_SPRING)\
-		.set_ease(Tween.EASE_IN)
-	
+	board.makeBoardAscend()
+	await board.boardAscended
 
 	startMinigame.emit()
 	clearFiches.emit()
@@ -94,8 +87,8 @@ func roundHandler():
 
 func calcScore(idx:int , ficheArr: Array[int]) -> void:
 	# calcola lo score e lo manda al round
-	var base_score = 0
-	var multiplier = 0
+	base_score = 0
+	multiplier = 0
 	var count = 1
 	var idxP = 0
 	var idxM = 0
@@ -131,6 +124,8 @@ func calcScore(idx:int , ficheArr: Array[int]) -> void:
 	print (targetScope)
 	print ("base_score: ", base_score)
 	print ("mult: ", multiplier)
+	baseBox.text = "{base}".format({"base": base_score})
+	multBox.text = "{mult}".format({"mult": multiplier})
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -139,12 +134,10 @@ func _process(delta: float) -> void:
 
 func initializeValues():
 	currRound += 1
-	roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, (currRound - 1) / maxRoundNumber)
-	if currRound == 1:
-		pScore = maxScore / 5
-		gScore = (maxScore / 5) * 0.75
-		oScore = (maxScore / 5) * 0.5
-		mScore = (maxScore / 5) * 0.1
+	roundBox.text = "{round}".format({"round": currRound})
+	roundScoreTarget = lerp(RSTatStart * maxScore, RSTatEnd * maxScore, float(currRound - 1) / float(maxRoundNumber))
+	if valuesFlag:
+		valuesFlag = false
 		setAllValues.emit()
 	pass
 
@@ -168,7 +161,7 @@ func calcFinalDestination(scope: Array, score: float) -> int:
 	)
 	print(scope)
 	
-	var proportion = remap(score, mScore * hitQty, roundScoreTarget, 0.0, 1.0)
+	var proportion = remap(score, maxScore * mScore, roundScoreTarget, 0.0, 1.0)
 	var bellCentre = 1 - proportion
 	print (proportion)
 	if proportion == 0.0:
@@ -184,31 +177,38 @@ func calcFinalDestination(scope: Array, score: float) -> int:
 	return scope[rng.rand_weighted(weightArr)].keys()[0]
 	pass
 	
-func _on_rank_meter_end_minigame(score: float) -> void:
+func _on_rank_meter_end_minigame(mgScore: float) -> void:
 	if has_meta("Scope"):
-		print("score: ", score, ". RTS: ", roundScoreTarget)
+		print("score: ", mgScore, ". RTS: ", roundScoreTarget)
 		var targetScope = get_meta("Scope")
 		var tchoice = targetScope[3].keys()[0]
 		var mgResult: int
-		if score >= roundScoreTarget:
+		var wOl = false
+		if mgScore >= roundScoreTarget:
 			mgResult = targetScope[3].keys()[0]
+			wOl = true
 		else:
-			mgResult = calcFinalDestination(targetScope, score)
-		finalDestination.emit(mgResult, true if tchoice == mgResult else false)
+			mgResult = calcFinalDestination(targetScope, mgScore)
+		finalDestination.emit(mgResult, wOl)
 		
-		updateGameState.emit(targetScope, mgResult, true if tchoice == mgResult else false)
+		if wOl or mgResult == tchoice:
+			updateGameState.emit(base_score * multiplier)
+		else:
+			for elem in targetScope:
+				if elem.keys()[0] == mgResult:
+					updateGameState.emit(-elem.values()[0])
 		
 	pass # Replace with function body.
 
 func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
-	var base_score = 0
-	var multiplier = 0
+	var bScore = 0
+	var mPlier = 0
 	var count = 1
 	var idxP = 0
 	var idxM = 0
 	
 	if ficheArr[idx] != 0:
-		base_score = -(ficheArr[idx])
+		bScore = -(ficheArr[idx])
 		
 	while count<4:
 		idxP = posmod(idx + count, 36)
@@ -216,23 +216,31 @@ func _on_board_show_preview_from_board(idx: int, ficheArr: Array) -> void:
 		
 		if ficheArr[idxP] != 0:
 			#print("fichearr[", (idx+count)%36, "] = ", ficheArr[(idx+count)%36])
-			base_score += ficheArr[idxP]
-			multiplier += 1
+			bScore += ficheArr[idxP]
+			mPlier += 1
 			
 		if ficheArr[idxM] != 0:
 			#print("fichearr[", (idx-count)%36, "] = ", ficheArr[(idx-count)%36])
-			base_score += ficheArr[idxM]
-			multiplier += 1
+			bScore += ficheArr[idxM]
+			mPlier += 1
 		count += 1
 		
-	previewBox.text = " Base: {base} Mult: {mult}".format({
-		"base": base_score,
-		"mult": multiplier
+	previewBox.text = "{base} X {mult}".format({
+		"base": bScore,
+		"mult": mPlier
 	})
 	pass # Replace with function body.
 
 
 func _on_game_manager_start_new_round() -> void:
 	initializeValues()
-	roundHandler()
+	roundHandler(false)
+	pass # Replace with function body.
+
+
+func _on_game_manager_new_day_has_come(maxRound: int, isFirstDay: bool) -> void:
+	maxRoundNumber = maxRound
+	currRound = 0
+	initializeValues()
+	roundHandler(isFirstDay)
 	pass # Replace with function body.

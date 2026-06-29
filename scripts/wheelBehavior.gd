@@ -63,17 +63,17 @@ func generateMarkerForNumbers():
 		add_child(nuovaBuca)
 		
 #		DEBUG REMOVE LATER
-		var debugCircle = ColorRect.new()
-		debugCircle.size = Vector2(8, 8)
-		debugCircle.position = Vector2(-4, -4) 
-		debugCircle.color = Color.GREEN
-		nuovaBuca.add_child(debugCircle)
-		var debugLabel = Label.new()
-		debugLabel.text = str(i) # Converts the int to a String
-		debugLabel.label_settings = LabelSettings.new()
-		debugLabel.label_settings.font_size = 10 # Keep it small
-		debugLabel.position = Vector2(10, -4) # Offset it slightly to the right
-		debugCircle.add_child(debugLabel)
+		#var debugCircle = ColorRect.new()
+		#debugCircle.size = Vector2(8, 8)
+		#debugCircle.position = Vector2(-4, -4) 
+		#debugCircle.color = Color.GREEN
+		#nuovaBuca.add_child(debugCircle)
+		#var debugLabel = Label.new()
+		#debugLabel.text = str(i) # Converts the int to a String
+		#debugLabel.label_settings = LabelSettings.new()
+		#debugLabel.label_settings.font_size = 10 # Keep it small
+		#debugLabel.position = Vector2(10, -4) # Offset it slightly to the right
+		#debugCircle.add_child(debugLabel)
 #		END DEBUG
 
 func _physics_process(delta: float) -> void:

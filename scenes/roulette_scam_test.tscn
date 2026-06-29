@@ -1,26 +1,31 @@
 [gd_scene format=3 uid="uid://cdyql3nn00514"]
 
 [ext_resource type="Script" uid="uid://cy5quveg2lp64" path="res://scripts/roundManager.gd" id="1_5jdl3"]
-[ext_resource type="Script" uid="uid://xylg6v5v20m0" path="res://scenes/gameManager.gd" id="1_38uge"]
+[ext_resource type="Script" uid="uid://xylg6v5v20m0" path="res://scripts/gameManager.gd" id="1_38uge"]
 [ext_resource type="AudioStream" uid="uid://2c238qtl5bf5" path="res://assets/sounds/music/GrovyGambling.wav" id="1_45l5b"]
-[ext_resource type="Texture2D" uid="uid://cxb0urchjmare" path="res://assets/sprites/utilities/Base pc_Layer 4.png" id="2_n3yoq"]
+[ext_resource type="PackedScene" uid="uid://dwk0ni15bdj21" path="res://scenes/gameplay/lose_screen.tscn" id="2_hp2pp"]
+[ext_resource type="PackedScene" uid="uid://cy8s5esxo04ty" path="res://scenes/gameplay/win_screen.tscn" id="3_xmh0b"]
 [ext_resource type="Script" uid="uid://c7rrqaoy3ocwf" path="res://scripts/wheelBehavior.gd" id="5_5jdl3"]
 [ext_resource type="Texture2D" uid="uid://b1c64iio8if8r" path="res://assets/sprites/wheel/wheelwnum.png" id="5_enyeq"]
-[ext_resource type="Texture2D" uid="uid://c7bxesgmwphj5" path="res://assets/sprites/wheel/whcircle.png" id="6_nw87x"]
+[ext_resource type="Script" uid="uid://cpji0q8msgmki" path="res://scenes/sound_effects_player.gd" id="5_oe1la"]
 [ext_resource type="Script" uid="uid://521sk8m8orkd" path="res://scripts/pallinaBehavior.gd" id="7_38uge"]
+[ext_resource type="Texture2D" uid="uid://coeufknyf4ba6" path="res://assets/sprites/utilities/sprite_tavolo.png" id="7_oe1la"]
 [ext_resource type="Script" uid="uid://b07h4f5knjj10" path="res://scripts/BoardBehavior.gd" id="8_6x76j"]
-[ext_resource type="Texture2D" uid="uid://x0ko351fhstx" path="res://assets/sprites/grid/gridwnum.png" id="9_d06ee"]
 [ext_resource type="PackedScene" uid="uid://dexstrlv7y2gk" path="res://scenes/gameplay/Fiches.tscn" id="9_n3yoq"]
 [ext_resource type="Script" uid="uid://j1bp4k2p38wn" path="res://scripts/boardButtonHandler.gd" id="11_enyeq"]
+[ext_resource type="Texture2D" uid="uid://bnar2f1qtukut" path="res://assets/sprites/wheel/circleILGRIGIO.png" id="11_loo3n"]
 [ext_resource type="Texture2D" uid="uid://f07vspiceb4" path="res://assets/sprites/grid/hoverbutton.png" id="11_lpcxd"]
-[ext_resource type="Texture2D" uid="uid://cg4vcfnv3743r" path="res://assets/sprites/utilities/meter.png" id="13_5jdl3"]
 [ext_resource type="Script" uid="uid://bk5sl7jr3goij" path="res://scripts/rankMeterBehavior.gd" id="14_nw87x"]
+[ext_resource type="Texture2D" uid="uid://bolcxanhypln6" path="res://assets/sprites/grid/gridwnumFinale.png" id="14_oe1la"]
+[ext_resource type="Texture2D" uid="uid://dtklct6dbmp16" path="res://assets/sprites/UI/BaseUI.png" id="16_6x76j"]
+[ext_resource type="Texture2D" uid="uid://cwn1tj67dqhqy" path="res://assets/sprites/UI/UILayerType1.png" id="17_d06ee"]
+[ext_resource type="Texture2D" uid="uid://dviikglsulvr5" path="res://assets/sprites/utilities/suppLayerPreview.png" id="17_loo3n"]
+[ext_resource type="Texture2D" uid="uid://dfkn8kfl4y4n4" path="res://assets/sprites/UI/UILayerType2.png" id="18_pmlrr"]
+[ext_resource type="Texture2D" uid="uid://bcof6kj1aqmqr" path="res://assets/sprites/utilities/rankmeter.png" id="19_omxds"]
+[ext_resource type="Texture2D" uid="uid://cn0c24vs4boai" path="res://assets/sprites/utilities/rankmeterGlass.png" id="20_xpibg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cb0m5"]
 radius = 344.0131
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqjqy"]
-size = Vector2(41.27195, 72.2777)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1wt5t"]
 radius = 249.00201
@@ -42,18 +47,23 @@ size = Vector2(90, 40)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d0u6y"]
 size = Vector2(90, 60)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jpyw"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [node name="Game Manager" type="Node2D" unique_id=1526010917]
 script = ExtResource("1_38uge")
+loseScreenScene = ExtResource("2_hp2pp")
+winScreenScene = ExtResource("3_xmh0b")
 
 [node name="Round Manager" type="Node2D" parent="." unique_id=1492148873 node_paths=PackedStringArray("board")]
 script = ExtResource("1_5jdl3")
 board = NodePath("Camera2D/Schermo/Board")
-boardMovement = 800
 
 [node name="Camera2D" type="Camera2D" parent="Round Manager" unique_id=307702432]
 
 [node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=326190641]
 bus = &"Effects"
+script = ExtResource("5_oe1la")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Round Manager/Camera2D" unique_id=762029440]
 stream = ExtResource("1_45l5b")
@@ -62,7 +72,7 @@ bus = &"Music"
 
 [node name="Schermo" type="Sprite2D" parent="Round Manager/Camera2D" unique_id=1984401507]
 texture_filter = 1
-texture = ExtResource("2_n3yoq")
+texture = ExtResource("7_oe1la")
 
 [node name="Wheel" type="StaticBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1402797758]
 position = Vector2(-321, 0)
@@ -83,38 +93,21 @@ shape = SubResource("CircleShape2D_cb0m5")
 [node name="Wheel sprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=294692740]
 texture = ExtResource("5_enyeq")
 
-[node name="Test Casella Target" type="Area2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite" unique_id=1390219992]
-
-[node name="Pallina" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite/Test Casella Target" unique_id=543451862]
-modulate = Color(1, 1, 0, 1)
-position = Vector2(270.2663, -24.190046)
-scale = Vector2(0.99999976, 0.99999976)
-texture = ExtResource("6_nw87x")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel/Wheel sprite/Test Casella Target" unique_id=120660663]
-visible = false
-position = Vector2(267.38623, -24.58133)
-rotation = -0.099483766
-scale = Vector2(0.9999999, 0.9999999)
-shape = SubResource("RectangleShape2D_oqjqy")
-
 [node name="Wheel internal collision" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Wheel" unique_id=1097310473]
 shape = SubResource("CircleShape2D_1wt5t")
 
-[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073 node_paths=PackedStringArray("soundEffectPlayer")]
+[node name="Pallina" type="RigidBody2D" parent="Round Manager/Camera2D/Schermo" unique_id=1588140073]
 position = Vector2(-385, -256)
 mass = 0.005
 gravity_scale = 0.005
 script = ExtResource("7_38uge")
-soundEffectPlayer = NodePath("../../SoundEffectsPlayer")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Round Manager/Camera2D/Schermo/Pallina" unique_id=637736521]
 shape = SubResource("CircleShape2D_oqjqy")
 
 [node name="Sprite2D" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Pallina/CollisionShape2D" unique_id=1396971501]
-modulate = Color(0, 0.26927632, 0.59913516, 1)
-texture = ExtResource("6_nw87x")
+texture = ExtResource("11_loo3n")
 
 [node name="Board" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=832768133]
 top_level = true
@@ -125,7 +118,7 @@ distanzaCaselle = 100
 offsetCaselle_x = 30
 
 [node name="Board Sprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/Board" unique_id=681180018]
-texture = ExtResource("9_d06ee")
+texture = ExtResource("14_oe1la")
 
 [node name="BoardButtonContainer" type="GridContainer" parent="Round Manager/Camera2D/Schermo/Board" unique_id=497227279]
 propagate_maximum_size = false
@@ -319,21 +312,40 @@ layout_mode = 2
 offset_transform_enabled = true
 texture_hover = ExtResource("11_lpcxd")
 
+[node name="TextureRect" type="TextureRect" parent="Round Manager/Camera2D/Schermo/Board" unique_id=598676838]
+offset_left = -200.0
+offset_top = -360.0
+offset_right = 200.0
+offset_bottom = -300.0
+texture = ExtResource("17_loo3n")
+
+[node name="PreviewPunteggio" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/Board" unique_id=1494393926]
+offset_left = -171.0
+offset_top = -349.0
+offset_right = 172.0
+offset_bottom = -301.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="RankMeter" type="Node2D" parent="Round Manager/Camera2D/Schermo" unique_id=995833279]
 position = Vector2(40, 0)
 script = ExtResource("14_nw87x")
 
 [node name="RankMeterSprite" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/RankMeter" unique_id=576798676]
-texture = ExtResource("13_5jdl3")
+texture = ExtResource("19_omxds")
 
 [node name="ProgressBar" type="ProgressBar" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=807193295]
-offset_top = 180.64255
-offset_right = 361.3746
-offset_bottom = 225.64255
+offset_left = -9.374519
+offset_top = 184.11852
+offset_right = 358.08307
+offset_bottom = 245.83711
 rotation = -1.5707964
+mouse_filter = 2
 theme_override_styles/fill = SubResource("StyleBoxFlat_1wt5t")
 max_value = 500.0
-value = 1.0
+show_percentage = false
 
 [node name="PerfectArea" type="Area2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=1569882486]
 
@@ -354,43 +366,300 @@ position = Vector2(-90, 0)
 shape = SubResource("RectangleShape2D_d0u6y")
 debug_color = Color(0, 0.6, 0.69803923, 0.36078432)
 
-[node name="TestUI" type="Control" parent="Round Manager/Camera2D" unique_id=1435673195]
+[node name="Sprite2D" type="Sprite2D" parent="Round Manager/Camera2D/Schermo/RankMeter/RankMeterSprite" unique_id=1028038419]
+texture = ExtResource("20_xpibg")
+
+[node name="TestUI" type="Control" parent="Round Manager/Camera2D/Schermo" unique_id=1435673195]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
-[node name="Punteggio" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=1652198961]
+[node name="BaseUI" type="TextureRect" parent="Round Manager/Camera2D/Schermo/TestUI" unique_id=1136595456]
 layout_mode = 0
-offset_left = -88.0
-offset_top = -338.0
-offset_right = 216.0
-offset_bottom = -284.0
-text = "Punteggio"
-
-[node name="Round" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=889673190]
-layout_mode = 0
-offset_left = -87.0
+offset_left = 172.0
 offset_top = -292.0
-offset_right = 130.0
-offset_bottom = -241.0
-text = "Round"
+offset_right = 639.0
+offset_bottom = 319.0
+mouse_filter = 2
+texture = ExtResource("16_6x76j")
 
-[node name="PreviewPunteggio" type="RichTextLabel" parent="Round Manager/Camera2D/TestUI" unique_id=1494393926]
+[node name="LayerDO" type="TextureRect" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI" unique_id=618287670]
 layout_mode = 0
-offset_left = 30.0
-offset_top = -358.0
-offset_right = 583.0
-offset_bottom = -304.0
-text = "Preview punteggio"
+offset_left = 38.0
+offset_top = 37.0
+offset_right = 458.0
+offset_bottom = 159.0
+mouse_filter = 2
+texture = ExtResource("17_d06ee")
 
+[node name="DailyObjTxt" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerDO" unique_id=1296931512]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 15.0
+offset_right = 198.0
+offset_bottom = 108.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.25490198)
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+text = "Daily Objective"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DailyObjReal" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerDO" unique_id=2100560814]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 15.0
+offset_right = 396.0
+offset_bottom = 102.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LayerSc" type="TextureRect" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI" unique_id=1846548403]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 168.0
+offset_right = 458.0
+offset_bottom = 290.0
+mouse_filter = 2
+texture = ExtResource("17_d06ee")
+
+[node name="ScoreTxt" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerSc" unique_id=1652198961]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 18.0
+offset_right = 198.0
+offset_bottom = 105.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.25490198)
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+text = "Daily Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreReal" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerSc" unique_id=48224122]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 19.0
+offset_right = 396.0
+offset_bottom = 106.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LayerPSc" type="TextureRect" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI" unique_id=1057202893]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 299.0
+offset_right = 459.0
+offset_bottom = 421.0
+mouse_filter = 2
+texture = ExtResource("17_d06ee")
+
+[node name="PreviewScTxt" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerPSc" unique_id=54224402]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 15.0
+offset_right = 198.0
+offset_bottom = 108.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.25490198)
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+text = "Preview Score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PrScoreRealBase" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerPSc" unique_id=886821946]
+layout_mode = 0
+offset_left = 195.0
+offset_top = 17.0
+offset_right = 325.0
+offset_bottom = 104.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PrScoreRealMult" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerPSc" unique_id=2091947415]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 17.0
+offset_right = 404.0
+offset_bottom = 104.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PrScoreRealX" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerPSc" unique_id=903550441]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 14.0
+offset_right = 363.0
+offset_bottom = 101.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+text = "x"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LayerRo" type="TextureRect" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI" unique_id=721875289]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 427.0
+offset_right = 243.0
+offset_bottom = 576.0
+mouse_filter = 2
+texture = ExtResource("18_pmlrr")
+
+[node name="RoundTxt" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerRo" unique_id=775434042]
+layout_mode = 0
+offset_left = 9.0
+offset_top = -15.0
+offset_right = 198.0
+offset_bottom = 72.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.25490198)
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+text = "Round"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RoundRealSlash" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerRo" unique_id=2106683598]
+layout_mode = 0
+offset_left = 76.0
+offset_top = 55.0
+offset_right = 131.0
+offset_bottom = 142.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+text = "/"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RoundRealDx" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerRo" unique_id=793869850]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 53.0
+offset_right = 97.0
+offset_bottom = 140.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RoundRealSx" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerRo" unique_id=1034608720]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 53.0
+offset_right = 164.0
+offset_bottom = 140.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LayerDay" type="TextureRect" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI" unique_id=820915761]
+layout_mode = 0
+offset_left = 254.0
+offset_top = 426.0
+offset_right = 458.0
+offset_bottom = 575.0
+mouse_filter = 2
+texture = ExtResource("18_pmlrr")
+
+[node name="DayTxt" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerDay" unique_id=907813652]
+layout_mode = 0
+offset_left = 8.0
+offset_top = -15.0
+offset_right = 197.0
+offset_bottom = 72.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.25490198)
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+text = "Day"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DayReal" type="RichTextLabel" parent="Round Manager/Camera2D/Schermo/TestUI/BaseUI/LayerDay" unique_id=927925540]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 53.0
+offset_right = 129.0
+offset_bottom = 140.0
+mouse_filter = 2
+theme_override_constants/shadow_outline_size = 3
+theme_override_constants/shadow_offset_x = -2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/normal_font_size = 42
+theme_override_styles/normal = SubResource("StyleBoxFlat_0jpyw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="newDayHasCome" from="." to="Round Manager" method="_on_game_manager_new_day_has_come"]
 [connection signal="startNewRound" from="." to="Round Manager" method="_on_game_manager_start_new_round"]
 [connection signal="clearFiches" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_clear_fiches"]
 [connection signal="finalDestination" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_final_destination"]
+[connection signal="resetGameObjects" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_reset_game_objects"]
+[connection signal="resetGameObjects" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_reset_game_objects"]
 [connection signal="setAllValues" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_set_all_values"]
 [connection signal="startMinigame" from="Round Manager" to="Round Manager/Camera2D/Schermo/RankMeter" method="_on_round_manager_start_minigame"]
-[connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Pallina" method="_on_round_manager_start_new_round"]
-[connection signal="startNewRound" from="Round Manager" to="Round Manager/Camera2D/Schermo/Board" method="_on_round_manager_start_new_round"]
 [connection signal="updateGameState" from="Round Manager" to="." method="_on_round_manager_update_game_state"]
 [connection signal="myJobHereIsDone" from="Round Manager/Camera2D/Schermo/Pallina" to="." method="_on_pallina_my_job_here_is_done"]
 [connection signal="allChipDropped" from="Round Manager/Camera2D/Schermo/Board" to="Round Manager/Camera2D/Schermo/Board/BoardButtonContainer" method="_on_board_all_chip_dropped"]
